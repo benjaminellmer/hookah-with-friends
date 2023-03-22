@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "472408446626",
+    "project_id": "hookahwithfriends-232fe",
+    "storage_bucket": "hookahwithfriends-232fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472408446626:android:e486b2bb1a2b5eac49a9fb",
+        "android_client_info": {
+          "package_name": "com.example.hookah_with_friends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472408446626-5khmhr8gjdqe3dn1gatlisoi5o30d9j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8URZQe0XKto1tKVVOaVlvZ_gA_IQuYKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472408446626-58eh1fkn8l1cb7hg0oqceidubo14aelk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

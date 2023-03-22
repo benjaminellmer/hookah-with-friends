@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class HookahWithFriendsApp extends StatelessWidget {
   const HookahWithFriendsApp({super.key});
@@ -6,7 +6,7 @@ class HookahWithFriendsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hookah with friends',
+      title: "Hookah with friends",
       theme: ThemeData(),
       home: Scaffold(
         appBar: AppBar(
