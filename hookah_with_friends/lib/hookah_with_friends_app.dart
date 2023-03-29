@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
-import "package:flutter_bloc/flutter_bloc.dart";
 
-import "bloc/navigation/navigation_cubit.dart";
-import "util/colors.dart";
+import "util/hwf_screen.dart";
+import "util/hwf_tab_navigation.dart";
 
 class HookahWithFriendsApp extends StatelessWidget {
   const HookahWithFriendsApp({super.key});
@@ -12,45 +11,33 @@ class HookahWithFriendsApp extends StatelessWidget {
     return MaterialApp(
       title: "Hookah with friends",
       theme: ThemeData(),
-      home: BlocProvider<NavigationCubit>(
-        create: (BuildContext context) => NavigationCubit(),
-        child: BlocBuilder<NavigationCubit, NavigationSelected>(
-          builder: (BuildContext context, NavigationSelected state) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text("Hookah with friends"),
-                backgroundColor: Colors.black54,
-              ),
-              body: Column(
-                children: <Widget>[
-                  const Center(child: Text("Welcome to Hookah with friends")),
-                  Container(width: 100, height: 50, color: HWFColors.button)
-                ],
-              ),
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                items: const <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    label: "Sessions",
-                    icon: Icon(Icons.home),
-                  ),
-                  BottomNavigationBarItem(
-                    label: "Tabaccos",
-                    icon: Icon(Icons.open_in_new_rounded),
-                  ),
-                  BottomNavigationBarItem(
-                    label: "Profile",
-                    icon: Icon(Icons.open_in_new_rounded),
-                  ),
-                ],
-                currentIndex: state.selectedIndex,
-                onTap: (int index) {
-                  context.read<NavigationCubit>().select(index);
-                },
-              ),
-            );
-          },
-        ),
+      home: HWFTabNavigation(
+        screens: <HWFScreen>[
+          HWFScreen(
+            appBar: AppBar(
+              title: const Text("Sessions"),
+            ),
+            body: const Center(
+              child: Text("Sessions"),
+            ),
+          ),
+          HWFScreen(
+            appBar: AppBar(
+              title: const Text("Tobaccos"),
+            ),
+            body: const Center(
+              child: Text("Tobaccos"),
+            ),
+          ),
+          HWFScreen(
+            appBar: AppBar(
+              title: const Text("Profile"),
+            ),
+            body: const Center(
+              child: Text("Profile"),
+            ),
+          ),
+        ],
       ),
     );
   }
