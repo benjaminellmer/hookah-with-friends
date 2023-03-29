@@ -11,7 +11,7 @@ class HookahWithFriendsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Hookah with friends",
-      theme: ThemeData(),
+      theme: ThemeData(scaffoldBackgroundColor: HWFColors.background),
       home: BlocProvider<NavigationCubit>(
         create: (BuildContext context) => NavigationCubit(),
         child: BlocBuilder<NavigationCubit, NavigationSelected>(
@@ -19,7 +19,7 @@ class HookahWithFriendsApp extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: const Text("Hookah with friends"),
-                backgroundColor: Colors.black54,
+                backgroundColor: HWFColors.appbar,
               ),
               body: Column(
                 children: <Widget>[
@@ -35,7 +35,7 @@ class HookahWithFriendsApp extends StatelessWidget {
                     icon: Icon(Icons.home),
                   ),
                   BottomNavigationBarItem(
-                    label: "Tabaccos",
+                    label: "Tobaccos",
                     icon: Icon(Icons.open_in_new_rounded),
                   ),
                   BottomNavigationBarItem(
