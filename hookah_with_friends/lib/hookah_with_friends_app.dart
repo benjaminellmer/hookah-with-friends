@@ -12,6 +12,7 @@ class HookahWithFriendsApp extends StatelessWidget {
     return MaterialApp(
       title: "Hookah with friends",
       theme: ThemeData(scaffoldBackgroundColor: HWFColors.background),
+      debugShowCheckedModeBanner: false,
       home: BlocProvider<NavigationCubit>(
         create: (BuildContext context) => NavigationCubit(),
         child: BlocBuilder<NavigationCubit, NavigationSelected>(
