@@ -10,6 +10,7 @@ class HookahWithFriendsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Hookah with friends",
       theme: ThemeData(
         scaffoldBackgroundColor: HWFColors.background,
