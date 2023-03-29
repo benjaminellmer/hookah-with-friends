@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/navigation/navigation_cubit.dart";
+import "colors.dart";
 import "hwf_screen.dart";
 
 class HWFTabNavigation extends StatelessWidget {
@@ -20,6 +21,7 @@ class HWFTabNavigation extends StatelessWidget {
             appBar: screens[state.selectedIndex].appBar,
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
+              backgroundColor: HWFColors.appbar,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   label: "Sessions",
