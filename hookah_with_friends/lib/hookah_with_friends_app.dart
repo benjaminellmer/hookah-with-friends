@@ -27,20 +27,24 @@ class HookahWithFriendsApp extends StatelessWidget {
         screens: <HWFScreen>[
           HWFScreen(
               appBar: AppBar(
-                title: const Text("Sessions"),
+                title: const Center(
+                    child: Text("Sessions"),
+                ),
                 backgroundColor: HWFColors.appBar,
               ),
               body: const SessionsScreen()),
           HWFScreen(
             appBar: AppBar(
-              title: const Text("Tobaccos"),
+              title: const Center(child: Text("Tobaccos"),
+              ),
               backgroundColor: HWFColors.appBar,
             ),
             body: const TobaccosScreen(),
           ),
           HWFScreen(
               appBar: AppBar(
-                title: const Text("Profile"),
+                title: const Center(child: Text("Profile"),
+                ),
                 backgroundColor: HWFColors.appBar,
               ),
               body: const ProfileScreen()),
