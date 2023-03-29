@@ -19,30 +19,75 @@ class HWFTabNavigation extends StatelessWidget {
           return Scaffold(
             body: screens[state.selectedIndex].body,
             appBar: screens[state.selectedIndex].appBar,
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: HWFColors.appbar,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  label: "Sessions",
-                  icon: Icon(Icons.home),
-                ),
-                BottomNavigationBarItem(
-                  label: "Tabaccos",
-                  icon: Icon(Icons.open_in_new_rounded),
-                ),
-                BottomNavigationBarItem(
-                  label: "Profile",
-                  icon: Icon(Icons.open_in_new_rounded),
-                ),
-              ],
-              currentIndex: state.selectedIndex,
-              onTap: (int index) {
-                context.read<NavigationCubit>().select(index);
-              },
+            bottomNavigationBar: SizedBox(
+              height: 80,
+              child: Row(
+                children: <Widget>[
+                  _HWFTab(
+                    label: "Sessions",
+                    imagePath: "lib/assets/hookah_white.png",
+                    isSelected: state.selectedIndex == 0,
+                    index: 0,
+                  ),
+                  _HWFTab(
+                    isSelected: state.selectedIndex == 1,
+                    label: "Tobaccos",
+                    imagePath: "lib/assets/tobacco.png",
+                    index: 1,
+                  ),
+                  _HWFTab(
+                    label: "Profile",
+                    imagePath: "lib/assets/profile_white.png",
+                    isSelected: state.selectedIndex == 2,
+                    index: 2,
+                  ),
+                ],
+              ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _HWFTab extends StatelessWidget {
+  const _HWFTab(
+      {required this.isSelected,
+      required this.index,
+      required this.imagePath,
+      required this.label});
+
+  final bool isSelected;
+  final int index;
+  final String imagePath;
+  final String label;
+
+  Color get backgroundColor {
+    return isSelected ? HWFColors.appBarSelected : HWFColors.appBar;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Material(
+        color: backgroundColor,
+        child: InkWell(
+          onTap: () {
+            context.read<NavigationCubit>().select(index);
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                imagePath,
+                width: 30,
+                height: 30,
+              ),
+              Text(label),
+            ],
+          ),
+        ),
       ),
     );
   }
