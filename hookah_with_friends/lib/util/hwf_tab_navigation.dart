@@ -80,11 +80,11 @@ class _HWFTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(imagePath,
-                  width: 25, height: 25, color: HWFColors.subheading),
+                  width: 25, height: 25, color: HWFColors.heading),
               const SizedBox(height: 4),
               Text(
                 label,
-                style: TextStyle(fontSize: 12, color: HWFColors.subheading),
+                style: TextStyle(fontSize: 12, color: HWFColors.heading),
               ),
             ],
           ),
