@@ -22,3 +22,4 @@ doc/api/
 *.js.map
 
 .idea/
+hookah_with_friends/ios/Podfile.lock
