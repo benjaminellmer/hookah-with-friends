@@ -20,7 +20,7 @@ class HWFTabNavigation extends StatelessWidget {
             body: screens[state.selectedIndex].body,
             appBar: screens[state.selectedIndex].appBar,
             bottomNavigationBar: SizedBox(
-              height: 80,
+              height: 85,
               child: Row(
                 children: <Widget>[
                   _HWFTab(
@@ -79,12 +79,13 @@ class _HWFTab extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                imagePath,
-                width: 30,
-                height: 30,
+              Image.asset(imagePath,
+                  width: 25, height: 25, color: HWFColors.subheading),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(fontSize: 12, color: HWFColors.subheading),
               ),
-              Text(label),
             ],
           ),
         ),
