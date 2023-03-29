@@ -11,4 +11,7 @@ class HWFColors {
   static Color green = const Color(0x0000ab07).withOpacity(0.8);
   static Color orange = const Color(0x00ff9900).withOpacity(0.8);
   static Color red = const Color(0x00ab0000).withOpacity(0.8);
+  static Color background = const Color(0x0013131a).withOpacity(1.0);
+  static Color container = const Color(0x001c1c24).withOpacity(1.0);
+  static Color appbar = const Color(0x001a1a23).withOpacity(1.0);
 }
