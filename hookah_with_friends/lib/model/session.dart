@@ -1,5 +1,6 @@
 import "tobacco.dart";
 
+// NOT THE FINAL MODEL!!! We will add more fields later. and the participants will become an own model
 class Session {
   const Session({
     required this.host,
@@ -26,6 +27,15 @@ class Session {
       final Duration duration = endTime.difference(startTime);
       final Duration elapsed = now.difference(startTime);
       return elapsed.inMilliseconds / duration.inMilliseconds;
+    }
+  }
+
+  Duration get timeLeft {
+    final DateTime now = DateTime.now();
+    if (now.isAfter(startTime) && now.isBefore(endTime)) {
+      return endTime.difference(now);
+    } else {
+      return Duration.zero;
     }
   }
 }
