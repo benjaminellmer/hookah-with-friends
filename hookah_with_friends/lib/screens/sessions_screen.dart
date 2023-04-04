@@ -1,7 +1,10 @@
 import "package:flutter/material.dart";
 
-import "../components/primary_card.dart";
+import "../components/active_session_card.dart";
 import "../components/subheading.dart";
+import "../enum/availability.dart";
+import "../model/session.dart";
+import "../model/tobacco.dart";
 
 class SessionsScreen extends StatelessWidget {
   const SessionsScreen({super.key});
@@ -14,13 +17,20 @@ class SessionsScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const SubHeading("Active Sessions"),
-            PrimaryCard(
-              child: Column(
-                children: const <Widget>[
-                  Text("Host"),
-                  Text("Tobacco"),
-                  Text("Participants"),
+            ActiveSessionCard(
+              Session(
+                host: "Benjamin",
+                tobacco: Tobacco(
+                  name: "Black Nana",
+                  availability: Availability.high,
+                ),
+                participants: <String>[
+                  "Simon",
+                  "Jakob",
+                  "David",
                 ],
+                startTime: DateTime.now().add(const Duration(minutes: 45)),
+                endTime: DateTime.now().add(const Duration(hours: 1)),
               ),
             ),
             const SubHeading("Invites"),

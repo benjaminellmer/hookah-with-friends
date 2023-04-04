@@ -17,7 +17,10 @@ class PrimaryCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: child,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
+          child: child,
+        ),
       ),
     );
   }

@@ -15,5 +15,5 @@ class HWFColors {
   static Color container = const Color(0x001c1c24).withOpacity(1.0);
   static Color appBar = const Color(0x001a1a23).withOpacity(1.0);
   static Color appBarSelected = const Color(0x002e2e3e).withOpacity(1.0);
-  static Color cardBackground = const Color(0x002f2f3d).withOpacity(0.75);
+  static const Color cardBackground = Color(0xc02f2f3d);
 }
