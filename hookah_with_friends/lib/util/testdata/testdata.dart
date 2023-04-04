@@ -1,4 +1,5 @@
 import "../../enum/availability.dart";
+import "../../enum/invitation_state.dart";
 import "../../model/session.dart";
 import "../../model/tobacco.dart";
 
@@ -17,5 +18,35 @@ class TestData {
     ],
     startTime: DateTime.now().subtract(const Duration(minutes: 55)),
     endTime: DateTime.now().add(const Duration(minutes: 10)),
+  );
+
+  static Session inviteSession1 = Session(
+    host: "KopfalNorbert",
+    tobacco: Tobacco(
+      name: "Black Nana",
+      availability: Availability.high,
+    ),
+    participants: <String>[
+      "Simon",
+      "Jakob",
+      "David",
+    ],
+    startTime: DateTime.now().add(const Duration(hours: 1)),
+    endTime: DateTime.now().add(const Duration(hours: 3)),
+    invitationState: InvitationState.accepted,
+  );
+
+  static Session inviteSession2 = Session(
+    host: "Hannes",
+    tobacco: Tobacco(
+      name: "Black Nana",
+      availability: Availability.high,
+    ),
+    participants: <String>[
+      "Simon",
+    ],
+    startTime: DateTime.now().add(const Duration(hours: 3)),
+    endTime: DateTime.now().add(const Duration(hours: 5)),
+    invitationState: InvitationState.declined,
   );
 }

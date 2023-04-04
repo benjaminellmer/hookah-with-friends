@@ -1,3 +1,4 @@
+import "../enum/invitation_state.dart";
 import "tobacco.dart";
 
 // NOT THE FINAL MODEL!!! We will add more fields later. and the participants will become an own model
@@ -8,6 +9,7 @@ class Session {
     required this.participants,
     required this.startTime,
     required this.endTime,
+    this.invitationState = InvitationState.unknown,
   });
 
   final String host;
@@ -15,6 +17,7 @@ class Session {
   final List<String> participants;
   final DateTime startTime;
   final DateTime endTime;
+  final InvitationState invitationState;
 
   double get progress {
     final DateTime now = DateTime.now();

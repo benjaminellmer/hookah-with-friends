@@ -56,7 +56,7 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
             ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.only(right: 20, top: 8),
+              padding: const EdgeInsets.only(right: 20, top: 10),
               child: SizedBox(
                 width: 70,
                 child: Column(
@@ -72,7 +72,7 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    PrimaryText(DurationFormatters.hhmmss(widget.session.timeLeft)),
+                    PrimaryText(DurationFormatters.hms(widget.session.timeLeft)),
                   ],
                 ),
               ),
