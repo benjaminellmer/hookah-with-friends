@@ -3,13 +3,14 @@ import "tobacco.dart";
 
 // NOT THE FINAL MODEL!!! We will add more fields later. and the participants will become an own model
 class Session {
-  const Session({
+  Session({
     required this.host,
     required this.tobacco,
     required this.participants,
     required this.startTime,
     required this.endTime,
     this.invitationState = InvitationState.unknown,
+    this.tobaccoCount = 0
   });
 
   final String host;
@@ -18,6 +19,7 @@ class Session {
   final DateTime startTime;
   final DateTime endTime;
   final InvitationState invitationState;
+  int tobaccoCount;
 
   double get progress {
     final DateTime now = DateTime.now();
@@ -40,5 +42,9 @@ class Session {
     } else {
       return Duration.zero;
     }
+  }
+
+  Duration get totalDuration {
+    return endTime.difference(startTime);
   }
 }

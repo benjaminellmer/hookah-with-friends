@@ -49,4 +49,25 @@ class TestData {
     endTime: DateTime.now().add(const Duration(hours: 5)),
     invitationState: InvitationState.declined,
   );
+
+  static Session historySession = Session(
+    host: "KopfalNorbert",
+    tobacco: Tobacco(
+      name: "Black Nana",
+      availability: Availability.high,
+    ),
+    participants: <String>[
+      "Simon",
+      "Jakob",
+      "David",
+      "David",
+      "David",
+    ],
+    startTime: DateTime.now().subtract(const Duration(days: 5)),
+    endTime: DateTime.now()
+        .subtract(const Duration(days: 5))
+        .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
+    invitationState: InvitationState.accepted,
+    tobaccoCount: 5
+  );
 }

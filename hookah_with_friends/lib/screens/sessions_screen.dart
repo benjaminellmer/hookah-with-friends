@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../components/active_session_card.dart";
+import "../components/history_session_card.dart";
 import "../components/session_invite_card.dart";
 import "../components/subheading.dart";
 import "../util/testdata/testdata.dart";
@@ -22,6 +23,7 @@ class SessionsScreen extends StatelessWidget {
             const SizedBox(height: 8),
             SessionInviteCard(TestData.inviteSession2),
             const SubHeading("History"),
+            HistorySessionCard(TestData.historySession),
           ],
         ),
       ),
