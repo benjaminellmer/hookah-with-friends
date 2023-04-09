@@ -3,9 +3,10 @@ import "package:flutter/material.dart";
 import "../util/colors.dart";
 
 class PrimaryCard extends StatelessWidget {
-  const PrimaryCard({super.key, required this.child});
+  const PrimaryCard({super.key, required this.child, required this.onTap});
 
   final Widget child;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,13 @@ class PrimaryCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
-          child: child,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(10),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
+            child: child,
+          ),
         ),
       ),
     );

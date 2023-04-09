@@ -26,6 +26,7 @@ class SessionInviteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryCard(
+      onTap: () {  },
       child: Container(
         height: 80,
         child: Row(
