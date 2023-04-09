@@ -3,6 +3,7 @@ import "dart:async";
 import "package:flutter/material.dart";
 
 import "../model/session.dart";
+import "../screens/active_session_screen.dart";
 import "../util/colors.dart";
 import "../util/formatters/duration_formatters.dart";
 import "availability_indicator.dart";
@@ -36,7 +37,15 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
   @override
   Widget build(BuildContext context) {
     return PrimaryCard(
-      onTap: () {  },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute<Widget>(
+            builder: (BuildContext context) =>
+                ActiveSessionScreen(session: widget.session),
+          ),
+        );
+      },
       child: InkWell(
         child: IntrinsicHeight(
           child: Row(
@@ -50,10 +59,12 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
                     children: <Widget>[
                       PrimaryText(widget.session.tobacco.name),
                       const SizedBox(width: 8),
-                      AvailabilityIndicator(widget.session.tobacco.availability),
+                      AvailabilityIndicator(
+                          widget.session.tobacco.availability),
                     ],
                   ),
-                  PrimaryText("Participants: ${widget.session.participants.length}"),
+                  PrimaryText(
+                      "Participants: ${widget.session.participants.length}"),
                 ],
               ),
               const Spacer(),
@@ -74,7 +85,8 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      PrimaryText(DurationFormatters.hms(widget.session.timeLeft)),
+                      PrimaryText(
+                          DurationFormatters.hms(widget.session.timeLeft)),
                     ],
                   ),
                 ),
