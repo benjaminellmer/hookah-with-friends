@@ -6,6 +6,7 @@ import "../util/colors.dart";
 import "../util/formatters/duration_formatters.dart";
 import "primary_card.dart";
 import "primary_text.dart";
+import "session_progress_indicator.dart";
 
 class HistorySessionCard extends StatelessWidget {
   const HistorySessionCard(this.session, {super.key});
@@ -40,11 +41,8 @@ class HistorySessionCard extends StatelessWidget {
                     SizedBox(
                       height: 50,
                       width: 50,
-                      child: CircularProgressIndicator(
+                      child: SessionProgressIndicator(
                         value: session.progress,
-                        strokeWidth: 8,
-                        backgroundColor: const Color(0xff2f2f3d),
-                        color: HWFColors.text,
                       ),
                     ),
                     const SizedBox(height: 10),
