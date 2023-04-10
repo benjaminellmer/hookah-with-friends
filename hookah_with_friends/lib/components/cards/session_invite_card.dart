@@ -35,7 +35,7 @@ class SessionInviteCard extends StatelessWidget {
                 PrimaryText("Host: ${session.host}"),
                 PrimaryText(
                     "Time: ${DateFormat.Hm().format(session.startTime)}"),
-                PrimaryText("Participants: ${session.participants.length}"),
+                PrimaryText("Participants: ${session.numberOfParticipants}"),
               ],
             ),
             const Spacer(),

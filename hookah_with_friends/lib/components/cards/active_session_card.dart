@@ -64,7 +64,7 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
                     ],
                   ),
                   PrimaryText(
-                      "Participants: ${widget.session.participants.length}"),
+                      "Participants: ${widget.session.numberOfParticipants}"),
                 ],
               ),
               const Spacer(),

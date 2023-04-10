@@ -1,5 +1,6 @@
 import "../enum/invitation_state.dart";
 import "coal_timer.dart";
+import "participant.dart";
 import "tobacco.dart";
 
 // NOT THE FINAL MODEL!!! We will add more fields later. and the participants will become an own model
@@ -16,7 +17,7 @@ class Session {
 
   final String host;
   final Tobacco tobacco;
-  final List<String> participants;
+  final List<Participant> participants;
   final DateTime startTime;
   final DateTime endTime;
   final InvitationState invitationState;
@@ -48,5 +49,16 @@ class Session {
 
   Duration get totalDuration {
     return endTime.difference(startTime);
+  }
+
+  int get numberOfParticipants {
+    int result =
+        1; // 1 because the host is also an participant -> depends on if we add the host to the participants list
+    for (final Participant participant in participants) {
+      if (participant.invitationState == InvitationState.accepted) {
+        result++;
+      }
+    }
+    return result;
   }
 }

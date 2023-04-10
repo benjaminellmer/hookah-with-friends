@@ -27,7 +27,7 @@ class HistorySessionCard extends StatelessWidget {
                     "Date: ${DateFormat("dd.MM.yyyy").format(session.startTime)}"),
                 PrimaryText(
                     "Tobaccos: ${session.tobaccoCount}"),
-                PrimaryText("Participants: ${session.participants.length}"),
+                PrimaryText("Participants: ${session.numberOfParticipants}"),
               ],
             ),
             const Spacer(),

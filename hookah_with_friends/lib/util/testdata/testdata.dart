@@ -1,5 +1,6 @@
 import "../../enum/availability.dart";
 import "../../enum/invitation_state.dart";
+import "../../model/participant.dart";
 import "../../model/session.dart";
 import "../../model/tobacco.dart";
 
@@ -12,10 +13,10 @@ class TestData {
       availability: Availability.high,
       brand: "Nameless",
     ),
-    participants: <String>[
-      "Simon",
-      "Jakob",
-      "David",
+    participants: <Participant>[
+      Participant("YoloBenji", invitationState: InvitationState.accepted),
+      Participant("KopfalNorbert"),
+      Participant("RedBauerRanger", invitationState: InvitationState.declined),
     ],
     startTime: DateTime.now().subtract(const Duration(minutes: 55)),
     endTime: DateTime.now().add(const Duration(minutes: 10)),
@@ -28,10 +29,11 @@ class TestData {
       availability: Availability.high,
       brand: "Nameless",
     ),
-    participants: <String>[
-      "Simon",
-      "Jakob",
-      "David",
+    participants: <Participant>[
+      Participant("Hannes", invitationState: InvitationState.accepted),
+      Participant("YoloBenji", invitationState: InvitationState.accepted),
+      Participant("KopfalNorbert"),
+      Participant("TraubenDaniel", invitationState: InvitationState.declined),
     ],
     startTime: DateTime.now().add(const Duration(hours: 1)),
     endTime: DateTime.now().add(const Duration(hours: 3)),
@@ -45,8 +47,8 @@ class TestData {
       availability: Availability.high,
       brand: "Nameless",
     ),
-    participants: <String>[
-      "Simon",
+    participants: <Participant>[
+      Participant("Simon"),
     ],
     startTime: DateTime.now().add(const Duration(hours: 3)),
     endTime: DateTime.now().add(const Duration(hours: 5)),
@@ -60,12 +62,12 @@ class TestData {
         availability: Availability.high,
         brand: "Nameless",
       ),
-      participants: <String>[
-        "Simon",
-        "Jakob",
-        "David",
-        "David",
-        "David",
+      participants: <Participant>[
+        Participant("Simon", invitationState: InvitationState.accepted),
+        Participant("Jakob", invitationState: InvitationState.accepted),
+        Participant("David", invitationState: InvitationState.accepted),
+        Participant("Jakob", invitationState: InvitationState.accepted),
+        Participant("David", invitationState: InvitationState.accepted),
       ],
       startTime: DateTime.now().subtract(const Duration(days: 5)),
       endTime: DateTime.now()

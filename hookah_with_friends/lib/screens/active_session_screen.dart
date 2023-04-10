@@ -9,7 +9,7 @@ import "../components/cards/tobacco_card.dart";
 import "../components/indicators/session_progress_indicator.dart";
 import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
-import "../enum/invitation_state.dart";
+import "../model/participant.dart";
 import "../model/session.dart";
 
 class ActiveSessionScreen extends StatelessWidget {
@@ -49,22 +49,13 @@ class ActiveSessionScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const SubHeading("Participants"),
-                const ParticipantCard(
-                  name: "Hannes",
-                  invitationState: InvitationState.accepted,
-                ),
-                const ParticipantCard(
-                  name: "YoloBenji",
-                  invitationState: InvitationState.accepted,
-                ),
-                const ParticipantCard(
-                  name: "KopfalNorbert",
-                  invitationState: InvitationState.unknown,
-                ),
-                const ParticipantCard(
-                  name: "TraubenDaniel",
-                  invitationState: InvitationState.declined,
-                ),
+                for (Participant participant
+                    in session.participants) ...<ParticipantCard>[
+                  ParticipantCard(
+                    name: participant.userName,
+                    invitationState: participant.invitationState,
+                  ),
+                ]
               ],
             ),
           ),
