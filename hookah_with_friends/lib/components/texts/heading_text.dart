@@ -1,6 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:google_fonts/google_fonts.dart";
-import "../util/colors.dart";
+import '../../util/colors.dart';
 
 class HeadingText extends Text {
   HeadingText(super.data, {super.key})

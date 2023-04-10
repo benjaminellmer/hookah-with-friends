@@ -2,13 +2,13 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 
-import "../model/session.dart";
-import "../screens/active_session_screen.dart";
-import "../util/formatters/duration_formatters.dart";
-import "availability_indicator.dart";
-import "primary_card.dart";
-import "primary_text.dart";
-import "session_progress_indicator.dart";
+import '../../model/session.dart';
+import '../../screens/active_session_screen.dart';
+import '../../util/formatters/duration_formatters.dart';
+import '../indicators/availability_indicator.dart';
+import 'primary_card.dart';
+import '../texts/primary_text.dart';
+import '../indicators/session_progress_indicator.dart';
 
 class ActiveSessionCard extends StatefulWidget {
   const ActiveSessionCard(this.session, {super.key});

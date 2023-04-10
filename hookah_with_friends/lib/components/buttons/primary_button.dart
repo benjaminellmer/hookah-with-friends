@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../util/colors.dart";
+import '../../util/colors.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({super.key, required this.text, required this.onPress});

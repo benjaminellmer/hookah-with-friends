@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../util/colors.dart";
+import '../../util/colors.dart';
 
 class PrimaryCard extends StatelessWidget {
   const PrimaryCard({super.key, required this.child, required this.onTap});

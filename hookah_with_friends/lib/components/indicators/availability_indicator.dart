@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
-import "../enum/availability.dart";
-import "../util/colors.dart";
+import '../../enum/availability.dart';
+import '../../util/colors.dart';
 
 class AvailabilityIndicator extends StatelessWidget {
   const AvailabilityIndicator(this.availability, {super.key});

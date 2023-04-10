@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
-import "../model/session.dart";
-import "../util/colors.dart";
-import "../util/formatters/duration_formatters.dart";
-import "primary_card.dart";
-import "primary_text.dart";
-import "session_progress_indicator.dart";
+import '../../model/session.dart';
+import '../../util/colors.dart';
+import '../../util/formatters/duration_formatters.dart';
+import 'primary_card.dart';
+import '../texts/primary_text.dart';
+import '../indicators/session_progress_indicator.dart';
 
 class HistorySessionCard extends StatelessWidget {
   const HistorySessionCard(this.session, {super.key});

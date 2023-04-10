@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 
-import "../util/colors.dart";
+import '../../util/colors.dart';
 
 class SubHeading extends StatelessWidget {
   const SubHeading(this.data, {super.key});

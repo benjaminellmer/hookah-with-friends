@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
-import "../enum/invitation_state.dart";
-import "../model/session.dart";
-import "../util/colors.dart";
-import "primary_card.dart";
-import "primary_text.dart";
+import '../../enum/invitation_state.dart';
+import '../../model/session.dart';
+import '../../util/colors.dart';
+import 'primary_card.dart';
+import '../texts/primary_text.dart';
 
 class SessionInviteCard extends StatelessWidget {
   const SessionInviteCard(this.session, {super.key});
