@@ -2,11 +2,13 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/coaltimer/coal_timer_bloc.dart";
-import '../components/appbars/back_and_title_app_bar.dart';
-import '../components/buttons/primary_button.dart';
-import '../components/texts/primary_text.dart';
-import '../components/indicators/session_progress_indicator.dart';
-import '../components/texts/subheading.dart';
+import "../components/appbars/back_and_title_app_bar.dart";
+import "../components/buttons/primary_button.dart";
+import "../components/cards/participant_card.dart";
+import "../components/indicators/session_progress_indicator.dart";
+import "../components/texts/primary_text.dart";
+import "../components/texts/subheading.dart";
+import "../enum/invitation_state.dart";
 import "../model/session.dart";
 
 class ActiveSessionScreen extends StatelessWidget {
@@ -35,6 +37,12 @@ class ActiveSessionScreen extends StatelessWidget {
                   }
                 },
               ),
+              const SizedBox(height: 16),
+              const SubHeading("Participants"),
+              const ParticipantCard(
+                name: "KofalBenji",
+                invitationState: InvitationState.accepted,
+              )
             ],
           ),
         ),
