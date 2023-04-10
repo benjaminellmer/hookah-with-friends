@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hookah_with_friends/util/colors.dart";
 
-import "components/heading_text.dart";
+import 'components/texts/heading_text.dart';
 import "screens/profile_screen.dart";
 import "screens/sessions_screen.dart";
 import "screens/tobaccos_screen.dart";

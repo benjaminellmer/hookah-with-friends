@@ -2,11 +2,11 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/coaltimer/coal_timer_bloc.dart";
-import "../components/back_and_title_app_bar.dart";
-import "../components/primary_button.dart";
-import "../components/primary_text.dart";
-import "../components/session_progress_indicator.dart";
-import "../components/subheading.dart";
+import '../components/appbars/back_and_title_app_bar.dart';
+import '../components/buttons/primary_button.dart';
+import '../components/texts/primary_text.dart';
+import '../components/indicators/session_progress_indicator.dart';
+import '../components/texts/subheading.dart';
 import "../model/session.dart";
 
 class ActiveSessionScreen extends StatelessWidget {

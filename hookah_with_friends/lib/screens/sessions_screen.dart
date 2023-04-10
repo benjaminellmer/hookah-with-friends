@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
-import "../components/active_session_card.dart";
-import "../components/history_session_card.dart";
-import "../components/session_invite_card.dart";
-import "../components/subheading.dart";
+import '../components/cards/active_session_card.dart';
+import '../components/cards/history_session_card.dart';
+import '../components/cards/session_invite_card.dart';
+import '../components/texts/subheading.dart';
 import "../util/testdata/testdata.dart";
 
 class SessionsScreen extends StatelessWidget {
