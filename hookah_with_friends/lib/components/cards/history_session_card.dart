@@ -16,7 +16,6 @@ class HistorySessionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryCard(
-      onTap: () {  },
       child: IntrinsicHeight(
         child: Row(
           children: <Widget>[
