@@ -5,6 +5,7 @@ import "../bloc/coaltimer/coal_timer_bloc.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/participant_card.dart";
+import "../components/cards/tobacco_card.dart";
 import "../components/indicators/session_progress_indicator.dart";
 import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
@@ -22,28 +23,50 @@ class ActiveSessionScreen extends StatelessWidget {
       create: (BuildContext context) => CoalTimerBloc(),
       child: Scaffold(
         appBar: BackAndTitleAppBar(title: "Active Session"),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              const SubHeading("Coal Timer"),
-              const SizedBox(height: 16),
-              BlocBuilder<CoalTimerBloc, CoalTimerState>(
-                builder: (BuildContext context, CoalTimerState state) {
-                  if (state is CoalTimerActive) {
-                    return _ActiveCoalTimerSection(state);
-                  } else {
-                    return const _InactiveCoalTimerSection();
-                  }
-                },
-              ),
-              const SizedBox(height: 16),
-              const SubHeading("Participants"),
-              const ParticipantCard(
-                name: "KofalBenji",
-                invitationState: InvitationState.accepted,
-              )
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: <Widget>[
+                const SubHeading("Coal Timer"),
+                const SizedBox(height: 16),
+                BlocBuilder<CoalTimerBloc, CoalTimerState>(
+                  builder: (BuildContext context, CoalTimerState state) {
+                    if (state is CoalTimerActive) {
+                      return _ActiveCoalTimerSection(state);
+                    } else {
+                      return const _InactiveCoalTimerSection();
+                    }
+                  },
+                ),
+                const SizedBox(height: 16),
+                const SubHeading("Current Tobacco"),
+                TobaccoCard(tobacco: session.tobacco),
+                const SizedBox(height: 8),
+                PrimaryButton(
+                  text: "Renew",
+                  onPress: () {},
+                ),
+                const SizedBox(height: 16),
+                const SubHeading("Participants"),
+                const ParticipantCard(
+                  name: "Hannes",
+                  invitationState: InvitationState.accepted,
+                ),
+                const ParticipantCard(
+                  name: "YoloBenji",
+                  invitationState: InvitationState.accepted,
+                ),
+                const ParticipantCard(
+                  name: "KofalNorbert",
+                  invitationState: InvitationState.unknown,
+                ),
+                const ParticipantCard(
+                  name: "TraubenDaniel",
+                  invitationState: InvitationState.declined,
+                ),
+              ],
+            ),
           ),
         ),
       ),

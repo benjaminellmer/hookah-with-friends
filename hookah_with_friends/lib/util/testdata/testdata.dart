@@ -10,6 +10,7 @@ class TestData {
     tobacco: Tobacco(
       name: "Black Nana",
       availability: Availability.high,
+      brand: "Nameless",
     ),
     participants: <String>[
       "Simon",
@@ -25,6 +26,7 @@ class TestData {
     tobacco: Tobacco(
       name: "Black Nana",
       availability: Availability.high,
+      brand: "Nameless",
     ),
     participants: <String>[
       "Simon",
@@ -41,6 +43,7 @@ class TestData {
     tobacco: Tobacco(
       name: "Black Nana",
       availability: Availability.high,
+      brand: "Nameless",
     ),
     participants: <String>[
       "Simon",
@@ -51,23 +54,23 @@ class TestData {
   );
 
   static Session historySession = Session(
-    host: "KopfalNorbert",
-    tobacco: Tobacco(
-      name: "Black Nana",
-      availability: Availability.high,
-    ),
-    participants: <String>[
-      "Simon",
-      "Jakob",
-      "David",
-      "David",
-      "David",
-    ],
-    startTime: DateTime.now().subtract(const Duration(days: 5)),
-    endTime: DateTime.now()
-        .subtract(const Duration(days: 5))
-        .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
-    invitationState: InvitationState.accepted,
-    tobaccoCount: 5
-  );
+      host: "KopfalNorbert",
+      tobacco: Tobacco(
+        name: "Black Nana",
+        availability: Availability.high,
+        brand: "Nameless",
+      ),
+      participants: <String>[
+        "Simon",
+        "Jakob",
+        "David",
+        "David",
+        "David",
+      ],
+      startTime: DateTime.now().subtract(const Duration(days: 5)),
+      endTime: DateTime.now()
+          .subtract(const Duration(days: 5))
+          .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
+      invitationState: InvitationState.accepted,
+      tobaccoCount: 5);
 }

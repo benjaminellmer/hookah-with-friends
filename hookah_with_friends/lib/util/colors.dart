@@ -16,4 +16,5 @@ class HWFColors {
   static Color appBar = const Color(0x001a1a23).withOpacity(1.0);
   static Color appBarSelected = const Color(0x002e2e3e).withOpacity(1.0);
   static const Color cardBackground = Color(0xc02f2f3d);
+  static const Color flavour = Color.fromRGBO(188, 158, 125, 1);
 }

@@ -15,35 +15,29 @@ class InvitationStateIndicator extends StatelessWidget {
   final double width;
   final double height;
 
-  String get assetPath {
-    switch (invitationState) {
-      case InvitationState.unknown:
-        return "lib/assets/question_orange.png";
-      case InvitationState.accepted:
-        return "lib/assets/checkmark.png";
-      case InvitationState.declined:
-        return "lib/assets/cross.png";
-    }
-  }
-
-  Color get color {
-    switch (invitationState) {
-      case InvitationState.unknown:
-        return HWFColors.orange;
-      case InvitationState.accepted:
-        return HWFColors.green;
-      case InvitationState.declined:
-        return HWFColors.red;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      assetPath,
-      color: color,
-      width: width,
-      height: height,
-    );
+    switch (invitationState) {
+      case InvitationState.unknown:
+        return Image.asset(
+          "lib/assets/question_orange.png",
+          width: width,
+          height: height,
+        );
+      case InvitationState.accepted:
+        return Image.asset(
+          "lib/assets/checkmark.png",
+          color: HWFColors.green,
+          width: width,
+          height: height,
+        );
+      case InvitationState.declined:
+        return Image.asset(
+          "lib/assets/cross.png",
+          color: HWFColors.red,
+          width: width,
+          height: height,
+        );
+    }
   }
 }
