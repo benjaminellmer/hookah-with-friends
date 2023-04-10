@@ -1,0 +1,3 @@
+enum Flavour {
+ mint, grape
+}

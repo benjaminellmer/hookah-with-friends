@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
 import "package:hookah_with_friends/components/cards/primary_card.dart";
 
+import "../../enum/flavour.dart";
 import "../../model/tobacco.dart";
-import "../../util/colors.dart";
 import "../indicators/availability_indicator.dart";
+import "../indicators/flavour_indicator.dart";
 import "../texts/primary_text.dart";
 
 class TobaccoCard extends StatelessWidget {
@@ -33,24 +34,12 @@ class TobaccoCard extends StatelessWidget {
           ),
           const Spacer(),
           Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25),
-                child: Image.asset(
-                  "lib/assets/grape_white.png",
-                  height: 35,
-                  width: 35,
-                  color: HWFColors.flavour,
-                ),
+            children: const <Widget>[
+              FlavourIndicator.grape(
+                insets: EdgeInsets.only(bottom: 30),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Image.asset(
-                  "lib/assets/mint_white.png",
-                  height: 40,
-                  width: 40,
-                  color: HWFColors.flavour,
-                ),
+              FlavourIndicator.mint(
+                insets: EdgeInsets.only(top: 30),
               ),
             ],
           )
