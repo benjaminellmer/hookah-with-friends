@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
-import '../../model/session.dart';
+import "../../model/session.dart";
+import "../../screens/session_invite_screen.dart";
 import "../indicators/invitation_state_indicator.dart";
-import '../texts/primary_text.dart';
-import 'primary_card.dart';
+import "../texts/primary_text.dart";
+import "primary_card.dart";
 
 class SessionInviteCard extends StatelessWidget {
   const SessionInviteCard(this.session, {super.key});
@@ -14,8 +15,16 @@ class SessionInviteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryCard(
-      onTap: () {},
-      child: Container(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute<Widget>(
+            builder: (BuildContext context) =>
+                SessionInviteScreen(session: session),
+          ),
+        );
+      },
+      child: SizedBox(
         height: 80,
         child: Row(
           children: <Widget>[

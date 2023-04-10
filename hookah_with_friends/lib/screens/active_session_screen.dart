@@ -58,7 +58,7 @@ class ActiveSessionScreen extends StatelessWidget {
                   invitationState: InvitationState.accepted,
                 ),
                 const ParticipantCard(
-                  name: "KofalNorbert",
+                  name: "KopfalNorbert",
                   invitationState: InvitationState.unknown,
                 ),
                 const ParticipantCard(
