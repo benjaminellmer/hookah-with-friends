@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../../enum/invitation_state.dart";
+import "../../util/colors.dart";
 
 class InvitationStateIndicator extends StatelessWidget {
   const InvitationStateIndicator({
@@ -25,8 +26,24 @@ class InvitationStateIndicator extends StatelessWidget {
     }
   }
 
+  Color get color {
+    switch (invitationState) {
+      case InvitationState.unknown:
+        return HWFColors.orange;
+      case InvitationState.accepted:
+        return HWFColors.green;
+      case InvitationState.declined:
+        return HWFColors.red;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Image.asset(assetPath, width: width, height: height);
+    return Image.asset(
+      assetPath,
+      color: color,
+      width: width,
+      height: height,
+    );
   }
 }
