@@ -4,7 +4,6 @@ import "package:flutter/material.dart";
 
 import "../model/session.dart";
 import "../screens/active_session_screen.dart";
-import "../util/colors.dart";
 import "../util/formatters/duration_formatters.dart";
 import "availability_indicator.dart";
 import "primary_card.dart";

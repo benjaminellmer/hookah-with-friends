@@ -1,12 +1,13 @@
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../bloc/coaltimer/coal_timer_bloc.dart";
 import "../components/back_and_title_app_bar.dart";
 import "../components/primary_button.dart";
 import "../components/primary_text.dart";
 import "../components/session_progress_indicator.dart";
 import "../components/subheading.dart";
 import "../model/session.dart";
-import "../util/formatters/duration_formatters.dart";
 
 class ActiveSessionScreen extends StatelessWidget {
   const ActiveSessionScreen({super.key, required this.session});
@@ -15,29 +16,73 @@ class ActiveSessionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BackAndTitleAppBar(title: "Active Session"),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            const SubHeading("Coal Timer"),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.25,
-              height: MediaQuery.of(context).size.width * 0.25,
-              child: SessionProgressIndicator(
-                value: session.progress,
-                strokeWidth: 14,
+    return BlocProvider<CoalTimerBloc>(
+      create: (BuildContext context) => CoalTimerBloc(),
+      child: Scaffold(
+        appBar: BackAndTitleAppBar(title: "Active Session"),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              const SubHeading("Coal Timer"),
+              const SizedBox(height: 16),
+              BlocBuilder<CoalTimerBloc, CoalTimerState>(
+                builder: (BuildContext context, CoalTimerState state) {
+                  if (state is CoalTimerActive) {
+                    return Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          height: MediaQuery.of(context).size.width * 0.25,
+                          child: SessionProgressIndicator(
+                            value: state.progress,
+                            strokeWidth: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        PrimaryText(
+                          state.timeLeftString,
+                          fontSize: 18,
+                        ),
+                        PrimaryButton(
+                            text: "Stop",
+                            onPress: () {
+                              context
+                                  .read<CoalTimerBloc>()
+                                  .add(CoalTimerStopped());
+                            })
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          height: MediaQuery.of(context).size.width * 0.25,
+                          child: SessionProgressIndicator(
+                            value: 1,
+                            strokeWidth: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        PrimaryText(
+                          "00:00:00",
+                          fontSize: 18,
+                        ),
+                        PrimaryButton(
+                            text: "Start",
+                            onPress: () {
+                              context.read<CoalTimerBloc>().add(
+                                  CoalTimerStarted(
+                                      const Duration(minutes: 15)));
+                            })
+                      ],
+                    );
+                  }
+                },
               ),
-            ),
-            const SizedBox(height: 16),
-            PrimaryText(
-              DurationFormatters.hms(session.timeLeft),
-              fontSize: 18,
-            ),
-            PrimaryButton(text: "Start", onPress: () {})
-          ],
+            ],
+          ),
         ),
       ),
     );
