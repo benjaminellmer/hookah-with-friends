@@ -43,9 +43,6 @@ class CoalTimerBloc extends Bloc<CoalTimerEvent, CoalTimerState> {
         (CoalTimerUpdating event, Emitter<CoalTimerState> emit) {
       if (currentCoalTimer != null) {
         emit(CoalTimerActive(currentCoalTimer!));
-      } else {
-        // Is this possible ?
-        updateTimer?.cancel();
       }
     });
   }

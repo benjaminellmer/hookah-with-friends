@@ -29,55 +29,9 @@ class ActiveSessionScreen extends StatelessWidget {
               BlocBuilder<CoalTimerBloc, CoalTimerState>(
                 builder: (BuildContext context, CoalTimerState state) {
                   if (state is CoalTimerActive) {
-                    return Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          height: MediaQuery.of(context).size.width * 0.25,
-                          child: SessionProgressIndicator(
-                            value: state.progress,
-                            strokeWidth: 14,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        PrimaryText(
-                          state.timeLeftString,
-                          fontSize: 18,
-                        ),
-                        PrimaryButton(
-                            text: "Stop",
-                            onPress: () {
-                              context
-                                  .read<CoalTimerBloc>()
-                                  .add(CoalTimerStopped());
-                            })
-                      ],
-                    );
+                    return _ActiveCoalTimerSection(state);
                   } else {
-                    return Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          height: MediaQuery.of(context).size.width * 0.25,
-                          child: SessionProgressIndicator(
-                            value: 1,
-                            strokeWidth: 14,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        PrimaryText(
-                          "00:00:00",
-                          fontSize: 18,
-                        ),
-                        PrimaryButton(
-                            text: "Start",
-                            onPress: () {
-                              context.read<CoalTimerBloc>().add(
-                                  CoalTimerStarted(
-                                      const Duration(minutes: 15)));
-                            })
-                      ],
-                    );
+                    return const _InactiveCoalTimerSection();
                   }
                 },
               ),
@@ -85,6 +39,70 @@ class ActiveSessionScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _InactiveCoalTimerSection extends StatelessWidget {
+  const _InactiveCoalTimerSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.25,
+          height: MediaQuery.of(context).size.width * 0.25,
+          child: SessionProgressIndicator(
+            value: 0,
+            strokeWidth: 14,
+          ),
+        ),
+        const SizedBox(height: 16),
+        PrimaryText(
+          "00:00:00",
+          fontSize: 18,
+        ),
+        PrimaryButton(
+            text: "Start",
+            onPress: () {
+              context
+                  .read<CoalTimerBloc>()
+                  .add(CoalTimerStarted(const Duration(minutes: 15)));
+            })
+      ],
+    );
+  }
+}
+
+class _ActiveCoalTimerSection extends StatelessWidget {
+  const _ActiveCoalTimerSection(this.state);
+
+  final CoalTimerActive state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.25,
+          height: MediaQuery.of(context).size.width * 0.25,
+          child: SessionProgressIndicator(
+            value: state.progress,
+            strokeWidth: 14,
+          ),
+        ),
+        const SizedBox(height: 16),
+        PrimaryText(
+          state.timeLeftString,
+          fontSize: 18,
+        ),
+        PrimaryButton(
+            text: "Stop",
+            onPress: () {
+              context.read<CoalTimerBloc>().add(CoalTimerStopped());
+            })
+      ],
     );
   }
 }
