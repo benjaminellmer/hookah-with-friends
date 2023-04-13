@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                         'Forgot password?',
                         style: TextStyle(
-                            color: HWFColors.flavour,
+                            color: HWFColors.heading.withOpacity(1),
                             fontWeight: FontWeight.bold),
                       ),
                     ),

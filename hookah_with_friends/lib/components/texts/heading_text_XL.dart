@@ -7,7 +7,7 @@ class HeadingTextXL extends Text {
       : super(
           style: TextStyle(
             fontFamily: GoogleFonts.pacifico().fontFamily,
-            color: HWFColors.heading,
+            color: HWFColors.heading.withOpacity(1),
             fontSize: 36,
           ),
         );
