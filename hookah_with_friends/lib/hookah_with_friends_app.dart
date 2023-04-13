@@ -75,6 +75,15 @@ class HookahWithFriendsApp extends StatelessWidget {
               appBar: AppBar(
                 title: HeadingText("Hookah with friends"),
                 backgroundColor: HWFColors.appBar,
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(AuthLogout());
+                    },
+                    icon: const Icon(Icons.logout),
+                    color: HWFColors.heading,
+                  )
+                ],
               ),
               body: const ProfileScreen()),
         ],
