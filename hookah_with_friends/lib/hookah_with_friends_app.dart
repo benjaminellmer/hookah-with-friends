@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:hookah_with_friends/util/colors.dart";
 
+import 'components/texts/heading_text.dart';
 import "screens/profile_screen.dart";
 import "screens/sessions_screen.dart";
 import "screens/tobaccos_screen.dart";
@@ -27,24 +28,20 @@ class HookahWithFriendsApp extends StatelessWidget {
         screens: <HWFScreen>[
           HWFScreen(
               appBar: AppBar(
-                title: const Center(
-                    child: Text("Sessions"),
-                ),
+                title: HeadingText("Hookah with friends"),
                 backgroundColor: HWFColors.appBar,
               ),
               body: const SessionsScreen()),
           HWFScreen(
             appBar: AppBar(
-              title: const Center(child: Text("Tobaccos"),
-              ),
+              title: HeadingText("Hookah with friends"),
               backgroundColor: HWFColors.appBar,
             ),
             body: const TobaccosScreen(),
           ),
           HWFScreen(
               appBar: AppBar(
-                title: const Center(child: Text("Profile"),
-                ),
+                title: HeadingText("Hookah with friends"),
                 backgroundColor: HWFColors.appBar,
               ),
               body: const ProfileScreen()),

@@ -5,7 +5,7 @@ import "dart:ui";
 class HWFColors {
   static Color button = const Color(0x0028afb0).withOpacity(0.8);
   static Color text = const Color(0x00b9f8f4).withOpacity(0.8);
-  static Color heading = const Color(0x00ffb94f).withOpacity(0.8);
+  static Color heading = const Color(0x00ffb94f).withOpacity(0.65);
   static Color subheading = const Color(0x00fde07a).withOpacity(0.8);
   static Color divider = const Color(0x00ffdb80).withOpacity(0.3);
   static Color green = const Color(0x0000ab07).withOpacity(0.8);
@@ -15,4 +15,6 @@ class HWFColors {
   static Color container = const Color(0x001c1c24).withOpacity(1.0);
   static Color appBar = const Color(0x001a1a23).withOpacity(1.0);
   static Color appBarSelected = const Color(0x002e2e3e).withOpacity(1.0);
+  static const Color cardBackground = Color(0xc02f2f3d);
+  static const Color flavour = Color.fromRGBO(188, 158, 125, 1);
 }
