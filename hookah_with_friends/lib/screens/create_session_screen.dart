@@ -35,6 +35,7 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                 });
               },
             ),
+            const SizedBox(height: 8),
             ElementPicker<Tobacco>(
               label: "Tobacco: ",
               elements: TestData.tobaccos,
@@ -48,6 +49,7 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                 );
               },
             ),
+            const SizedBox(height: 8),
             MultiElementPicker<String>(
               label: "Friends: ",
               elements: TestData.friends,
@@ -58,7 +60,11 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
               },
             ),
             const SizedBox(height: 24),
-            PrimaryButton(text: "Create", onPress: () {}),
+            PrimaryButton(
+                text: "Create",
+                onPress: () {
+                  Navigator.of(context).pop();
+                }),
           ],
         ),
       ),

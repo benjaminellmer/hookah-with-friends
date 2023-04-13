@@ -16,36 +16,51 @@ class TimePickerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SmallCard(
-      child: Row(
-        children: <Widget>[
-          PrimaryText("Time: "),
-          const Spacer(),
-          PrimaryText(DateFormat.Hm().format(initialDateTime)),
-          IconButton(
-            onPressed: () async {
-              final TimeOfDay? newSelectedTime = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.fromDateTime(initialDateTime),
-              );
-
-              if (newSelectedTime != null) {
-                dateTimeChanged(DateTime(
-                  initialDateTime.year,
-                  initialDateTime.month,
-                  initialDateTime.day,
-                  newSelectedTime.hour,
-                  newSelectedTime.minute,
-                ));
-              }
-            },
-            icon: Icon(
-              Icons.watch_later_outlined,
-              color: HWFColors.text,
-            ),
-          )
-        ],
+    return Theme(
+      data: Theme.of(context).copyWith(
+        timePickerTheme: TimePickerThemeData(
+          backgroundColor: HWFColors.cardBackground.withOpacity(1),
+          dayPeriodTextColor: HWFColors.text,
+          hourMinuteTextColor: HWFColors.text,
+          dialTextColor: HWFColors.text,
+          dayPeriodBorderSide: const BorderSide(width: 0),
+        ),
       ),
+      child: Builder(builder: (BuildContext context) {
+        return SmallCard(
+          onTap: () async {
+            final TimeOfDay? newSelectedTime = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.fromDateTime(initialDateTime),
+            );
+
+            if (newSelectedTime != null) {
+              dateTimeChanged(DateTime(
+                initialDateTime.year,
+                initialDateTime.month,
+                initialDateTime.day,
+                newSelectedTime.hour,
+                newSelectedTime.minute,
+              ));
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                PrimaryText("Time: "),
+                const Spacer(),
+                PrimaryText(DateFormat.Hm().format(initialDateTime)),
+                const SizedBox(width: 8),
+                Icon(
+                  Icons.watch_later_outlined,
+                  color: HWFColors.text,
+                )
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }
