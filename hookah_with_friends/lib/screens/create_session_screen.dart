@@ -2,7 +2,10 @@ import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
+import "../components/pickers/element_picker.dart";
 import "../components/pickers/time_picker_card.dart";
+import "../components/texts/primary_text.dart";
+import "../model/tobacco.dart";
 
 class CreateSessionScreen extends StatefulWidget {
   const CreateSessionScreen({super.key});
@@ -28,6 +31,23 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                 setState(() {
                   selectedDateTime = dateTime;
                 });
+              },
+            ),
+            ElementPicker<Tobacco>(
+              label: "Tobacco: ",
+              elements: <Tobacco>[
+                Tobacco(name: "Black Nana", brand: "Nameless"),
+                Tobacco(name: "Black Nana", brand: "Nameless"),
+                Tobacco(name: "Black Nana", brand: "Nameless"),
+              ],
+              itemBuilder: (Tobacco tobacco) {
+                return ElementPickerItem(
+                  title: PrimaryText(tobacco.name),
+                  subtitle: PrimaryText(
+                    tobacco.brand,
+                    fontSize: 12,
+                  ),
+                );
               },
             ),
             const SizedBox(height: 24),
