@@ -3,6 +3,7 @@ import "../../enum/invitation_state.dart";
 import "../../model/participant.dart";
 import "../../model/session.dart";
 import "../../model/tobacco.dart";
+import "../../model/user.dart";
 
 // ignore: avoid_classes_with_only_static_members
 class TestData {
@@ -75,4 +76,13 @@ class TestData {
           .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
       invitationState: InvitationState.accepted,
       tobaccoCount: 5);
+
+  static User testuser = User(
+      username: "HookahUser",
+      usercode: "#1234",
+      motto: "A hookah a day keeps the cancer away",
+      friends: "17",
+      invites: "2",
+      sessions: "37"
+  );
 }
