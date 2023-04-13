@@ -75,4 +75,14 @@ class TestData {
           .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
       invitationState: InvitationState.accepted,
       tobaccoCount: 5);
+
+  static List<Tobacco> tobaccos = <Tobacco>[
+    Tobacco(name: "Black Nana", brand: "Nameless"),
+    Tobacco(name: "K!W!CK", brand: "Nameless"),
+    Tobacco(name: "Black Chai", brand: "Nameless"),
+    Tobacco(name: "Green Lights", brand: "187"),
+    Tobacco(name: "Juicy Puzzy", brand: "187"),
+    Tobacco(name: "Holy Tropical", brand: "187"),
+    Tobacco(name: "Red Light", brand: "187"),
+  ];
 }

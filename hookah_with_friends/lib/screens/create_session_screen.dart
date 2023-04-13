@@ -6,6 +6,7 @@ import "../components/pickers/element_picker.dart";
 import "../components/pickers/time_picker_card.dart";
 import "../components/texts/primary_text.dart";
 import "../model/tobacco.dart";
+import "../util/testdata/testdata.dart";
 
 class CreateSessionScreen extends StatefulWidget {
   const CreateSessionScreen({super.key});
@@ -35,11 +36,7 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
             ),
             ElementPicker<Tobacco>(
               label: "Tobacco: ",
-              elements: <Tobacco>[
-                Tobacco(name: "Black Nana", brand: "Nameless"),
-                Tobacco(name: "Black Nana", brand: "Nameless"),
-                Tobacco(name: "Black Nana", brand: "Nameless"),
-              ],
+              elements: TestData.tobaccos,
               itemBuilder: (Tobacco tobacco) {
                 return ElementPickerItem(
                   title: PrimaryText(tobacco.name),

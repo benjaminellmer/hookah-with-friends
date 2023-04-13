@@ -39,7 +39,7 @@ class ElementPicker<T> extends StatelessWidget {
           },
           child: Row(
             children: <Widget>[
-              PrimaryText("$label: "),
+              PrimaryText(label),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
