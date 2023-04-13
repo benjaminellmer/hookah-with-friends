@@ -77,4 +77,5 @@ class TestData {
       tobaccoCount: 5);
 
   static Tobacco tobacco1 = Tobacco(name: "BlackNana", availability: Availability.high, brand: "Nameless");
+  static Tobacco tobacco2 = Tobacco(name: "Adam&Eve", availability: Availability.medium, brand: "Nameless");
 }
