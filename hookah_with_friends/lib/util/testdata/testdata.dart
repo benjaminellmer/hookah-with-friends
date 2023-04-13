@@ -1,5 +1,6 @@
 import "../../enum/availability.dart";
 import "../../enum/invitation_state.dart";
+import "../../model/friend.dart";
 import "../../model/participant.dart";
 import "../../model/session.dart";
 import "../../model/tobacco.dart";
@@ -85,4 +86,17 @@ class TestData {
       invites: "2",
       sessions: "37"
   );
+
+  static List<Friend> friendList = [
+    Friend(name: "KopfalNorbert", code: "#4574"),
+    Friend(name: "Hannes", code: "#9458"),
+    Friend(name: "YoloBenji", code: "#1246"),
+    Friend(name: "Benjinaut", code: "#6473"),
+    Friend(name: "RedBauerRanger", code: "#1295"),
+  ];
+
+  static List<Friend> inviteList = [
+    Friend(name: "DrunkDriver", code: "#4728"),
+    Friend(name: "SoberDriver", code: "#8345"),
+  ];
 }

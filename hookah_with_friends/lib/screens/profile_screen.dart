@@ -3,6 +3,8 @@ import "package:flutter/material.dart";
 import "../components/cards/profile_info_card.dart";
 import "../components/cards/user_card.dart";
 import "../util/testdata/testdata.dart";
+import "friends_screen.dart";
+import "invites_screen.dart";
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -19,16 +21,20 @@ class ProfileScreen extends StatelessWidget {
                   const UserCard(),
                   const SizedBox(height: 10),
                   ProfileInfoCard(
-                      info: "Friends: ${TestData.testuser.friends}",
+                    info: "Friends: ${TestData.testuser.friends}",
+                    route: const FriendsScreen(),
                   ),
                   ProfileInfoCard(
-                      info: "Invites: ${TestData.testuser.invites}",
+                    info: "Invites: ${TestData.testuser.invites}",
+                    route: const InvitesScreen(),
                   ),
                   ProfileInfoCard(
                     info: "Sessions: ${TestData.testuser.sessions}",
+                    route: const FriendsScreen(),
                   ),
                   const ProfileInfoCard(
                     info: "Settings",
+                    route: FriendsScreen(),
                   ),
                 ],
               ),
