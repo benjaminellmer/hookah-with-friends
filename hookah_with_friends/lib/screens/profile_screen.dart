@@ -4,6 +4,7 @@ import "../components/cards/profile_info_card.dart";
 import "../components/cards/user_card.dart";
 import "../util/testdata/testdata.dart";
 import "friends_screen.dart";
+import "history_screen.dart";
 import "invites_screen.dart";
 
 class ProfileScreen extends StatelessWidget {
@@ -30,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ProfileInfoCard(
                     info: "Sessions: ${TestData.testuser.sessions}",
-                    route: const FriendsScreen(),
+                    route: const HistoryScreen(),
                   ),
                   const ProfileInfoCard(
                     info: "Settings",
