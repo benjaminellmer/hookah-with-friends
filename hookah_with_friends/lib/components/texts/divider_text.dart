@@ -17,9 +17,9 @@ class DividerText extends StatelessWidget {
             color: HWFColors.divider,
             height: 2,
             thickness: 2,
-            indent: 10,
           ),
         ),
+        const SizedBox(width: 8),
         Text(
           data,
           style: TextStyle(
@@ -29,12 +29,12 @@ class DividerText extends StatelessWidget {
             fontSize: 15,
           ),
         ),
+        const SizedBox(width: 8),
         Expanded(
           child: Divider(
             color: HWFColors.divider,
             height: 2,
             thickness: 2,
-            indent: 10,
           ),
         ),
       ],
