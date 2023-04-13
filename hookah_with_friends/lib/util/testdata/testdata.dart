@@ -97,14 +97,15 @@ class TestData {
     "Benji",
     "Jakob",
     "David",
+  ];
+
   static User testuser = User(
       username: "HookahUser",
       usercode: "#1234",
       motto: "A hookah a day keeps the cancer away",
       friends: "17",
       invites: "2",
-      sessions: "37"
-  );
+      sessions: "37");
 
   static List<Friend> friendList = [
     Friend(name: "KopfalNorbert", code: "#4574"),
@@ -121,26 +122,25 @@ class TestData {
 
   static List<Session> historySessionList = [
     Session(
-      host: "KopfalNorbert",
-      tobacco: Tobacco(
-        name: "Black Nana",
-        availability: Availability.high,
-        brand: "Nameless",
-      ),
-      participants: <Participant>[
-        Participant("Simon", invitationState: InvitationState.accepted),
-        Participant("Jakob", invitationState: InvitationState.accepted),
-        Participant("David", invitationState: InvitationState.accepted),
-        Participant("Jakob", invitationState: InvitationState.accepted),
-        Participant("David", invitationState: InvitationState.accepted),
-      ],
-      startTime: DateTime.now().subtract(const Duration(days: 5)),
-      endTime: DateTime.now()
-          .subtract(const Duration(days: 5))
-          .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
-      invitationState: InvitationState.accepted,
-      tobaccoCount: 5),
-
+        host: "KopfalNorbert",
+        tobacco: Tobacco(
+          name: "Black Nana",
+          availability: Availability.high,
+          brand: "Nameless",
+        ),
+        participants: <Participant>[
+          Participant("Simon", invitationState: InvitationState.accepted),
+          Participant("Jakob", invitationState: InvitationState.accepted),
+          Participant("David", invitationState: InvitationState.accepted),
+          Participant("Jakob", invitationState: InvitationState.accepted),
+          Participant("David", invitationState: InvitationState.accepted),
+        ],
+        startTime: DateTime.now().subtract(const Duration(days: 5)),
+        endTime: DateTime.now()
+            .subtract(const Duration(days: 5))
+            .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
+        invitationState: InvitationState.accepted,
+        tobaccoCount: 5),
     Session(
         host: "RedBauerRanger",
         tobacco: Tobacco(
@@ -159,7 +159,6 @@ class TestData {
             .add(const Duration(hours: 3, minutes: 17, seconds: 35)),
         invitationState: InvitationState.accepted,
         tobaccoCount: 3),
-
     Session(
         host: "Hannes",
         tobacco: Tobacco(
@@ -175,7 +174,6 @@ class TestData {
           Participant("David", invitationState: InvitationState.accepted),
           Participant("Hannes", invitationState: InvitationState.accepted),
           Participant("Gichtlsepp", invitationState: InvitationState.accepted),
-
         ],
         startTime: DateTime.now().subtract(const Duration(days: 6)),
         endTime: DateTime.now()
@@ -183,6 +181,5 @@ class TestData {
             .add(const Duration(hours: 7, minutes: 45, seconds: 12)),
         invitationState: InvitationState.accepted,
         tobaccoCount: 9),
-
   ];
 }
