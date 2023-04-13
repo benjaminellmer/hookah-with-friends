@@ -19,6 +19,8 @@ class HWFTabNavigation extends StatelessWidget {
           return Scaffold(
             body: screens[state.selectedIndex].body,
             appBar: screens[state.selectedIndex].appBar,
+            floatingActionButton:
+                screens[state.selectedIndex].floatingActionButton,
             bottomNavigationBar: SizedBox(
               height: 85,
               child: Row(

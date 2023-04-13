@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:hookah_with_friends/screens/create_session_screen.dart";
 
 import "bloc/auth/auth_bloc.dart";
 import "components/texts/heading_text.dart";
@@ -33,7 +34,7 @@ class HookahWithFriendsApp extends StatelessWidget {
           builder: (BuildContext context, AuthState state) {
             return AnimatedSwitcher(
               duration: const Duration(milliseconds: 250),
-              child: buildHomeScreen(state),
+              child: buildHomeScreen(state, context),
             );
           },
         ),
@@ -41,7 +42,7 @@ class HookahWithFriendsApp extends StatelessWidget {
     );
   }
 
-  Widget buildHomeScreen(final AuthState state) {
+  Widget buildHomeScreen(final AuthState state, final BuildContext context) {
     if (state is AuthAuthenticated) {
       return HWFTabNavigation(
         screens: <HWFScreen>[
@@ -49,6 +50,18 @@ class HookahWithFriendsApp extends StatelessWidget {
               appBar: AppBar(
                 title: HeadingText("Hookah with friends"),
                 backgroundColor: HWFColors.appBar,
+              ),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: HWFColors.button,
+                child: const Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            CreateSessionScreen()),
+                  );
+                },
               ),
               body: const SessionsScreen()),
           HWFScreen(
