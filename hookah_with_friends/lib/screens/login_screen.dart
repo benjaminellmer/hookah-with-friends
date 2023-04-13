@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../bloc/auth/auth_bloc.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
 import "../components/textinputs/password_input.dart";
@@ -7,6 +9,7 @@ import "../components/textinputs/username_input.dart";
 import "../components/texts/divider_text.dart";
 import "../components/texts/heading_text_XL.dart";
 import "../util/colors.dart";
+import "signup_screen.dart";
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -69,12 +72,20 @@ class LoginScreen extends StatelessWidget {
                   ),
                   PrimaryButton(
                     text: "Log in",
-                    onPress: () {},
+                    onPress: () {
+                      context.read<AuthBloc>().add(AuthLogin());
+                    },
                   ),
                   const DividerText("or"),
                   SecondaryButton(
                     text: "Sign up",
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<Widget>(
+                            builder: (BuildContext context) => SignupScreen()),
+                      );
+                    },
                   ),
                 ],
               ),
