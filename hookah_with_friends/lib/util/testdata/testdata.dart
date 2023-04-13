@@ -85,4 +85,15 @@ class TestData {
     Tobacco(name: "Holy Tropical", brand: "187"),
     Tobacco(name: "Red Light", brand: "187"),
   ];
+
+  static List<String> friends = <String>[
+    "Hannes",
+    "YoloBenji",
+    "KopfalNorbert",
+    "TraubenDaniel",
+    "Simon",
+    "Benji",
+    "Jakob",
+    "David",
+  ];
 }

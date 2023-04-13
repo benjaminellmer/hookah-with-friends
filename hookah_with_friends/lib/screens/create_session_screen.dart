@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/pickers/element_picker.dart";
+import "../components/pickers/multi_element_picker.dart";
 import "../components/pickers/time_picker_card.dart";
 import "../components/texts/primary_text.dart";
 import "../model/tobacco.dart";
@@ -44,6 +45,15 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                     tobacco.brand,
                     fontSize: 12,
                   ),
+                );
+              },
+            ),
+            MultiElementPicker<String>(
+              label: "Friends: ",
+              elements: TestData.friends,
+              itemBuilder: (String friend) {
+                return MultiElementPickerItem(
+                  title: PrimaryText(friend),
                 );
               },
             ),

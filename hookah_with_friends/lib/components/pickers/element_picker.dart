@@ -29,7 +29,7 @@ class ElementPicker<T> extends StatelessWidget {
         return SmallCard(
           onTap: () {
             showModalBottomSheet(
-                backgroundColor: HWFColors.cardBackground,
+                backgroundColor: HWFColors.cardBackground.withOpacity(1),
                 context: contextWithBloc,
                 builder: (BuildContext context) {
                   return BlocProvider<ElementPickerCubit>.value(
@@ -52,6 +52,7 @@ class ElementPicker<T> extends StatelessWidget {
                           return items[state.selectedIndex].title;
                         },
                       ),
+                      const SizedBox(width: 8),
                       Icon(
                         Icons.expand_more_outlined,
                         color: HWFColors.text,
