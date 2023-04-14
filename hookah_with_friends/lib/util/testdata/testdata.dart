@@ -99,6 +99,17 @@ class TestData {
     "David",
   ];
 
+  static List<String> flavours = <String>[
+    "Grape",
+    "Mint",
+    "Watermelon",
+    "Ice (Menthol)",
+    "Strawberry",
+    "Banana",
+    "Lemon",
+    "Mixed Fruits",
+  ];
+
   static User testuser = User(
       username: "HookahUser",
       usercode: "#1234",
