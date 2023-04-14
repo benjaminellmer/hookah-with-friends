@@ -38,7 +38,7 @@ class TobaccosScreen extends StatelessWidget {
                 Navigator.push(
                   context,MaterialPageRoute<Widget>(
                     builder: (BuildContext context) =>
-                    const AddTobacco())
+                    const CreateTobaccoScreen())
                 );
               },
             ),
