@@ -25,11 +25,13 @@ class CreateTobaccoScreen extends StatelessWidget {
             MultiElementPicker<String>(
               label: "Flavour: ",
               elements: TestData.flavours,
+              allowSelectAll: false,
               itemBuilder: (String friend) {
                 return MultiElementPickerItem(
                   title: PrimaryText(friend),
                 );
               },
+              previewStyle: const TitlesMultiElementPickerPreviewStyle(),
             ),
             const SizedBox(height: 24),
             PrimaryButton(
