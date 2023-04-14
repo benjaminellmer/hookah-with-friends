@@ -4,6 +4,7 @@ import "../components/buttons/primary_button.dart";
 import "../components/cards/tobacco_card.dart";
 import "../components/texts/subheading.dart";
 import "../util/testdata/testdata.dart";
+import "add_tobacco.dart";
 
 class TobaccosScreen extends StatelessWidget {
   const TobaccosScreen({super.key});
@@ -31,7 +32,11 @@ class TobaccosScreen extends StatelessWidget {
             PrimaryButton(
               text: "Add Tobacco",
               onPress: () {
-                // handle button press
+                Navigator.push(
+                  context,MaterialPageRoute<Widget>(
+                    builder: (BuildContext context) =>
+                    const AddTobacco())
+                );
               },
             ),
           ],
