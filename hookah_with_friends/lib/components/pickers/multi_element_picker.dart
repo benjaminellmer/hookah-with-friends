@@ -37,13 +37,13 @@ class MultiElementPicker<T> extends StatelessWidget {
                       child: MultiElementPickerMenu(elements: items));
                 });
           },
-          child: Row(
-            children: <Widget>[
-              PrimaryText(label),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Builder(builder: (BuildContext contextWithBloc) {
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                PrimaryText(label),
+                const Spacer(),
+                Builder(builder: (BuildContext contextWithBloc) {
                   return Row(
                     children: <Widget>[
                       BlocBuilder<MultiElementPickerCubit,
@@ -63,9 +63,9 @@ class MultiElementPicker<T> extends StatelessWidget {
                       ),
                     ],
                   );
-                }),
-              )
-            ],
+                })
+              ],
+            ),
           ),
         );
       }),

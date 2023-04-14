@@ -37,13 +37,13 @@ class ElementPicker<T> extends StatelessWidget {
                       child: ElementPickerMenu(elements: items));
                 });
           },
-          child: Row(
-            children: <Widget>[
-              PrimaryText(label),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Builder(builder: (BuildContext contextWithBloc) {
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                PrimaryText(label),
+                const Spacer(),
+                Builder(builder: (BuildContext contextWithBloc) {
                   return Row(
                     children: <Widget>[
                       BlocBuilder<ElementPickerCubit, ElementPickerSelected>(
@@ -59,9 +59,9 @@ class ElementPicker<T> extends StatelessWidget {
                       ),
                     ],
                   );
-                }),
-              )
-            ],
+                })
+              ],
+            ),
           ),
         );
       }),

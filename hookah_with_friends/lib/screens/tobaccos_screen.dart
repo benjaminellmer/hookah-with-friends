@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
 import "../components/buttons/primary_button.dart";
-import "create_tobacco_screen.dart";
 import "../components/cards/tobacco_card.dart";
 import "../components/texts/subheading.dart";
 import "../util/testdata/testdata.dart";
+import "create_tobacco_screen.dart";
 
 class TobaccosScreen extends StatelessWidget {
   const TobaccosScreen({super.key});
@@ -23,20 +23,23 @@ class TobaccosScreen extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     TobaccoCard(tobacco: TestData.tobacco1),
+                    const SizedBox(height: 8),
                     TobaccoCard(tobacco: TestData.tobacco2),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 16.0), // add some space between the last TobaccoCard and the button
+            const SizedBox(height: 16.0),
+            // add some space between the last TobaccoCard and the button
             PrimaryButton(
               text: "Add Tobacco",
               onPress: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-              builder: (BuildContext context) => const CreateTobaccoScreen()),
-        );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                      builder: (BuildContext context) =>
+                          const CreateTobaccoScreen()),
+                );
               },
             ),
           ],
