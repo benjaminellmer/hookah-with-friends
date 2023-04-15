@@ -5,7 +5,6 @@ import "package:hookah_with_friends/screens/create_session_screen.dart";
 
 import "bloc/auth/auth_bloc.dart";
 import "components/texts/heading_text.dart";
-import "screens/login_screen.dart";
 import "screens/profile_screen.dart";
 import "screens/sessions_screen.dart";
 import "screens/tobaccos_screen.dart";
