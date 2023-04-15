@@ -8,6 +8,7 @@ import "../components/textinputs/password_input.dart";
 import "../components/textinputs/username_input.dart";
 import "../components/texts/divider_text.dart";
 import "../components/texts/heading_text_XL.dart";
+import "login_screen.dart";
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -67,7 +68,7 @@ class SignupScreen extends StatelessWidget {
                   PrimaryButton(
                     text: "Sign up",
                     onPress: () {
-                      Navigator.pop(context);
+                      Navigator.popUntil(context, (route) => route.isFirst);
                       context.read<AuthBloc>().add(AuthLogin());
                     },
                   ),
@@ -75,7 +76,11 @@ class SignupScreen extends StatelessWidget {
                   SecondaryButton(
                     text: "Log in",
                     onPress: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<Widget>(
+                            builder: (BuildContext context) => LoginScreen()),
+                      );
                     },
                   ),
                 ],

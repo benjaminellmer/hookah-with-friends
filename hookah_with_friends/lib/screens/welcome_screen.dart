@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
+import "package:hookah_with_friends/screens/signup_screen.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
 import "../components/texts/welcome_text.dart";
+import "login_screen.dart";
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -35,11 +37,23 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 64),
                   SecondaryButton(
                     text: "Log in",
-                    onPress: () {print('Login');},
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<Widget>(
+                            builder: (BuildContext context) => LoginScreen()),
+                      );
+                    },
                   ),
                   PrimaryButton(
                     text: "Sign up",
-                    onPress: () {print('Sign up');},
+                    onPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<Widget>(
+                            builder: (BuildContext context) => SignupScreen()),
+                      );
+                    },
                   ),
                 ],
               ),

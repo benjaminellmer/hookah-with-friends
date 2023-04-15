@@ -73,6 +73,7 @@ class LoginScreen extends StatelessWidget {
                   PrimaryButton(
                     text: "Log in",
                     onPress: () {
+                      Navigator.popUntil(context, (route) => route.isFirst);
                       context.read<AuthBloc>().add(AuthLogin());
                     },
                   ),

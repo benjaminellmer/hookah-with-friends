@@ -9,6 +9,7 @@ import "screens/login_screen.dart";
 import "screens/profile_screen.dart";
 import "screens/sessions_screen.dart";
 import "screens/tobaccos_screen.dart";
+import "screens/welcome_screen.dart";
 import "util/colors.dart";
 import "util/hwf_screen.dart";
 import "util/hwf_tab_navigation.dart";
@@ -89,7 +90,7 @@ class HookahWithFriendsApp extends StatelessWidget {
         ],
       );
     } else {
-      return LoginScreen();
+      return WelcomeScreen();
     }
   }
 }
