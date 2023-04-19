@@ -29,6 +29,11 @@ class AuthService {
     }
   }
 
+  Future<void> resetPassword(String email) async {
+    await FirebaseAuth.instance
+        .sendPasswordResetEmail(email: email);
+  }
+
   void _handleAuthError(FirebaseAuthException ex) {
     if (ex.code == "invalid-email") {
       throw AuthException("No user with this email exists!");

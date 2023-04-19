@@ -47,6 +47,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authService.logout();
     });
 
+    on<AuthResetPassword>((AuthResetPassword event, Emitter<AuthState> emit) async {
+      await authService.resetPassword(event.email);
+    });
+
     on<AuthLoggedIn>((AuthLoggedIn event, Emitter<AuthState> emit) {
       emit(AuthAuthenticated());
     });

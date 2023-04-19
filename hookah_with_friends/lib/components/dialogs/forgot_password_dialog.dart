@@ -1,6 +1,8 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../../bloc/auth/auth_bloc.dart";
 import "../../util/colors.dart";
 import "../textinputs/username_input.dart";
 
@@ -45,7 +47,13 @@ class ForgotPasswordDialog extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Send'),
+          onPressed: () => {
+            context
+                .read<AuthBloc>()
+                .add(AuthResetPassword(email: controller.text)),
+            Navigator.pop(context, 'Send'),
+            print("Email sent!")
+          },
           child: Text(
             "Send",
             style: TextStyle(
