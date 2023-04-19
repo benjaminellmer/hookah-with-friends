@@ -6,7 +6,7 @@ import '../texts/heading_text.dart';
 class BackAndTitleAppBar extends AppBar {
   BackAndTitleAppBar({super.key, required final String title})
       : super(
-          title: HeadingText(title),
+          title: Center(child: HeadingText(title)),
           backgroundColor: HWFColors.appBar,
           iconTheme: IconThemeData(
             color: HWFColors.heading,
