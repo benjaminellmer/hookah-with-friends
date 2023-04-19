@@ -18,6 +18,7 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController forgotPasswordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -79,9 +80,10 @@ class LoginScreen extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return const ForgotPasswordDialog(
+                              return ForgotPasswordDialog(
                                   title: "Reset Password",
-                                  description: "Send email to reset password?");
+                                  description: "Type in your email to reset your password",
+                                  controller: passwordController);
                             },
                           );
                         },
