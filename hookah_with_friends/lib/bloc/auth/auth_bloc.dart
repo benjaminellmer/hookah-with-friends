@@ -56,9 +56,3 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
   }
 }
-
-/*
-
-                      authService.login(
-                          usernameController.text, passwordController.text);
- */
