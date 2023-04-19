@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
-import "package:flutter_bloc/flutter_bloc.dart";
 
-import "../bloc/auth/auth_bloc.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
 import "../components/textinputs/password_input.dart";
@@ -68,8 +66,8 @@ class SignupScreen extends StatelessWidget {
                   PrimaryButton(
                     text: "Sign up",
                     onPress: () {
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                      context.read<AuthBloc>().add(AuthLogin());
+                      // Navigator.popUntil(context, (route) => route.isFirst);
+                      // context.read<AuthBloc>().add(AuthLogin());
                     },
                   ),
                   const DividerText("or"),
