@@ -51,7 +51,7 @@ class SignupScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.30),
                     Container(
                       alignment: Alignment.centerLeft,
                       child: HeadingTextXL("Create \nAccount!"),
@@ -77,7 +77,7 @@ class SignupScreen extends StatelessWidget {
                           icon: Icons.lock_open,
                           controller: passwordController),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 36),
                     PrimaryButton(
                       text: "Sign up",
                       onPress: () {

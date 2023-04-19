@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.22),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.30),
                     Container(
                       alignment: Alignment.centerLeft,
                       child: HeadingTextXL("Welcome \nBack!"),
@@ -93,6 +93,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 18),
                     PrimaryButton(
                       text: "Log in",
                       onPress: () {
