@@ -5,7 +5,6 @@ import "../components/cards/tobacco_card.dart";
 import "../components/texts/subheading.dart";
 import "../util/testdata/testdata.dart";
 import "create_tobacco_screen.dart";
-import "add_tobacco.dart";
 
 class TobaccosScreen extends StatelessWidget {
   const TobaccosScreen({super.key});

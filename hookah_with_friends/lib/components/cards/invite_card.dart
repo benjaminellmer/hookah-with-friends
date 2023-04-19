@@ -15,22 +15,22 @@ class InviteCard extends StatelessWidget {
       child: Row(
         children: <Widget>[
           PrimaryText(
-            "${friend.name} ${friend.code}",
+            friend.name,
             fontSize: 16,
           ),
           const Spacer(),
           Image.asset(
             "lib/assets/cross.png",
-            width: 25,
-            height: 25,
+            width: 20,
+            height: 20,
           ),
           const SizedBox(
             width: 20,
           ),
           Image.asset(
             "lib/assets/checkmark.png",
-            width: 25,
-            height: 25,
+            width: 20,
+            height: 20,
           ),
         ],
       ),
