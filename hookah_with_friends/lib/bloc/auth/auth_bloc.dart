@@ -25,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AuthLogin>((AuthLogin event, Emitter<AuthState> emit) async {
+      emit(AuthLoading());
+
       try {
         await authService.login(event.email, event.password);
       } on AuthException catch (ex) {

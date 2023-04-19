@@ -9,4 +9,6 @@ class AuthUnauthenticated extends AuthState {
   final String? errorMessage;
 }
 
+class AuthLoading extends AuthState {}
+
 class AuthAuthenticated extends AuthState {}

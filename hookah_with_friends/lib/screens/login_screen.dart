@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
         }
         if (state is AuthUnauthenticated) {
           if (state.errorMessage != null) {
-            final snackBar = SnackBar(
+            final SnackBar snackBar = SnackBar(
               content: Center(
                 child: Text(state.errorMessage!),
               ),
@@ -112,6 +112,24 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              BlocBuilder<AuthBloc, AuthState>(
+                builder: (BuildContext context, AuthState state) {
+                  if (state is AuthLoading) {
+                    return Container(
+                      color: Colors.grey.withOpacity(0.5),
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: HWFColors.heading,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ],
           ),
