@@ -8,21 +8,9 @@ import "../widget/tobaccoindicator_widget.dart";
 import "primary_card.dart";
 
 class TobaccoCard extends StatelessWidget {
-  TobaccoCard({super.key, required this.tobacco});
+  const TobaccoCard({super.key, required this.tobacco});
 
   final Tobacco tobacco;
-  final List<FlavourIndicator> flavourIndicators = [
-    const FlavourIndicator.grape(
-    ),
-    const FlavourIndicator.mint(
-    ),
-    const FlavourIndicator.mint(
-    ),
-    const FlavourIndicator.mint(
-    ),
-    const FlavourIndicator.mint(
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +33,7 @@ class TobaccoCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          FlavourIndicatorRow(flavourIndicators),
+          FlavourIndicatorRow(tobacco.flavourIndicators),
         ],
       ),
     );
