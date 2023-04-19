@@ -33,12 +33,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+    on<AuthSignUp>((AuthSignUp event, Emitter<AuthState> emit) async {
+      emit(AuthLoading());
+
+      try {
+        await authService.signUp(event.email, event.password);
+      } on AuthException catch (ex) {
+        emit(AuthUnauthenticated(errorMessage: ex.message));
+      }
+    });
+
     on<AuthLogout>((AuthEvent event, Emitter<AuthState> emit) async {
       await authService.logout();
     });
 
     on<AuthLoggedIn>((AuthLoggedIn event, Emitter<AuthState> emit) {
-      print("Sending auth Authenticated");
       emit(AuthAuthenticated());
     });
 

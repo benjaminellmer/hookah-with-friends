@@ -9,18 +9,33 @@ class AuthService {
         email: email,
         password: password,
       );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "invalid-email") {
-        throw AuthException("No user with this email exists!");
-      } else if (e.code == "wrong-password") {
-        throw AuthException("Wrong password for user!");
-      } else {
-        throw AuthException("Unknown error occurred!");
-      }
+    } on FirebaseAuthException catch (ex) {
+      _handleAuthError(ex);
     }
   }
 
   Future<void> logout() async {
     FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> signUp(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (ex) {
+      _handleAuthError(ex);
+    }
+  }
+
+  void _handleAuthError(FirebaseAuthException ex) {
+    if (ex.code == "invalid-email") {
+      throw AuthException("No user with this email exists!");
+    } else if (ex.code == "wrong-password") {
+      throw AuthException("Wrong password for user!");
+    } else {
+      throw AuthException("Unknown error occurred!");
+    }
   }
 }

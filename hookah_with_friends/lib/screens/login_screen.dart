@@ -4,6 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../bloc/auth/auth_bloc.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
+import "../components/indicators/auth_loading_indicator.dart";
 import "../components/textinputs/password_input.dart";
 import "../components/textinputs/username_input.dart";
 import "../components/texts/divider_text.dart";
@@ -113,24 +114,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              BlocBuilder<AuthBloc, AuthState>(
-                builder: (BuildContext context, AuthState state) {
-                  if (state is AuthLoading) {
-                    return Container(
-                      color: Colors.grey.withOpacity(0.5),
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: HWFColors.heading,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
+              const AuthLoadingIndicator(),
             ],
           ),
         ),
