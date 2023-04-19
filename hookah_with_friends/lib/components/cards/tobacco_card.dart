@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import "package:hookah_with_friends/components/cards/primary_card.dart";
 
-import "../../enum/flavour.dart";
 import "../../model/tobacco.dart";
 import "../indicators/availability_indicator.dart";
 import "../indicators/flavour_indicator.dart";
 import "../texts/primary_text.dart";
+import "../widget/tobaccoindicator_widget.dart";
+import "primary_card.dart";
 
 class TobaccoCard extends StatelessWidget {
   const TobaccoCard({super.key, required this.tobacco});
@@ -33,16 +33,7 @@ class TobaccoCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Row(
-            children: const <Widget>[
-              FlavourIndicator.grape(
-                insets: EdgeInsets.only(bottom: 30),
-              ),
-              FlavourIndicator.mint(
-                insets: EdgeInsets.only(top: 30),
-              ),
-            ],
-          )
+          FlavourIndicatorRow(tobacco.flavourIndicators),
         ],
       ),
     );
