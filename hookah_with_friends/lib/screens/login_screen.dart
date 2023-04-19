@@ -4,6 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../bloc/auth/auth_bloc.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
+import "../components/dialogs/forgot_password_dialog.dart";
 import "../components/indicators/auth_loading_indicator.dart";
 import "../components/textinputs/password_input.dart";
 import "../components/textinputs/username_input.dart";
@@ -78,7 +79,16 @@ class LoginScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const ForgotPasswordDialog(
+                                  title: "Reset Password",
+                                  description: "Send email to reset password?");
+                            },
+                          );
+                        },
                         child: Text(
                           "Forgot password?",
                           style: TextStyle(
