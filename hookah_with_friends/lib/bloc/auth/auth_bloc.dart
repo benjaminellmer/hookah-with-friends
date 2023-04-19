@@ -16,7 +16,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc() : super(AuthUnauthenticated()) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      print("State changed");
       if (user != null) {
         add(AuthLoggedIn(user));
       } else {
