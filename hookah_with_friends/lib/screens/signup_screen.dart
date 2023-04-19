@@ -42,14 +42,10 @@ class SignupScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
-              RotationTransition(
-                turns: const AlwaysStoppedAnimation<double>(180 / 360),
-                child: Image.network(
-                  "https://images.unsplash.com/photo-1627499949691-154d1fc004c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.cover,
-                ),
+              Container(
+                child: Image.asset('lib/assets/smoke_white.png'),
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.all(8),
               ),
               Container(
                 padding: const EdgeInsets.all(20),
