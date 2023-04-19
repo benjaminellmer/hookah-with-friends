@@ -24,5 +24,4 @@ class AddFriendScreen extends StatelessWidget{
       ),
     );
   }
-
 }

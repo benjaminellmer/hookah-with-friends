@@ -1,6 +1,5 @@
 class Friend {
-  Friend({required this.name, required this.code});
+  Friend({required this.name});
 
   final String name;
-  final String code;
 }

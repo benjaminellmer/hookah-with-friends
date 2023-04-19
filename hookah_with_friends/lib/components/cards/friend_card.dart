@@ -13,7 +13,7 @@ class FriendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimaryCard(
       child: PrimaryText(
-          "${friend.name} ${friend.code}",
+          friend.name,
           fontSize: 16,
         ),
     );

@@ -15,7 +15,7 @@ class InviteCard extends StatelessWidget {
       child: Row(
         children: <Widget>[
           PrimaryText(
-            "${friend.name} ${friend.code}",
+            friend.name,
             fontSize: 16,
           ),
           const Spacer(),
