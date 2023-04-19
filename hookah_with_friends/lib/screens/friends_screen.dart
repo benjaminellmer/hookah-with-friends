@@ -7,6 +7,7 @@ import "../components/cards/friend_card.dart";
 import "../model/friend.dart";
 import "../util/colors.dart";
 import "../util/testdata/testdata.dart";
+import "add_friend.dart";
 
 class FriendsScreen extends StatelessWidget {
   const FriendsScreen({super.key});
@@ -47,7 +48,11 @@ class FriendsScreen extends StatelessWidget {
             PrimaryButton(
               text: "Add Friend",
               onPress: () {
-
+                Navigator.push(
+                    context,MaterialPageRoute<Widget>(
+                    builder: (BuildContext context) =>
+                    const AddFriendScreen())
+                );
               },
             ),
           ],
