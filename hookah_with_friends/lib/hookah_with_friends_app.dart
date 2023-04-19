@@ -48,6 +48,7 @@ class HookahWithFriendsApp extends StatelessWidget {
         screens: <HWFScreen>[
           HWFScreen(
               appBar: AppBar(
+                centerTitle: true,
                 title: HeadingText("Hookah with friends"),
                 backgroundColor: HWFColors.appBar,
               ),
@@ -66,28 +67,31 @@ class HookahWithFriendsApp extends StatelessWidget {
               body: const SessionsScreen()),
           HWFScreen(
             appBar: AppBar(
+              centerTitle: true,
               title: HeadingText("Hookah with friends"),
               backgroundColor: HWFColors.appBar,
             ),
             body: const TobaccosScreen(),
           ),
           HWFScreen(
-              appBar: AppBar(
-                title: HeadingText("Hookah with friends"),
-                backgroundColor: HWFColors.appBar,
-                actions: [
-                  IconButton(
-                    onPressed: () {
-                      context.read<AuthBloc>().add(AuthLogout());
-                    },
-                    icon: const Icon(Icons.logout),
-                    color: HWFColors.heading,
-                  )
-                ],
-              ),
-              body: const ProfileScreen()),
+            appBar: AppBar(
+              centerTitle: true,
+              title: HeadingText("Hookah with friends"),
+              backgroundColor: HWFColors.appBar,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(AuthLogout());
+                  },
+                  icon: const Icon(Icons.logout),
+                  color: HWFColors.heading,
+                ),
+              ],
+            ),
+            body: const ProfileScreen(),
+          ),
         ],
-      );
+    );
     } else {
       return WelcomeScreen();
     }

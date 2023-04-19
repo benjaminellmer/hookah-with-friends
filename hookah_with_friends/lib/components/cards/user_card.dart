@@ -47,7 +47,7 @@ class UserCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${TestData.testuser.username} ${TestData.testuser.usercode}",
+                      TestData.testuser.username,
                       style: TextStyle(
                         color: HWFColors.heading,
                         fontSize: 18,

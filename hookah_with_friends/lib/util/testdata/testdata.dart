@@ -1,3 +1,4 @@
+import "../../components/indicators/flavour_indicator.dart";
 import "../../enum/availability.dart";
 import "../../enum/invitation_state.dart";
 import "../../model/friend.dart";
@@ -14,6 +15,9 @@ class TestData {
       name: "Black Nana",
       availability: Availability.high,
       brand: "Nameless",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
     ),
     participants: <Participant>[
       Participant("YoloBenji", invitationState: InvitationState.accepted),
@@ -30,6 +34,9 @@ class TestData {
       name: "Black Nana",
       availability: Availability.high,
       brand: "Nameless",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
     ),
     participants: <Participant>[
       Participant("Hannes", invitationState: InvitationState.accepted),
@@ -48,6 +55,9 @@ class TestData {
       name: "Black Nana",
       availability: Availability.high,
       brand: "Nameless",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
     ),
     participants: <Participant>[
       Participant("Simon"),
@@ -63,6 +73,9 @@ class TestData {
         name: "Black Nana",
         availability: Availability.high,
         brand: "Nameless",
+        flavourIndicators: <FlavourIndicator>[
+          const FlavourIndicator.grape(),
+        ],
       ),
       participants: <Participant>[
         Participant("Simon", invitationState: InvitationState.accepted),
@@ -79,13 +92,55 @@ class TestData {
       tobaccoCount: 5);
 
   static List<Tobacco> tobaccos = <Tobacco>[
-    Tobacco(name: "Black Nana", brand: "Nameless"),
-    Tobacco(name: "K!W!CK", brand: "Nameless"),
-    Tobacco(name: "Black Chai", brand: "Nameless"),
-    Tobacco(name: "Green Lights", brand: "187"),
-    Tobacco(name: "Juicy Puzzy", brand: "187"),
-    Tobacco(name: "Holy Tropical", brand: "187"),
-    Tobacco(name: "Red Light", brand: "187"),
+    Tobacco(
+      name: "Black Nana",
+      brand: "Nameless",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
+    Tobacco(
+      name: "K!W!CK",
+      brand: "Nameless",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
+    Tobacco(
+      name: "Black Chai",
+      brand: "Nameless",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
+    Tobacco(
+      name: "Green Lights",
+      brand: "187",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
+    Tobacco(
+      name: "Juicy Puzzy",
+      brand: "187",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
+    Tobacco(
+      name: "Holy Tropical",
+      brand: "187",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
+    Tobacco(
+      name: "Red Light",
+      brand: "187",
+      flavourIndicators: <FlavourIndicator>[
+        const FlavourIndicator.grape(),
+      ],
+    ),
   ];
 
   static List<String> friends = <String>[
@@ -112,23 +167,22 @@ class TestData {
 
   static User testuser = User(
       username: "HookahUser",
-      usercode: "#1234",
       motto: "A hookah a day keeps the cancer away",
       friends: "17",
       invites: "2",
       sessions: "37");
 
   static List<Friend> friendList = [
-    Friend(name: "KopfalNorbert", code: "#4574"),
-    Friend(name: "Hannes", code: "#9458"),
-    Friend(name: "YoloBenji", code: "#1246"),
-    Friend(name: "Benjinaut", code: "#6473"),
-    Friend(name: "RedBauerRanger", code: "#1295"),
+    Friend(name: "KopfalNorbert"),
+    Friend(name: "Hannes"),
+    Friend(name: "YoloBenji"),
+    Friend(name: "Benjinaut"),
+    Friend(name: "RedBauerRanger"),
   ];
 
   static List<Friend> inviteList = [
-    Friend(name: "DrunkDriver", code: "#4728"),
-    Friend(name: "SoberDriver", code: "#8345"),
+    Friend(name: "DrunkDriver"),
+    Friend(name: "SoberDriver"),
   ];
 
   static List<Session> historySessionList = [
@@ -138,6 +192,9 @@ class TestData {
           name: "Black Nana",
           availability: Availability.high,
           brand: "Nameless",
+          flavourIndicators: <FlavourIndicator>[
+            const FlavourIndicator.grape(),
+          ],
         ),
         participants: <Participant>[
           Participant("Simon", invitationState: InvitationState.accepted),
@@ -158,6 +215,9 @@ class TestData {
           name: "Dark City Lights",
           availability: Availability.high,
           brand: "Nameless",
+          flavourIndicators: <FlavourIndicator>[
+            const FlavourIndicator.grape(),
+          ],
         ),
         participants: <Participant>[
           Participant("Simon", invitationState: InvitationState.accepted),
@@ -176,6 +236,9 @@ class TestData {
           name: "Cold Melo",
           availability: Availability.medium,
           brand: "7 Days",
+          flavourIndicators: <FlavourIndicator>[
+            const FlavourIndicator.grape(),
+          ],
         ),
         participants: <Participant>[
           Participant("Simon", invitationState: InvitationState.accepted),
@@ -193,6 +256,23 @@ class TestData {
         invitationState: InvitationState.accepted,
         tobaccoCount: 9),
   ];
-  static Tobacco tobacco1 = Tobacco(name: "BlackNana", availability: Availability.high, brand: "Nameless");
-  static Tobacco tobacco2 = Tobacco(name: "Adam&Eve", availability: Availability.medium, brand: "Nameless");
+  static Tobacco tobacco1 = Tobacco(
+    name: "BlackNana",
+    availability: Availability.high,
+    brand: "Nameless",
+    flavourIndicators: [
+      const FlavourIndicator.mint(),
+      const FlavourIndicator.mint(),
+      const FlavourIndicator.grape(),
+    ],
+  );
+  static Tobacco tobacco2 = Tobacco(
+    name: "Adam&Eve",
+    availability: Availability.medium,
+    brand: "Nameless",
+    flavourIndicators: [
+      const FlavourIndicator.grape(),
+      const FlavourIndicator.grape(),
+    ],
+  );
 }
