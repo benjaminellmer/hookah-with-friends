@@ -9,8 +9,16 @@ import "../util/colors.dart";
 import "../util/testdata/testdata.dart";
 import "add_friend.dart";
 
-class FriendsScreen extends StatelessWidget {
+class FriendsScreen extends StatefulWidget {
   const FriendsScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _FriendsScreenState();
+}
+
+class _FriendsScreenState extends State<FriendsScreen> {
+
+  bool showDelete = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +28,11 @@ class FriendsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              
+              setState(() {
+                showDelete = !showDelete;
+              });
             },
-            icon: const Icon(Icons.edit),
+            icon: showDelete ? const Icon(Icons.close) : const Icon(Icons.edit),
             color: HWFColors.heading,
           ),
         ],
@@ -38,7 +48,21 @@ class FriendsScreen extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     for (Friend friend in TestData.friendList) ...<FriendCard>[
-                      FriendCard(friend: friend)
+                      FriendCard(
+                        friend: friend,
+                        trailingIcon: showDelete ?
+                            IconButton(
+                              constraints: const BoxConstraints(maxHeight: 20.0, maxWidth: 20.0),
+                              padding: EdgeInsets.zero,
+                              onPressed: () {},
+                              icon:  Image.asset(
+                                  "lib/assets/cross.png",
+                                  width: 20,
+                                  height: 20
+                              ),
+                            )
+                            : null,
+                      )
                     ]
                   ],
                 )
