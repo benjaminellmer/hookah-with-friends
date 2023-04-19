@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/friend_card.dart";
+import "../components/dialogs/delete_friend.dart";
 import "../model/friend.dart";
 import "../util/colors.dart";
 import "../util/testdata/testdata.dart";
@@ -54,7 +55,14 @@ class _FriendsScreenState extends State<FriendsScreen> {
                             IconButton(
                               constraints: const BoxConstraints(maxHeight: 20.0, maxWidth: 20.0),
                               padding: EdgeInsets.zero,
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return DeleteFriendDialog(friend: friend.name, onConfirm: () {});
+                                    },
+                                );
+                              },
                               icon:  Image.asset(
                                   "lib/assets/cross.png",
                                   width: 20,
