@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await authService.resetPassword(event.email);
       } on AuthException catch (ex) {
-        print(ex.message);
+        emit(AuthUnauthenticated(errorMessage: ex.message));
       }
     });
 

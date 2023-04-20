@@ -16,7 +16,20 @@ class ForgotPasswordDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return BlocListener<AuthBloc, AuthState>(
+        listener: (BuildContext context, AuthState state) {
+      if (state is AuthUnauthenticated) {
+        if (state.errorMessage != null) {
+          final SnackBar snackBar = SnackBar(
+            content: Center(
+              child: Text(state.errorMessage!),
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      }
+    },
+    child: AlertDialog(
       title: Text(
         title,
         style: TextStyle(color: HWFColors.heading.withOpacity(1)),
@@ -61,6 +74,7 @@ class ForgotPasswordDialog extends StatelessWidget {
           ),
         ),
       ],
+    ),
     );
   }
 }
