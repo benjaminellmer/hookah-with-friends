@@ -52,7 +52,6 @@ class ForgotPasswordDialog extends StatelessWidget {
                 .read<AuthBloc>()
                 .add(AuthResetPassword(email: controller.text)),
             Navigator.pop(context, 'Send'),
-            print("Email sent!")
           },
           child: Text(
             "Send",
