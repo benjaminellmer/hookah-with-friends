@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                               return ForgotPasswordDialog(
                                   title: "Reset Password",
                                   description: "Type in your email to reset your password",
-                                  controller: passwordController);
+                                  controller: forgotPasswordController);
                             },
                           );
                         },
