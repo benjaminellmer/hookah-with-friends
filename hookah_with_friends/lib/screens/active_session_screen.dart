@@ -64,8 +64,7 @@ class ActiveSessionScreen extends StatelessWidget {
                 for (Participant participant
                     in session.participants) ...<ParticipantCard>[
                   ParticipantCard(
-                    name: participant.userName,
-                    invitationState: participant.invitationState,
+                    participant: participant,
                   ),
                 ],
                 const SizedBox(height: 16),

@@ -28,10 +28,9 @@ class SessionInviteScreen extends StatelessWidget {
             const SizedBox(height: 16),
             const SubHeading("Participants"),
             for (Participant participant
-            in session.participants) ...<ParticipantCard>[
+                in session.participants) ...<ParticipantCard>[
               ParticipantCard(
-                name: participant.userName,
-                invitationState: participant.invitationState,
+                participant: participant,
               ),
             ],
             const Spacer(),

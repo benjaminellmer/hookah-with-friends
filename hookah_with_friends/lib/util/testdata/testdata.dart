@@ -10,7 +10,6 @@ import "../../model/user.dart";
 // ignore: avoid_classes_with_only_static_members
 class TestData {
   static Session activeSession = Session(
-    host: "Benjamin",
     tobacco: Tobacco(
       name: "Black Nana",
       availability: Availability.high,
@@ -20,6 +19,8 @@ class TestData {
       ],
     ),
     participants: <Participant>[
+      Participant("Benjamin",
+          invitationState: InvitationState.accepted, isHost: true),
       Participant("YoloBenji", invitationState: InvitationState.accepted),
       Participant("KopfalNorbert"),
       Participant("RedBauerRanger", invitationState: InvitationState.declined),
@@ -29,7 +30,6 @@ class TestData {
   );
 
   static Session inviteSession1 = Session(
-    host: "KopfalNorbert",
     tobacco: Tobacco(
       name: "Black Nana",
       availability: Availability.high,
@@ -39,6 +39,8 @@ class TestData {
       ],
     ),
     participants: <Participant>[
+      Participant("KopfalNorbert",
+          invitationState: InvitationState.accepted, isHost: true),
       Participant("Hannes", invitationState: InvitationState.accepted),
       Participant("YoloBenji", invitationState: InvitationState.accepted),
       Participant("KopfalNorbert"),
@@ -50,7 +52,6 @@ class TestData {
   );
 
   static Session inviteSession2 = Session(
-    host: "Hannes",
     tobacco: Tobacco(
       name: "Black Nana",
       availability: Availability.high,
@@ -61,6 +62,8 @@ class TestData {
     ),
     participants: <Participant>[
       Participant("Simon"),
+      Participant("Hannes",
+          invitationState: InvitationState.accepted, isHost: true),
     ],
     startTime: DateTime.now().add(const Duration(hours: 3)),
     endTime: DateTime.now().add(const Duration(hours: 5)),
@@ -68,7 +71,6 @@ class TestData {
   );
 
   static Session historySession = Session(
-      host: "KopfalNorbert",
       tobacco: Tobacco(
         name: "Black Nana",
         availability: Availability.high,
@@ -78,6 +80,8 @@ class TestData {
         ],
       ),
       participants: <Participant>[
+        Participant("KopfalNorbert",
+            invitationState: InvitationState.accepted, isHost: true),
         Participant("Simon", invitationState: InvitationState.accepted),
         Participant("Jakob", invitationState: InvitationState.accepted),
         Participant("David", invitationState: InvitationState.accepted),
@@ -187,7 +191,6 @@ class TestData {
 
   static List<Session> historySessionList = [
     Session(
-        host: "KopfalNorbert",
         tobacco: Tobacco(
           name: "Black Nana",
           availability: Availability.high,
@@ -197,6 +200,8 @@ class TestData {
           ],
         ),
         participants: <Participant>[
+          Participant("KopfalNorbert",
+              invitationState: InvitationState.accepted, isHost: true),
           Participant("Simon", invitationState: InvitationState.accepted),
           Participant("Jakob", invitationState: InvitationState.accepted),
           Participant("David", invitationState: InvitationState.accepted),
@@ -210,7 +215,6 @@ class TestData {
         invitationState: InvitationState.accepted,
         tobaccoCount: 5),
     Session(
-        host: "RedBauerRanger",
         tobacco: Tobacco(
           name: "Dark City Lights",
           availability: Availability.high,
@@ -220,6 +224,8 @@ class TestData {
           ],
         ),
         participants: <Participant>[
+          Participant("RedBauerRanger",
+              invitationState: InvitationState.accepted, isHost: true),
           Participant("Simon", invitationState: InvitationState.accepted),
           Participant("Jakob", invitationState: InvitationState.accepted),
           Participant("David", invitationState: InvitationState.accepted),
@@ -231,7 +237,6 @@ class TestData {
         invitationState: InvitationState.accepted,
         tobaccoCount: 3),
     Session(
-        host: "Hannes",
         tobacco: Tobacco(
           name: "Cold Melo",
           availability: Availability.medium,
@@ -241,6 +246,8 @@ class TestData {
           ],
         ),
         participants: <Participant>[
+          Participant("Hannes",
+              invitationState: InvitationState.accepted, isHost: true),
           Participant("Simon", invitationState: InvitationState.accepted),
           Participant("Jakob", invitationState: InvitationState.accepted),
           Participant("David", invitationState: InvitationState.accepted),

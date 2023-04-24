@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
-import "../../enum/invitation_state.dart";
+import "../../model/participant.dart";
+import "../../util/colors.dart";
 import "../indicators/invitation_state_indicator.dart";
 import "../texts/primary_text.dart";
 import "primary_card.dart";
@@ -8,25 +9,30 @@ import "primary_card.dart";
 class ParticipantCard extends StatelessWidget {
   const ParticipantCard({
     super.key,
-    required this.name,
-    required this.invitationState,
+    required this.participant,
   });
 
-  final String name;
-  final InvitationState invitationState;
+  final Participant participant;
 
   @override
   Widget build(BuildContext context) {
     return PrimaryCard(
       child: Row(
         children: <Widget>[
-          PrimaryText(name),
+          PrimaryText(participant.userName),
           const Spacer(),
-          InvitationStateIndicator(
-            invitationState: invitationState,
-            width: 25,
-            height: 25,
-          )
+          if (participant.isHost)
+            Icon(
+              Icons.home,
+              color: HWFColors.heading,
+              size: 25,
+            )
+          else
+            InvitationStateIndicator(
+              invitationState: participant.invitationState,
+              width: 25,
+              height: 25,
+            )
         ],
       ),
     );

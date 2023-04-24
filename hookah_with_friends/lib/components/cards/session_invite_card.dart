@@ -32,7 +32,7 @@ class SessionInviteCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                PrimaryText("Host: ${session.host}"),
+                PrimaryText("Host: ${session.host.userName}"),
                 PrimaryText(
                     "Time: ${DateFormat.Hm().format(session.startTime)}"),
                 PrimaryText("Participants: ${session.numberOfParticipants}"),

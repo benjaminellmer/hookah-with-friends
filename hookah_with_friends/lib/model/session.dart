@@ -6,16 +6,21 @@ import "tobacco.dart";
 // NOT THE FINAL MODEL!!! We will add more fields later. and the participants will become an own model
 class Session {
   Session({
-    required this.host,
     required this.tobacco,
     required this.participants,
     required this.startTime,
     required this.endTime,
     this.invitationState = InvitationState.unknown,
     this.tobaccoCount = 0,
-  });
+  }) {
+    participants.sort((Participant a, Participant b) {
+      if (a.isHost) {
+        return 1;
+      }
+      return a.userName.compareTo(b.userName);
+    });
+  }
 
-  final String host;
   final Tobacco tobacco;
   final List<Participant> participants;
   final DateTime startTime;
@@ -23,6 +28,11 @@ class Session {
   final InvitationState invitationState;
   int tobaccoCount;
   CoalTimer? coalTimer;
+
+  Participant get host {
+    return participants
+        .firstWhere((Participant participant) => participant.isHost);
+  }
 
   double get progress {
     final DateTime now = DateTime.now();
