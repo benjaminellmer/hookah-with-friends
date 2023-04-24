@@ -6,11 +6,13 @@ import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/participant_card.dart";
 import "../components/cards/tobacco_card.dart";
+import "../components/dialogs/end_session_dialog.dart";
 import "../components/indicators/session_progress_indicator.dart";
 import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
 import "../model/participant.dart";
 import "../model/session.dart";
+import "../util/colors.dart";
 
 class ActiveSessionScreen extends StatelessWidget {
   const ActiveSessionScreen({super.key, required this.session});
@@ -22,7 +24,17 @@ class ActiveSessionScreen extends StatelessWidget {
     return BlocProvider<CoalTimerBloc>(
       create: (BuildContext context) => CoalTimerBloc(),
       child: Scaffold(
-        appBar: BackAndTitleAppBar(title: "Active Session"),
+        appBar: BackAndTitleAppBar(
+          title: "Active Session",
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                showEndSessionDialog(context);
+              },
+              icon: Icon(Icons.power_settings_new, color: HWFColors.heading),
+            )
+          ],
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -55,7 +67,8 @@ class ActiveSessionScreen extends StatelessWidget {
                     name: participant.userName,
                     invitationState: participant.invitationState,
                   ),
-                ]
+                ],
+                const SizedBox(height: 16),
               ],
             ),
           ),
