@@ -1,5 +1,6 @@
 import "package:hookah_with_friends/model/participant.dart";
 
+import "../components/indicators/flavour_indicator.dart";
 import "../enum/availability.dart";
 import "../enum/flavour.dart";
 import "../enum/invitation_state.dart";
@@ -149,4 +150,8 @@ class Tobacco {
   final Availability availability;
   final String brand;
   final List<Flavour> flavours;
+
+  List<FlavourIndicator> get flavourIndicators {
+    return flavours.map((Flavour flavour) => flavour.getIndicator()).toList();
+  }
 }

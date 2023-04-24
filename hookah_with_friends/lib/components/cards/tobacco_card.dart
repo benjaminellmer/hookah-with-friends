@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "../../model/datamodel.dart";
 import "../indicators/availability_indicator.dart";
 import "../texts/primary_text.dart";
+import "../widget/tobaccoindicator_widget.dart";
 import "primary_card.dart";
 
 class TobaccoCard extends StatelessWidget {
@@ -31,7 +32,7 @@ class TobaccoCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          // FlavourIndicatorRow(tobacco.flavourIndicators),
+          FlavourIndicatorRow(tobacco.flavourIndicators),
         ],
       ),
     );
