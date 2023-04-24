@@ -1,10 +1,9 @@
-import "package:hookah_with_friends/model/participant.dart";
-
 import "../components/indicators/flavour_indicator.dart";
 import "../enum/availability.dart";
 import "../enum/flavour.dart";
 import "../enum/invitation_state.dart";
 import "coal_timer.dart";
+import "participant.dart";
 
 class User {
   User({
@@ -29,7 +28,6 @@ class Session {
     required this.host,
     required this.currentTobacco,
     required this.startTime,
-    required this.sessionInvites,
     this.endTime,
     this.coalTimer,
     this.smokedTobaccos = const <Tobacco>[],
@@ -44,7 +42,7 @@ class Session {
   late final DateTime burnDownTime;
   final List<Tobacco> smokedTobaccos;
   final CoalTimer? coalTimer;
-  final List<SessionInvite> sessionInvites;
+  final List<SessionInvite> sessionInvites = <SessionInvite>[];
 
   List<Participant> get participants {
     final List<Participant> result = <Participant>[
@@ -102,13 +100,12 @@ class Session {
   }
 
   int get numberOfParticipants {
-    int result = 1; // host
-    for (final Participant participant in participants) {
-      if (participant.invitationState == InvitationState.accepted) {
-        result++;
-      }
-    }
-    return result;
+    return sessionInvites
+            .where((SessionInvite invite) =>
+                invite.invitationState == InvitationState.accepted)
+            .toList()
+            .length +
+        1;
   }
 }
 

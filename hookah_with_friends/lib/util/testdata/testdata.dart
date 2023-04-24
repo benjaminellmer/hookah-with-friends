@@ -89,24 +89,33 @@ class TestData {
     flavours: <Flavour>[Flavour.grape],
   );
 
-  static Session activeSession = Session(
-    startTime: DateTime.now().subtract(const Duration(minutes: 55)),
-    host: hookahUser,
-    sessionInvites: <SessionInvite>[],
-    currentTobacco: blackNana,
-  );
+  static Session get activeSession {
+    final Session session = Session(
+      startTime: DateTime.now().subtract(const Duration(minutes: 55)),
+      host: hookahUser,
+      currentTobacco: blackNana,
+    );
+
+    session.sessionInvites.add(
+      SessionInvite(
+        user: benjiNaut,
+        invitationState: InvitationState.accepted,
+        session: futureSession1,
+      ),
+    );
+
+    return session;
+  }
 
   static Session futureSession1 = Session(
     startTime: DateTime.now().add(const Duration(hours: 1)),
     host: hookahUser,
-    sessionInvites: <SessionInvite>[],
     currentTobacco: blackNana,
   );
 
   static Session futureSession2 = Session(
     startTime: DateTime.now().add(const Duration(hours: 2)),
     host: hookahUser,
-    sessionInvites: <SessionInvite>[],
     currentTobacco: blackNana,
   );
 
@@ -128,7 +137,6 @@ class TestData {
         .subtract(const Duration(days: 5))
         .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
     host: hookahUser,
-    sessionInvites: <SessionInvite>[],
     currentTobacco: blackNana,
     smokedTobaccos: <Tobacco>[blackNana, blackNana, blackNana],
   );
