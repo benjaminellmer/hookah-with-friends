@@ -1,11 +1,10 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/friend_card.dart";
 import "../components/dialogs/delete_friend.dart";
-import "../model/friend.dart";
+import "../model/datamodel.dart";
 import "../util/colors.dart";
 import "../util/testdata/testdata.dart";
 import "add_friend.dart";
@@ -18,7 +17,6 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-
   bool showDelete = false;
 
   @override
@@ -40,51 +38,50 @@ class _FriendsScreenState extends State<FriendsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column (
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const SizedBox(height: 10),
-            Expanded (
+            Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    for (Friend friend in TestData.friendList) ...<FriendCard>[
-                      FriendCard(
-                        friend: friend,
-                        trailingIcon: showDelete ?
-                            IconButton(
-                              constraints: const BoxConstraints(maxHeight: 20.0, maxWidth: 20.0),
+                  child: Column(
+                children: <Widget>[
+                  for (User friend in TestData.friendList) ...<FriendCard>[
+                    FriendCard(
+                      friend: friend,
+                      trailingIcon: showDelete
+                          ? IconButton(
+                              constraints: const BoxConstraints(
+                                  maxHeight: 20.0, maxWidth: 20.0),
                               padding: EdgeInsets.zero,
                               onPressed: () {
                                 showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return DeleteFriendDialog(friend: friend.name, onConfirm: () {});
-                                    },
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return DeleteFriendDialog(
+                                        friend: friend.userName,
+                                        onConfirm: () {});
+                                  },
                                 );
                               },
-                              icon:  Image.asset(
-                                  "lib/assets/cross.png",
-                                  width: 20,
-                                  height: 20
-                              ),
+                              icon: Image.asset("lib/assets/cross.png",
+                                  width: 20, height: 20),
                             )
-                            : null,
-                      )
-                    ]
-                  ],
-                )
-              ),
+                          : null,
+                    )
+                  ]
+                ],
+              )),
             ),
             const SizedBox(height: 16.0),
             PrimaryButton(
               text: "Add Friend",
               onPress: () {
                 Navigator.push(
-                    context,MaterialPageRoute<Widget>(
-                    builder: (BuildContext context) =>
-                    const AddFriendScreen())
-                );
+                    context,
+                    MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const AddFriendScreen()));
               },
             ),
           ],
@@ -92,5 +89,4 @@ class _FriendsScreenState extends State<FriendsScreen> {
       ),
     );
   }
-
 }

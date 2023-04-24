@@ -1,7 +1,6 @@
 import "../../enum/flavour.dart";
 import "../../enum/invitation_state.dart";
 import "../../model/datamodel.dart";
-import "../../model/friend.dart";
 
 // ignore: avoid_classes_with_only_static_members
 class TestData {
@@ -16,6 +15,41 @@ class TestData {
     firebaseId: "",
     userName: "Hannes",
     email: "hannes@gmail.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static User yoloBenji = User(
+    firebaseId: "",
+    userName: "YoloBenji",
+    email: "hannes@gmail.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static User benjiNaut = User(
+    firebaseId: "",
+    userName: "BenjiNaut",
+    email: "benjiNaut@gmail.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static User redBauerRanger = User(
+    firebaseId: "",
+    userName: "RedBauerRanger",
+    email: "redBauerRanger@gmail.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static User drunkDriver = User(
+    firebaseId: "",
+    userName: "DrunkDriver",
+    email: "drunkdriver@gmail.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static User soberDriver = User(
+    firebaseId: "",
+    userName: "SoberDriver",
+    email: "drunkdriver@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
@@ -130,17 +164,17 @@ class TestData {
     "Mixed Fruits",
   ];
 
-  static List<Friend> friendList = [
-    Friend(name: "KopfalNorbert"),
-    Friend(name: "Hannes"),
-    Friend(name: "YoloBenji"),
-    Friend(name: "Benjinaut"),
-    Friend(name: "RedBauerRanger"),
+  static List<User> inviteList = <User>[
+    drunkDriver,
+    soberDriver,
   ];
 
-  static List<Friend> inviteList = [
-    Friend(name: "DrunkDriver"),
-    Friend(name: "SoberDriver"),
+  static List<User> friendList = <User>[
+    hookahUser,
+    activeUser,
+    benjiNaut,
+    yoloBenji,
+    redBauerRanger
   ];
 
   static List<Session> historySessionList = <Session>[
