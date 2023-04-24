@@ -6,7 +6,7 @@ import "../components/pickers/element_picker.dart";
 import "../components/pickers/multi_element_picker.dart";
 import "../components/pickers/time_picker_card.dart";
 import "../components/texts/primary_text.dart";
-import "../model/tobacco.dart";
+import "../model/datamodel.dart";
 import "../util/testdata/testdata.dart";
 
 class CreateSessionScreen extends StatefulWidget {

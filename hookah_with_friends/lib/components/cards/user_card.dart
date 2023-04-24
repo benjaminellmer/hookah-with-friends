@@ -1,5 +1,3 @@
-
-
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 
@@ -47,7 +45,7 @@ class UserCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      TestData.testuser.username,
+                      TestData.activeUser.userName,
                       style: TextStyle(
                         color: HWFColors.heading,
                         fontSize: 18,
@@ -56,7 +54,7 @@ class UserCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      '"${TestData.testuser.motto}"',
+                      '"${TestData.activeUser.motto}"',
                       style: TextStyle(
                         color: HWFColors.heading,
                         fontSize: 14,

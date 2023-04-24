@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 
 import "../components/cards/profile_info_card.dart";
 import "../components/cards/user_card.dart";
-import "../util/testdata/testdata.dart";
 import "friends_screen.dart";
 import "history_screen.dart";
 import "invites_screen.dart";
@@ -17,33 +16,32 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  const UserCard(),
-                  const SizedBox(height: 10),
-                  ProfileInfoCard(
-                    info: "Friends: ${TestData.testuser.friends}",
-                    route: const FriendsScreen(),
-                  ),
-                  ProfileInfoCard(
-                    info: "Invites: ${TestData.testuser.invites}",
-                    route: const InvitesScreen(),
-                  ),
-                  ProfileInfoCard(
-                    info: "Sessions: ${TestData.testuser.sessions}",
-                    route: const HistoryScreen(),
-                  ),
-                  const ProfileInfoCard(
-                    info: "Settings",
-                    route: SettingsScreen(),
-                  ),
-                ],
-              ),
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: const <Widget>[
+                UserCard(),
+                SizedBox(height: 10),
+                ProfileInfoCard(
+                  info: "Friends: 5",
+                  route: FriendsScreen(),
+                ),
+                ProfileInfoCard(
+                  info: "Invites: 5",
+                  route: InvitesScreen(),
+                ),
+                ProfileInfoCard(
+                  info: "Sessions: 5",
+                  route: HistoryScreen(),
+                ),
+                ProfileInfoCard(
+                  info: "Settings",
+                  route: SettingsScreen(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-
     );
   }
 }

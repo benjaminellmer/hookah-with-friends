@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
-import '../../model/session.dart';
+import "../../model/datamodel.dart";
 import '../../util/formatters/duration_formatters.dart';
-import 'primary_card.dart';
-import '../texts/primary_text.dart';
 import '../indicators/session_progress_indicator.dart';
+import '../texts/primary_text.dart';
+import 'primary_card.dart';
 
 class HistorySessionCard extends StatelessWidget {
   const HistorySessionCard(this.session, {super.key});
@@ -24,8 +24,7 @@ class HistorySessionCard extends StatelessWidget {
               children: <Widget>[
                 PrimaryText(
                     "Date: ${DateFormat("dd.MM.yyyy").format(session.startTime)}"),
-                PrimaryText(
-                    "Tobaccos: ${session.tobaccoCount}"),
+                PrimaryText("Tobaccos: ${session.smokedTobaccos.length}"),
                 PrimaryText("Participants: ${session.numberOfParticipants}"),
               ],
             ),

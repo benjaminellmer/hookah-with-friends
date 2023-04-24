@@ -2,7 +2,7 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 
-import '../../model/session.dart';
+import "../../model/datamodel.dart";
 import '../../screens/active_session_screen.dart';
 import '../../util/formatters/duration_formatters.dart';
 import '../indicators/availability_indicator.dart';
@@ -57,10 +57,10 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
                   PrimaryText("Host: ${widget.session.host.userName}"),
                   Row(
                     children: <Widget>[
-                      PrimaryText(widget.session.tobacco.name),
+                      PrimaryText(widget.session.currentTobacco.name),
                       const SizedBox(width: 8),
                       AvailabilityIndicator(
-                          widget.session.tobacco.availability),
+                          widget.session.currentTobacco.availability),
                     ],
                   ),
                   PrimaryText(
@@ -83,7 +83,7 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
                       ),
                       const SizedBox(height: 10),
                       PrimaryText(
-                          DurationFormatters.hms(widget.session.timeLeft)),
+                          DurationFormatters.hms(widget.session.activeTime)),
                     ],
                   ),
                 ),

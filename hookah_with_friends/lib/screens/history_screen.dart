@@ -1,9 +1,8 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/cards/history_session_card.dart";
-import "../model/session.dart";
+import "../model/datamodel.dart";
 import "../util/testdata/testdata.dart";
 
 class HistoryScreen extends StatelessWidget {
@@ -19,7 +18,8 @@ class HistoryScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 10),
-              for (Session session in TestData.historySessionList) ...<HistorySessionCard>[
+              for (Session session
+                  in TestData.historySessionList) ...<HistorySessionCard>[
                 HistorySessionCard(session),
               ]
             ],
@@ -28,5 +28,4 @@ class HistoryScreen extends StatelessWidget {
       ),
     );
   }
-
 }

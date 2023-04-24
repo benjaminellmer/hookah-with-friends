@@ -1,150 +1,111 @@
-import "../../components/indicators/flavour_indicator.dart";
-import "../../enum/availability.dart";
+import "../../enum/flavour.dart";
 import "../../enum/invitation_state.dart";
+import "../../model/datamodel.dart";
 import "../../model/friend.dart";
-import "../../model/participant.dart";
-import "../../model/session.dart";
-import "../../model/tobacco.dart";
-import "../../model/user.dart";
 
 // ignore: avoid_classes_with_only_static_members
 class TestData {
+  static User hookahUser = User(
+    firebaseId: "",
+    userName: "HookahUser",
+    email: "hookahuser@trustshisha.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static User activeUser = User(
+    firebaseId: "",
+    userName: "Hannes",
+    email: "hannes@gmail.com",
+    motto: "A Hookah a day keeps the cancer away!",
+  );
+
+  static Tobacco blackNana = Tobacco(
+    name: "Black Nana",
+    brand: "Nameless",
+    flavours: <Flavour>[Flavour.mint, Flavour.grape],
+  );
+
+  static Tobacco blackChai = Tobacco(
+    name: "Black Chai",
+    brand: "Nameless",
+    flavours: <Flavour>[Flavour.grape],
+  );
+
+  static Tobacco greenLights = Tobacco(
+    name: "Green Lights",
+    brand: "187",
+    flavours: <Flavour>[Flavour.grape],
+  );
+
+  static Tobacco juicyPuzzy = Tobacco(
+    name: "Juicy Puzzy",
+    brand: "187",
+    flavours: <Flavour>[Flavour.grape],
+  );
+
+  static Tobacco holyTropical = Tobacco(
+    name: "Holy Tropical",
+    brand: "187",
+    flavours: <Flavour>[Flavour.grape],
+  );
+
+  static Tobacco redLights = Tobacco(
+    name: "Red Lights",
+    brand: "187",
+    flavours: <Flavour>[Flavour.grape],
+  );
+
   static Session activeSession = Session(
-    tobacco: Tobacco(
-      name: "Black Nana",
-      availability: Availability.high,
-      brand: "Nameless",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    participants: <Participant>[
-      Participant("Benjamin",
-          invitationState: InvitationState.accepted, isHost: true),
-      Participant("YoloBenji", invitationState: InvitationState.accepted),
-      Participant("KopfalNorbert"),
-      Participant("RedBauerRanger", invitationState: InvitationState.declined),
-    ],
     startTime: DateTime.now().subtract(const Duration(minutes: 55)),
-    endTime: DateTime.now().add(const Duration(minutes: 10)),
+    host: hookahUser,
+    sessionInvites: <SessionInvite>[],
+    currentTobacco: blackNana,
   );
 
-  static Session inviteSession1 = Session(
-    tobacco: Tobacco(
-      name: "Black Nana",
-      availability: Availability.high,
-      brand: "Nameless",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    participants: <Participant>[
-      Participant("KopfalNorbert",
-          invitationState: InvitationState.accepted, isHost: true),
-      Participant("Hannes", invitationState: InvitationState.accepted),
-      Participant("YoloBenji", invitationState: InvitationState.accepted),
-      Participant("KopfalNorbert"),
-      Participant("TraubenDaniel", invitationState: InvitationState.declined),
-    ],
+  static Session futureSession1 = Session(
     startTime: DateTime.now().add(const Duration(hours: 1)),
-    endTime: DateTime.now().add(const Duration(hours: 3)),
+    host: hookahUser,
+    sessionInvites: <SessionInvite>[],
+    currentTobacco: blackNana,
+  );
+
+  static Session futureSession2 = Session(
+    startTime: DateTime.now().add(const Duration(hours: 2)),
+    host: hookahUser,
+    sessionInvites: <SessionInvite>[],
+    currentTobacco: blackNana,
+  );
+
+  static SessionInvite sessionInvite1 = SessionInvite(
+    user: activeUser,
     invitationState: InvitationState.accepted,
+    session: futureSession1,
   );
 
-  static Session inviteSession2 = Session(
-    tobacco: Tobacco(
-      name: "Black Nana",
-      availability: Availability.high,
-      brand: "Nameless",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    participants: <Participant>[
-      Participant("Simon"),
-      Participant("Hannes",
-          invitationState: InvitationState.accepted, isHost: true),
-    ],
-    startTime: DateTime.now().add(const Duration(hours: 3)),
-    endTime: DateTime.now().add(const Duration(hours: 5)),
+  static SessionInvite sessionInvite2 = SessionInvite(
+    user: activeUser,
     invitationState: InvitationState.declined,
+    session: futureSession2,
   );
 
-  static Session historySession = Session(
-      tobacco: Tobacco(
-        name: "Black Nana",
-        availability: Availability.high,
-        brand: "Nameless",
-        flavourIndicators: <FlavourIndicator>[
-          const FlavourIndicator.grape(),
-        ],
-      ),
-      participants: <Participant>[
-        Participant("KopfalNorbert",
-            invitationState: InvitationState.accepted, isHost: true),
-        Participant("Simon", invitationState: InvitationState.accepted),
-        Participant("Jakob", invitationState: InvitationState.accepted),
-        Participant("David", invitationState: InvitationState.accepted),
-        Participant("Jakob", invitationState: InvitationState.accepted),
-        Participant("David", invitationState: InvitationState.accepted),
-      ],
-      startTime: DateTime.now().subtract(const Duration(days: 5)),
-      endTime: DateTime.now()
-          .subtract(const Duration(days: 5))
-          .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
-      invitationState: InvitationState.accepted,
-      tobaccoCount: 5);
+  static Session historySession1 = Session(
+    startTime: DateTime.now().subtract(const Duration(days: 5)),
+    endTime: DateTime.now()
+        .subtract(const Duration(days: 5))
+        .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
+    host: hookahUser,
+    sessionInvites: <SessionInvite>[],
+    currentTobacco: blackNana,
+    smokedTobaccos: <Tobacco>[blackNana, blackNana, blackNana],
+  );
 
   static List<Tobacco> tobaccos = <Tobacco>[
-    Tobacco(
-      name: "Black Nana",
-      brand: "Nameless",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    Tobacco(
-      name: "K!W!CK",
-      brand: "Nameless",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    Tobacco(
-      name: "Black Chai",
-      brand: "Nameless",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    Tobacco(
-      name: "Green Lights",
-      brand: "187",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    Tobacco(
-      name: "Juicy Puzzy",
-      brand: "187",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    Tobacco(
-      name: "Holy Tropical",
-      brand: "187",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
-    Tobacco(
-      name: "Red Light",
-      brand: "187",
-      flavourIndicators: <FlavourIndicator>[
-        const FlavourIndicator.grape(),
-      ],
-    ),
+    blackNana,
+    blackChai,
+    greenLights,
+    juicyPuzzy,
+    holyTropical,
+    redLights,
   ];
 
   static List<String> friends = <String>[
@@ -169,13 +130,6 @@ class TestData {
     "Mixed Fruits",
   ];
 
-  static User testuser = User(
-      username: "HookahUser",
-      motto: "A hookah a day keeps the cancer away",
-      friends: "17",
-      invites: "2",
-      sessions: "37");
-
   static List<Friend> friendList = [
     Friend(name: "KopfalNorbert"),
     Friend(name: "Hannes"),
@@ -189,97 +143,7 @@ class TestData {
     Friend(name: "SoberDriver"),
   ];
 
-  static List<Session> historySessionList = [
-    Session(
-        tobacco: Tobacco(
-          name: "Black Nana",
-          availability: Availability.high,
-          brand: "Nameless",
-          flavourIndicators: <FlavourIndicator>[
-            const FlavourIndicator.grape(),
-          ],
-        ),
-        participants: <Participant>[
-          Participant("KopfalNorbert",
-              invitationState: InvitationState.accepted, isHost: true),
-          Participant("Simon", invitationState: InvitationState.accepted),
-          Participant("Jakob", invitationState: InvitationState.accepted),
-          Participant("David", invitationState: InvitationState.accepted),
-          Participant("Jakob", invitationState: InvitationState.accepted),
-          Participant("David", invitationState: InvitationState.accepted),
-        ],
-        startTime: DateTime.now().subtract(const Duration(days: 5)),
-        endTime: DateTime.now()
-            .subtract(const Duration(days: 5))
-            .add(const Duration(hours: 5, minutes: 26, seconds: 47)),
-        invitationState: InvitationState.accepted,
-        tobaccoCount: 5),
-    Session(
-        tobacco: Tobacco(
-          name: "Dark City Lights",
-          availability: Availability.high,
-          brand: "Nameless",
-          flavourIndicators: <FlavourIndicator>[
-            const FlavourIndicator.grape(),
-          ],
-        ),
-        participants: <Participant>[
-          Participant("RedBauerRanger",
-              invitationState: InvitationState.accepted, isHost: true),
-          Participant("Simon", invitationState: InvitationState.accepted),
-          Participant("Jakob", invitationState: InvitationState.accepted),
-          Participant("David", invitationState: InvitationState.accepted),
-        ],
-        startTime: DateTime.now().subtract(const Duration(days: 5)),
-        endTime: DateTime.now()
-            .subtract(const Duration(days: 5))
-            .add(const Duration(hours: 3, minutes: 17, seconds: 35)),
-        invitationState: InvitationState.accepted,
-        tobaccoCount: 3),
-    Session(
-        tobacco: Tobacco(
-          name: "Cold Melo",
-          availability: Availability.medium,
-          brand: "7 Days",
-          flavourIndicators: <FlavourIndicator>[
-            const FlavourIndicator.grape(),
-          ],
-        ),
-        participants: <Participant>[
-          Participant("Hannes",
-              invitationState: InvitationState.accepted, isHost: true),
-          Participant("Simon", invitationState: InvitationState.accepted),
-          Participant("Jakob", invitationState: InvitationState.accepted),
-          Participant("David", invitationState: InvitationState.accepted),
-          Participant("Jakob", invitationState: InvitationState.accepted),
-          Participant("David", invitationState: InvitationState.accepted),
-          Participant("Hannes", invitationState: InvitationState.accepted),
-          Participant("Gichtlsepp", invitationState: InvitationState.accepted),
-        ],
-        startTime: DateTime.now().subtract(const Duration(days: 6)),
-        endTime: DateTime.now()
-            .subtract(const Duration(days: 6))
-            .add(const Duration(hours: 7, minutes: 45, seconds: 12)),
-        invitationState: InvitationState.accepted,
-        tobaccoCount: 9),
+  static List<Session> historySessionList = <Session>[
+    historySession1,
   ];
-  static Tobacco tobacco1 = Tobacco(
-    name: "BlackNana",
-    availability: Availability.high,
-    brand: "Nameless",
-    flavourIndicators: [
-      const FlavourIndicator.mint(),
-      const FlavourIndicator.mint(),
-      const FlavourIndicator.grape(),
-    ],
-  );
-  static Tobacco tobacco2 = Tobacco(
-    name: "Adam&Eve",
-    availability: Availability.medium,
-    brand: "Nameless",
-    flavourIndicators: [
-      const FlavourIndicator.grape(),
-      const FlavourIndicator.grape(),
-    ],
-  );
 }

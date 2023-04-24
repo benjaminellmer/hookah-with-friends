@@ -22,9 +22,9 @@ class TobaccosScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    TobaccoCard(tobacco: TestData.tobacco1),
+                    TobaccoCard(tobacco: TestData.blackNana),
                     const SizedBox(height: 8),
-                    TobaccoCard(tobacco: TestData.tobacco2),
+                    TobaccoCard(tobacco: TestData.blackChai),
                   ],
                 ),
               ),
@@ -35,10 +35,10 @@ class TobaccosScreen extends StatelessWidget {
               text: "Add Tobacco",
               onPress: () {
                 Navigator.push(
-                  context,MaterialPageRoute<Widget>(
-                    builder: (BuildContext context) =>
-                    const CreateTobaccoScreen())
-                );
+                    context,
+                    MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const CreateTobaccoScreen()));
               },
             ),
           ],
