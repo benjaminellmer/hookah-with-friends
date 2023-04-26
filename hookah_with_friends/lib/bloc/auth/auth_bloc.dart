@@ -27,7 +27,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-        await authService.login(event.email, event.password);
+        await authService.googleSignIn();
+        // await authService.login(event.email, event.password);
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(errorMessage: ex.message));
       }
