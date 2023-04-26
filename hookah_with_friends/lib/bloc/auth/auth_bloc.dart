@@ -31,6 +31,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         // await authService.login(event.email, event.password);
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(errorMessage: ex.message));
+      } on Error {
+        emit(AuthUnauthenticated(errorMessage: "Unknown Error occured"));
       }
     });
 
