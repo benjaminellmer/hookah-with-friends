@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/auth/auth_bloc.dart";
+import "../components/buttons/google_button.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
 import "../components/dialogs/forgot_password_dialog.dart";
@@ -60,15 +61,15 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     UsernameInput(
-                        labelText: "Username",
-                        hintText: "KopfalNorberts",
+                        labelText: "E-mail",
+                        hintText: "KopfalNorberts@hooker.com",
                         icon: Icons.person,
                         controller: usernameController),
                     const SizedBox(height: 16),
                     Form(
                       key: _formKey,
                       child: PasswordInput(
-                          labelText: "Passwords",
+                          labelText: "Password",
                           hintText: "Password",
                           icon: Icons.lock_open,
                           controller: passwordController),
@@ -108,6 +109,9 @@ class LoginScreen extends StatelessWidget {
                             );
                       },
                     ),
+                    GoogleButton(onPress: () {
+                      print("Login with google");
+                    }),
                     const DividerText("or"),
                     SecondaryButton(
                       text: "Sign up",
