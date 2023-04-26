@@ -76,7 +76,7 @@ class SignupScreen extends StatelessWidget {
                     Form(
                       key: _formKey,
                       child: PasswordInput(
-                          labelText: "Passwords",
+                          labelText: "Password",
                           hintText: "Password",
                           icon: Icons.lock_open,
                           controller: passwordController),
