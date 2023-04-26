@@ -30,6 +30,7 @@ class AuthService {
   }
 
   void _handleAuthError(FirebaseAuthException ex) {
+    throw AuthException(ex.message ?? ex.code);
     if (ex.code == "invalid-email") {
       throw AuthException("No user with this email exists!");
     } else if (ex.code == "wrong-password") {
