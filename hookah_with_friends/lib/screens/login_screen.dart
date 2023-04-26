@@ -59,15 +59,15 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     UsernameInput(
-                        labelText: "Username",
-                        hintText: "KopfalNorberts",
+                        labelText: "E-mail",
+                        hintText: "KopfalNorberts@hooker.com",
                         icon: Icons.person,
                         controller: usernameController),
                     const SizedBox(height: 16),
                     Form(
                       key: _formKey,
                       child: PasswordInput(
-                          labelText: "Passwords",
+                          labelText: "Password",
                           hintText: "Password",
                           icon: Icons.lock_open,
                           controller: passwordController),
