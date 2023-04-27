@@ -31,10 +31,10 @@ class LoginScreen extends StatelessWidget {
           Navigator.of(context).pop();
         }
         if (state is AuthUnauthenticated) {
-          if (state.errorMessage != null) {
+          if (state.statusMessage != null) {
             final SnackBar snackBar = SnackBar(
               content: Center(
-                child: Text(state.errorMessage!),
+                child: Text(state.statusMessage!),
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -84,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                               return ForgotPasswordDialog(
                                   title: "Reset Password",
                                   description: "Type in your email to reset your password",
-                                  controller: passwordController);
+                                  controller: forgotPasswordController);
                             },
                           );
                         },

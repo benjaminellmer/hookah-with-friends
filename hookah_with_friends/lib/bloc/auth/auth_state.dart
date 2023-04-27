@@ -4,9 +4,9 @@ part of "auth_bloc.dart";
 abstract class AuthState {}
 
 class AuthUnauthenticated extends AuthState {
-  AuthUnauthenticated({this.errorMessage});
+  AuthUnauthenticated({this.statusMessage});
 
-  final String? errorMessage;
+  final String? statusMessage;
 }
 
 class AuthLoading extends AuthState {}
