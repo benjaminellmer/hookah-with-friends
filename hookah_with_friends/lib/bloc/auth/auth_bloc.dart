@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await authService.login(event.email, event.password);
       } on AuthException catch (ex) {
-        emit(AuthUnauthenticated(errorMessage: ex.message));
+        emit(AuthUnauthenticated(statusMessage: ex.message));
       }
     });
 
@@ -39,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await authService.signUp(event.email, event.password);
       } on AuthException catch (ex) {
-        emit(AuthUnauthenticated(errorMessage: ex.message));
+        emit(AuthUnauthenticated(statusMessage: ex.message));
       }
     });
 
@@ -48,10 +48,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AuthResetPassword>((AuthResetPassword event, Emitter<AuthState> emit) async {
+      emit(AuthLoading());
       try {
         await authService.resetPassword(event.email);
+        emit(AuthUnauthenticated(statusMessage: "Password Reset Email successfully sent!"));
       } on AuthException catch (ex) {
-        emit(AuthUnauthenticated(errorMessage: ex.message));
+        emit(AuthUnauthenticated(statusMessage: ex.message));
       }
     });
 

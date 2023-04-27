@@ -19,10 +19,10 @@ class ForgotPasswordDialog extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
         listener: (BuildContext context, AuthState state) {
       if (state is AuthUnauthenticated) {
-        if (state.errorMessage != null) {
+        if (state.statusMessage != null) {
           final SnackBar snackBar = SnackBar(
             content: Center(
-              child: Text(state.errorMessage!),
+              child: Text(state.statusMessage!),
             ),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
