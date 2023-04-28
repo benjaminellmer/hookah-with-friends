@@ -26,6 +26,14 @@ class Session {
   final CoalTimer? coalTimer;
   final List<SessionInvite> sessionInvites = <SessionInvite>[];
 
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "host": host.userName,
+        "currentTobacco": currentTobacco.name,
+        "startTime": startTime.toIso8601String(),
+        "endTime": endTime?.toIso8601String(),
+        "burnDownTime": burnDownTime,
+      };
+
   List<Participant> get participants {
     final List<Participant> result = <Participant>[
       Participant(
