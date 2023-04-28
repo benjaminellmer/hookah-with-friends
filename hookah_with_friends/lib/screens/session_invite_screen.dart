@@ -7,8 +7,8 @@ import "../components/cards/tobacco_card.dart";
 import "../components/indicators/invitation_state_indicator.dart";
 import "../components/texts/subheading.dart";
 import "../enum/invitation_state.dart";
-import "../model/datamodel.dart";
 import "../model/participant.dart";
+import "../model/session.dart";
 
 class SessionInviteScreen extends StatelessWidget {
   const SessionInviteScreen({super.key, required this.session});

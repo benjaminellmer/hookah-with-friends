@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
-import "../../model/datamodel.dart";
+import "../../model/session_invite.dart";
 import "../../screens/session_invite_screen.dart";
 import "../indicators/invitation_state_indicator.dart";
 import "../texts/primary_text.dart";

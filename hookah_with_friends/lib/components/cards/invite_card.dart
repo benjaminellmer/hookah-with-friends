@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../../model/datamodel.dart";
+import "../../model/user.dart";
 import "../texts/primary_text.dart";
 import "primary_card.dart";
 

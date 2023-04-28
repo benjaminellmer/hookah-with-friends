@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/cards/invite_card.dart";
-import "../model/datamodel.dart";
+import "../model/user.dart";
 import "../util/testdata/testdata.dart";
 
 class InvitesScreen extends StatelessWidget {

@@ -10,8 +10,8 @@ import "../components/dialogs/end_session_dialog.dart";
 import "../components/indicators/session_progress_indicator.dart";
 import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
-import "../model/datamodel.dart";
 import "../model/participant.dart";
+import "../model/session.dart";
 import "../util/colors.dart";
 
 class ActiveSessionScreen extends StatelessWidget {

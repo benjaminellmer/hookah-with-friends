@@ -1,6 +1,9 @@
 import "../../enum/flavour.dart";
 import "../../enum/invitation_state.dart";
-import "../../model/datamodel.dart";
+import "../../model/session.dart";
+import "../../model/session_invite.dart";
+import "../../model/tobacco.dart";
+import "../../model/user.dart";
 
 // ignore: avoid_classes_with_only_static_members
 class TestData {

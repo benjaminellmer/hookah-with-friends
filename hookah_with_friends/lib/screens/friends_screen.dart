@@ -4,7 +4,7 @@ import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/friend_card.dart";
 import "../components/dialogs/delete_friend.dart";
-import "../model/datamodel.dart";
+import "../model/user.dart";
 import "../util/colors.dart";
 import "../util/testdata/testdata.dart";
 import "add_friend.dart";

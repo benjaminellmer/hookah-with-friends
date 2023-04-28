@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../../model/datamodel.dart";
+import "../../model/tobacco.dart";
 import "../indicators/availability_indicator.dart";
 import "../texts/primary_text.dart";
 import "../widget/tobaccoindicator_widget.dart";

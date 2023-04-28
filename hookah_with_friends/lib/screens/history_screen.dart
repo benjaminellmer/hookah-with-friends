@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/cards/history_session_card.dart";
-import "../model/datamodel.dart";
+import "../model/session.dart";
 import "../util/testdata/testdata.dart";
 
 class HistoryScreen extends StatelessWidget {
