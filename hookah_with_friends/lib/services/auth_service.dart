@@ -31,22 +31,13 @@ class AuthService {
 
   Future<void> resetPassword(String email) async {
     try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: email);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (ex) {
       _handleAuthError(ex);
     }
   }
 
   void _handleAuthError(FirebaseAuthException ex) {
-    if (ex.code == "invalid-email") {
-      throw AuthException("This is no valid email!");
-    } else if (ex.code == "user-not-found") {
-      throw AuthException("No user with this email exists!");
-    } else if (ex.code == "wrong-password") {
-      throw AuthException("Wrong password for user!");
-    } else {
-      throw AuthException("Unknown error occurred!");
-    }
+    throw AuthException(ex.message ?? ex.code);
   }
 }
