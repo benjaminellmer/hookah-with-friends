@@ -36,6 +36,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+    on<AuthGoogleLogin>((AuthGoogleLogin event, Emitter<AuthState> emit) {
+      emit(AuthLoading());
+
+      try {} on AuthException catch (ex) {
+        emit(AuthUnauthenticated(statusMessage: ex.message));
+      }
+    });
+
     on<AuthSignUp>((AuthSignUp event, Emitter<AuthState> emit) async {
       emit(AuthLoading());
 
@@ -50,11 +58,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authService.logout();
     });
 
-    on<AuthResetPassword>((AuthResetPassword event, Emitter<AuthState> emit) async {
+    on<AuthResetPassword>(
+        (AuthResetPassword event, Emitter<AuthState> emit) async {
       emit(AuthLoading());
       try {
         await authService.resetPassword(event.email);
-        emit(AuthUnauthenticated(statusMessage: "Password Reset Email successfully sent!"));
+        emit(AuthUnauthenticated(
+            statusMessage: "Password Reset Email successfully sent!"));
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
       }

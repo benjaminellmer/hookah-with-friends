@@ -26,11 +26,12 @@ class AuthLoggedIn extends AuthEvent {
 }
 
 class AuthResetPassword extends AuthEvent {
-  AuthResetPassword(
-      {required this.email});
+  AuthResetPassword({required this.email});
 
   final String email;
 }
+
+class AuthGoogleLogin extends AuthEvent {}
 
 class AuthLoggedOut extends AuthEvent {}
 

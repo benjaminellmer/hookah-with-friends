@@ -19,7 +19,8 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController forgotPasswordController = TextEditingController();
+  final TextEditingController forgotPasswordController =
+      TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -83,7 +84,8 @@ class LoginScreen extends StatelessWidget {
                             builder: (BuildContext context) {
                               return ForgotPasswordDialog(
                                   title: "Reset Password",
-                                  description: "Type in your email to reset your password",
+                                  description:
+                                      "Type in your email to reset your password",
                                   controller: forgotPasswordController);
                             },
                           );
@@ -110,7 +112,7 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     GoogleButton(onPress: () {
-                      print("Login with google");
+                      context.read<AuthBloc>().add(AuthGoogleLogin());
                     }),
                     const DividerText("or"),
                     SecondaryButton(
