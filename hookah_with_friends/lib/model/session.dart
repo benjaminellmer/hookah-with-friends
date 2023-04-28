@@ -27,9 +27,10 @@ class Session {
   final List<SessionInvite> sessionInvites = <SessionInvite>[];
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        "host": host.userName,
-        "currentTobacco": currentTobacco.name,
+        "host": host.toJson(),
+        "currentTobacco": currentTobacco.toJson(),
         "startTime": startTime.toIso8601String(),
+        "coalTimer": coalTimer?.toJson(),
         "endTime": endTime?.toIso8601String(),
         "burnDownTime": burnDownTime,
       };

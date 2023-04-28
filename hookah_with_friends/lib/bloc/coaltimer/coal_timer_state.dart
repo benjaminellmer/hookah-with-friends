@@ -9,21 +9,24 @@ class CoalTimerActive extends CoalTimerState {
   final CoalTimer coalTimer;
 
   String get timeLeftString {
-    return DurationFormatters.hms(coalTimer.end.difference(DateTime.now()));
+    return DurationFormatters.hms(
+        coalTimer.endDateTime.difference(DateTime.now()));
   }
 
   double get progress {
     final DateTime now = DateTime.now();
-    if (now.isBefore(coalTimer.start)) {
+    if (now.isBefore(coalTimer.startDateTime)) {
       return 1;
     }
-    if (now.isAfter(coalTimer.end)) {
+    if (now.isAfter(coalTimer.endDateTime)) {
       return 0;
     } else {
-      final Duration duration = coalTimer.end.difference(coalTimer.start);
-      final Duration elapsed = now.difference(coalTimer.start);
+      final Duration duration =
+          coalTimer.endDateTime.difference(coalTimer.startDateTime);
+      final Duration elapsed = now.difference(coalTimer.startDateTime);
       return 1 - elapsed.inMilliseconds / duration.inMilliseconds;
     }
   }
 }
+
 class CoalTimerInActive extends CoalTimerState {}

@@ -12,4 +12,10 @@ class SessionInvite {
   final User user;
   final Session session;
   final InvitationState invitationState;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "user": user.toJson(),
+        "session": session.toJson(),
+        "invitationState": invitationState.name,
+      };
 }

@@ -9,7 +9,6 @@ import "../../model/coal_timer.dart";
 import "../../util/formatters/duration_formatters.dart";
 
 part "coal_timer_event.dart";
-
 part "coal_timer_state.dart";
 
 class CoalTimerBloc extends Bloc<CoalTimerEvent, CoalTimerState> {
@@ -20,8 +19,8 @@ class CoalTimerBloc extends Bloc<CoalTimerEvent, CoalTimerState> {
     on<CoalTimerStarted>(
         (CoalTimerStarted event, Emitter<CoalTimerState> emit) {
       currentCoalTimer = CoalTimer(
-        start: DateTime.now(),
-        end: DateTime.now().add(event.duration),
+        startDateTime: DateTime.now(),
+        endDateTime: DateTime.now().add(event.duration),
       );
 
       emit(CoalTimerActive(currentCoalTimer!));

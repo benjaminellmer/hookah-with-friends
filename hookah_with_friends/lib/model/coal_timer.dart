@@ -1,9 +1,14 @@
 class CoalTimer {
   CoalTimer({
-    required this.start,
-    required this.end,
+    required this.startDateTime,
+    required this.endDateTime,
   });
 
-  final DateTime start;
-  final DateTime end;
+  final DateTime startDateTime;
+  final DateTime endDateTime;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "start": startDateTime.toIso8601String(),
+        "end": startDateTime.toIso8601String(),
+      };
 }

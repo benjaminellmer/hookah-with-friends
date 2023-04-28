@@ -1,8 +1,11 @@
 import "../components/indicators/flavour_indicator.dart";
 
-enum Flavour { mint, grape }
+enum Flavour {
+  mint,
+  grape;
 
-extension FlavourExtensions on Flavour {
+  String toJson() => name;
+
   FlavourIndicator getIndicator() {
     switch (this) {
       case Flavour.mint:

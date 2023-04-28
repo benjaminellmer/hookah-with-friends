@@ -8,49 +8,49 @@ import "../../model/user.dart";
 // ignore: avoid_classes_with_only_static_members
 class TestData {
   static User hookahUser = User(
-    firebaseId: "",
+    uid: "",
     userName: "HookahUser",
     email: "hookahuser@trustshisha.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
   static User activeUser = User(
-    firebaseId: "",
+    uid: "",
     userName: "Hannes",
     email: "hannes@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
   static User yoloBenji = User(
-    firebaseId: "",
+    uid: "",
     userName: "YoloBenji",
     email: "hannes@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
   static User benjiNaut = User(
-    firebaseId: "",
+    uid: "",
     userName: "BenjiNaut",
     email: "benjiNaut@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
   static User redBauerRanger = User(
-    firebaseId: "",
+    uid: "",
     userName: "RedBauerRanger",
     email: "redBauerRanger@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
   static User drunkDriver = User(
-    firebaseId: "",
+    uid: "",
     userName: "DrunkDriver",
     email: "drunkdriver@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",
   );
 
   static User soberDriver = User(
-    firebaseId: "",
+    uid: "",
     userName: "SoberDriver",
     email: "drunkdriver@gmail.com",
     motto: "A Hookah a day keeps the cancer away!",

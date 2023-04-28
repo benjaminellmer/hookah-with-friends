@@ -1,7 +1,7 @@
 // ignore_for_file: sort_constructors_first
 
 import "package:cloud_firestore/cloud_firestore.dart";
-import "package:flutter/material.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../../model/session.dart";
@@ -35,7 +35,10 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
       emit(CreateSessionSuccess());
     } on FirebaseException catch (ex) {
       emit(CreateSessionError(errorMessage: ex.message ?? ex.code));
-    } on Error {
+    } on Error catch (err) {
+      if (kDebugMode) {
+        print(err.stackTrace);
+      }
       emit(CreateSessionError(errorMessage: "Unknown error occurred"));
     }
   }
