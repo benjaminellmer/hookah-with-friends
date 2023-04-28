@@ -27,20 +27,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-        await authService.googleSignIn();
-        // await authService.login(event.email, event.password);
+        await authService.login(event.email, event.password);
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
       } on Error {
-        emit(AuthUnauthenticated(statusMessage: "Unknown Error occured"));
+        emit(AuthUnauthenticated(statusMessage: "Unknown Error occurred"));
       }
     });
 
-    on<AuthGoogleLogin>((AuthGoogleLogin event, Emitter<AuthState> emit) {
+    on<AuthGoogleLogin>((AuthGoogleLogin event, Emitter<AuthState> emit) async {
       emit(AuthLoading());
 
-      try {} on AuthException catch (ex) {
+      try {
+        await authService.googleSignIn();
+      } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
+      } on Error {
+        emit(AuthUnauthenticated(statusMessage: "Unknown Error occurred"));
       }
     });
 
