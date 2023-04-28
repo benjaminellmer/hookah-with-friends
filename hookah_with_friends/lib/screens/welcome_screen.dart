@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:hookah_with_friends/screens/signup_screen.dart";
+import "../components/buttons/google_button.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/buttons/secondary_button.dart";
 import "../components/texts/welcome_text.dart";
@@ -40,6 +41,9 @@ class WelcomeScreen extends StatelessWidget {
                       );
                     },
                   ),
+                  GoogleButton(onPress: () {
+                    print("Login with google");
+                  }),
                   PrimaryButton(
                     text: "Sign up",
                     onPress: () {

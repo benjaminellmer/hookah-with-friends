@@ -28,10 +28,10 @@ class SignupScreen extends StatelessWidget {
           Navigator.popUntil(context, (Route route) => route.isFirst);
         }
         if (state is AuthUnauthenticated) {
-          if (state.errorMessage != null) {
+          if (state.statusMessage != null) {
             final SnackBar snackBar = SnackBar(
               content: Center(
-                child: Text(state.errorMessage!),
+                child: Text(state.statusMessage!),
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -72,7 +72,7 @@ class SignupScreen extends StatelessWidget {
                     Form(
                       key: _formKey,
                       child: PasswordInput(
-                          labelText: "Passwords",
+                          labelText: "Password",
                           hintText: "Password",
                           icon: Icons.lock_open,
                           controller: passwordController),

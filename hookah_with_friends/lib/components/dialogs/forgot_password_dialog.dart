@@ -1,6 +1,8 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../../bloc/auth/auth_bloc.dart";
 import "../../util/colors.dart";
 import "../textinputs/username_input.dart";
 
@@ -14,7 +16,20 @@ class ForgotPasswordDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return BlocListener<AuthBloc, AuthState>(
+        listener: (BuildContext context, AuthState state) {
+      if (state is AuthUnauthenticated) {
+        if (state.statusMessage != null) {
+          final SnackBar snackBar = SnackBar(
+            content: Center(
+              child: Text(state.statusMessage!),
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      }
+    },
+    child: AlertDialog(
       title: Text(
         title,
         style: TextStyle(color: HWFColors.heading.withOpacity(1)),
@@ -45,7 +60,12 @@ class ForgotPasswordDialog extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Send'),
+          onPressed: () => {
+            context
+                .read<AuthBloc>()
+                .add(AuthResetPassword(email: controller.text)),
+            Navigator.pop(context, 'Send'),
+          },
           child: Text(
             "Send",
             style: TextStyle(
@@ -54,6 +74,7 @@ class ForgotPasswordDialog extends StatelessWidget {
           ),
         ),
       ],
+    ),
     );
   }
 }

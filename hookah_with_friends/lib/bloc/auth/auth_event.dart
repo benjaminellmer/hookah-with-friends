@@ -25,6 +25,13 @@ class AuthLoggedIn extends AuthEvent {
   final User user;
 }
 
+class AuthResetPassword extends AuthEvent {
+  AuthResetPassword(
+      {required this.email});
+
+  final String email;
+}
+
 class AuthLoggedOut extends AuthEvent {}
 
 class AuthLogout extends AuthEvent {}

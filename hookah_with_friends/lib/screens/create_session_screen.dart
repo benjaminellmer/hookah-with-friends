@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
+import "../components/cards/date_picker_card.dart";
 import "../components/pickers/element_picker.dart";
 import "../components/pickers/multi_element_picker.dart";
 import "../components/pickers/time_picker_card.dart";
@@ -27,6 +28,15 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
+            DatePickerCard(
+                initialDateTime: selectedDateTime,
+                dateTimeChanged: (DateTime dateTime) {
+                  setState(() {
+                    selectedDateTime = dateTime;
+                  });
+                },
+            ),
+            const SizedBox(height: 8.0),
             TimePickerCard(
               initialDateTime: selectedDateTime,
               dateTimeChanged: (DateTime dateTime) {

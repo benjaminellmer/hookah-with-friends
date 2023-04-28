@@ -30,9 +30,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await authService.googleSignIn();
         // await authService.login(event.email, event.password);
       } on AuthException catch (ex) {
-        emit(AuthUnauthenticated(errorMessage: ex.message));
+        emit(AuthUnauthenticated(statusMessage: ex.message));
       } on Error {
-        emit(AuthUnauthenticated(errorMessage: "Unknown Error occured"));
+        emit(AuthUnauthenticated(statusMessage: "Unknown Error occured"));
       }
     });
 
@@ -42,12 +42,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await authService.signUp(event.email, event.password);
       } on AuthException catch (ex) {
-        emit(AuthUnauthenticated(errorMessage: ex.message));
+        emit(AuthUnauthenticated(statusMessage: ex.message));
       }
     });
 
     on<AuthLogout>((AuthEvent event, Emitter<AuthState> emit) async {
       await authService.logout();
+    });
+
+    on<AuthResetPassword>((AuthResetPassword event, Emitter<AuthState> emit) async {
+      emit(AuthLoading());
+      try {
+        await authService.resetPassword(event.email);
+        emit(AuthUnauthenticated(statusMessage: "Password Reset Email successfully sent!"));
+      } on AuthException catch (ex) {
+        emit(AuthUnauthenticated(statusMessage: ex.message));
+      }
     });
 
     on<AuthLoggedIn>((AuthLoggedIn event, Emitter<AuthState> emit) {
