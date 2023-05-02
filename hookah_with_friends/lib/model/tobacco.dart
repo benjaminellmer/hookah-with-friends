@@ -25,6 +25,8 @@ class Tobacco {
       };
 
   List<FlavourIndicator> get flavourIndicators {
-    return flavours.map((Flavour flavour) => flavour.getIndicator()).toList();
+    return flavours
+        .map((Flavour flavour) => FlavourIndicator(flavour: flavour))
+        .toList();
   }
 }

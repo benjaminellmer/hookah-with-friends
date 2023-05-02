@@ -7,30 +7,10 @@ class FlavourIndicator extends StatelessWidget {
   const FlavourIndicator({
     super.key,
     required this.flavour,
-    required this.width,
-    required this.height,
+    this.width = 35,
+    this.height = 35,
     this.insets = EdgeInsets.zero,
   });
-
-  const FlavourIndicator.mint({
-    Key? key,
-    EdgeInsetsGeometry? insets,
-  }) : this(
-            flavour: Flavour.mint,
-            width: 40,
-            height: 40,
-            insets: insets ?? EdgeInsets.zero,
-            key: key);
-
-  const FlavourIndicator.grape({
-    Key? key,
-    EdgeInsetsGeometry? insets,
-  }) : this(
-      flavour: Flavour.grape,
-      width: 35,
-      height: 35,
-      insets: insets ?? EdgeInsets.zero,
-      key: key);
 
   final Flavour flavour;
   final double width;
@@ -43,6 +23,30 @@ class FlavourIndicator extends StatelessWidget {
         return "lib/assets/mint_white.png";
       case Flavour.grape:
         return "lib/assets/grape_white.png";
+      case Flavour.apple:
+        return "lib/assets/apple_white.png";
+      case Flavour.blueberry:
+        return "lib/assets/blueberries_white.png";
+      case Flavour.bonbon:
+        return "lib/assets/bonbon_white.png";
+      case Flavour.dragonBlood:
+        return "lib/assets/dragonblood.png";
+      case Flavour.dragonFruit:
+        return "lib/assets/dragonfruit_white.png";
+      case Flavour.fruitMix:
+        return "lib/assets/fruitmix.png";
+      case Flavour.melon:
+        return "lib/assets/melon_white.png";
+      case Flavour.passionFruit:
+        return "lib/assets/passionfruit_white.png";
+      case Flavour.pineapple:
+        return "lib/assets/pineapple_white.png";
+      case Flavour.raspberry:
+        return "lib/assets/raspberry_white.png";
+      case Flavour.menthol:
+        return "lib/assets/snowflake_white.png";
+      case Flavour.strawberry:
+        return "lib/assets/strawberry_white.png";
     }
   }
 

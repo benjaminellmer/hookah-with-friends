@@ -1,17 +1,51 @@
-import "../components/indicators/flavour_indicator.dart";
-
 enum Flavour {
+  apple,
+  blueberry,
+  bonbon,
+  dragonBlood,
+  dragonFruit,
+  fruitMix,
+  grape,
+  melon,
   mint,
-  grape;
+  passionFruit,
+  pineapple,
+  raspberry,
+  menthol,
+  strawberry;
 
   String toJson() => name;
 
-  FlavourIndicator getIndicator() {
+  String get text {
     switch (this) {
-      case Flavour.mint:
-        return const FlavourIndicator.mint();
+      case Flavour.apple:
+        return "Apple";
+      case Flavour.blueberry:
+        return "Blueberry";
+      case Flavour.bonbon:
+        return "BonBon";
+      case Flavour.dragonBlood:
+        return "Dragon Blood";
+      case Flavour.dragonFruit:
+        return "Dragon Fruit";
+      case Flavour.fruitMix:
+        return "Fruit Mix";
       case Flavour.grape:
-        return const FlavourIndicator.grape();
+        return "Grape";
+      case Flavour.melon:
+        return "Melon";
+      case Flavour.mint:
+        return "Mint";
+      case Flavour.passionFruit:
+        return "Passion Fruit";
+      case Flavour.pineapple:
+        return "Pineapple";
+      case Flavour.raspberry:
+        return "Raspberry";
+      case Flavour.menthol:
+        return "Menthol (ice)";
+      case Flavour.strawberry:
+        return "Strawberry";
     }
   }
 }
