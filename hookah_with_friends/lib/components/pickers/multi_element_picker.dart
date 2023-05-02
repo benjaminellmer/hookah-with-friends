@@ -57,6 +57,7 @@ class MultiElementPicker<T> extends StatelessWidget {
     required this.label,
     this.allowSelectAll = true,
     this.previewStyle = const CountOfMultiElementPickerPreviewStyle(),
+    this.controller,
   }) : items = elements.map(itemBuilder).toList();
 
   final String label;
@@ -65,11 +66,13 @@ class MultiElementPicker<T> extends StatelessWidget {
   final List<MultiElementPickerItem> items;
   final bool allowSelectAll;
   final MultiElementPickerPreviewStyle previewStyle;
+  final MultiElementPickerController<T>? controller;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MultiElementPickerCubit>(
-      create: (BuildContext context) => MultiElementPickerCubit(),
+    return BlocProvider<MultiElementPickerCubit<T>>(
+      create: (BuildContext context) => MultiElementPickerCubit<T>(
+          elements: elements, controller: controller),
       child: Builder(builder: (BuildContext contextWithBloc) {
         return SmallCard(
           onTap: () {
@@ -77,9 +80,9 @@ class MultiElementPicker<T> extends StatelessWidget {
                 backgroundColor: HWFColors.cardBackground.withOpacity(1),
                 context: contextWithBloc,
                 builder: (BuildContext context) {
-                  return BlocProvider<MultiElementPickerCubit>.value(
-                    value: contextWithBloc.read<MultiElementPickerCubit>(),
-                    child: MultiElementPickerMenu(
+                  return BlocProvider<MultiElementPickerCubit<T>>.value(
+                    value: contextWithBloc.read<MultiElementPickerCubit<T>>(),
+                    child: MultiElementPickerMenu<T>(
                       elements: items,
                       allowSelectAll: allowSelectAll,
                     ),
@@ -95,7 +98,7 @@ class MultiElementPicker<T> extends StatelessWidget {
                 Builder(builder: (BuildContext contextWithBloc) {
                   return Row(
                     children: <Widget>[
-                      BlocBuilder<MultiElementPickerCubit,
+                      BlocBuilder<MultiElementPickerCubit<T>,
                           MultiElementPickerSelected>(
                         builder: (BuildContext context,
                             MultiElementPickerSelected state) {
@@ -120,7 +123,7 @@ class MultiElementPicker<T> extends StatelessWidget {
   }
 }
 
-class MultiElementPickerMenu extends StatelessWidget {
+class MultiElementPickerMenu<T> extends StatelessWidget {
   const MultiElementPickerMenu(
       {super.key, required this.elements, required this.allowSelectAll});
 
@@ -129,7 +132,7 @@ class MultiElementPickerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MultiElementPickerCubit, MultiElementPickerSelected>(
+    return BlocBuilder<MultiElementPickerCubit<T>, MultiElementPickerSelected>(
       builder: (BuildContext context, MultiElementPickerSelected state) {
         return ListView.builder(
           itemCount: allowSelectAll ? elements.length + 1 : elements.length,
@@ -142,7 +145,7 @@ class MultiElementPickerMenu extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         context
-                            .read<MultiElementPickerCubit>()
+                            .read<MultiElementPickerCubit<T>>()
                             .selectAll(elements.length);
                       },
                       title: PrimaryText("Select All"),
@@ -152,7 +155,9 @@ class MultiElementPickerMenu extends StatelessWidget {
                   ] else if (allowSelectAll) ...<Widget>[
                     ListTile(
                       onTap: () {
-                        context.read<MultiElementPickerCubit>().unSelectAll();
+                        context
+                            .read<MultiElementPickerCubit<T>>()
+                            .unSelectAll();
                       },
                       title: PrimaryText("Deselect All"),
                       trailing: PrimaryText(
@@ -178,7 +183,7 @@ class MultiElementPickerMenu extends StatelessWidget {
                     value: state.selectedIndexes.contains(currentIndex),
                     onChanged: (bool? value) {
                       context
-                          .read<MultiElementPickerCubit>()
+                          .read<MultiElementPickerCubit<T>>()
                           .toggleValue(currentIndex, value!);
                     },
                   ),
@@ -197,4 +202,8 @@ class MultiElementPickerItem {
 
   final Widget title;
   bool selected = false;
+}
+
+class MultiElementPickerController<T> {
+  List<T> currentSelection = <T>[];
 }

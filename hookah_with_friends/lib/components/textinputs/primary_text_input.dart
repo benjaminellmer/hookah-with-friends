@@ -6,9 +6,10 @@ import "../cards/small_card.dart";
 import "../texts/primary_text.dart";
 
 class PrimaryTextInput extends StatelessWidget {
-  const PrimaryTextInput({super.key, required this.label});
+  const PrimaryTextInput({super.key, required this.label, this.controller});
 
   final String label;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class PrimaryTextInput extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                 ),
+                controller: controller,
                 cursorColor: HWFColors.text,
                 textAlign: TextAlign.end,
                 decoration: const InputDecoration(
@@ -43,31 +45,3 @@ class PrimaryTextInput extends StatelessWidget {
     );
   }
 }
-
-// child: Row(
-// children: <Widget>[
-// PrimaryText(label),
-// const Spacer(),
-// Padding(
-// padding: const EdgeInsets.all(8.0),
-// child: Builder(builder: (BuildContext contextWithBloc) {
-// return Row(
-// children: <Widget>[
-// BlocBuilder<ElementPickerCubit, ElementPickerSelected>(
-// builder: (BuildContext context,
-// ElementPickerSelected state) {
-// return items[state.selectedIndex].title;
-// },
-// ),
-// const SizedBox(width: 8),
-// Icon(
-// Icons.expand_more_outlined,
-// color: HWFColors.text,
-// ),
-// ],
-// );
-// }),
-// )
-// ],
-// ),
-// );
