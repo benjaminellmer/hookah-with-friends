@@ -49,3 +49,20 @@ enum Flavour {
     }
   }
 }
+
+List<Flavour> flavours = <Flavour>[
+  Flavour.apple,
+  Flavour.blueberry,
+  Flavour.bonbon,
+  Flavour.dragonBlood,
+  Flavour.dragonFruit,
+  Flavour.fruitMix,
+  Flavour.grape,
+  Flavour.melon,
+  Flavour.mint,
+  Flavour.passionFruit,
+  Flavour.pineapple,
+  Flavour.raspberry,
+  Flavour.menthol,
+  Flavour.strawberry,
+];

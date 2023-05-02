@@ -7,7 +7,6 @@ import "../components/pickers/multi_element_picker.dart";
 import "../components/textinputs/primary_text_input.dart";
 import "../components/texts/primary_text.dart";
 import "../enum/flavour.dart";
-import "../util/testdata/testdata.dart";
 
 class CreateTobaccoScreen extends StatelessWidget {
   const CreateTobaccoScreen({super.key});
@@ -26,7 +25,7 @@ class CreateTobaccoScreen extends StatelessWidget {
             const SizedBox(height: 8),
             MultiElementPicker<Flavour>(
               label: "Flavour: ",
-              elements: TestData.flavours,
+              elements: flavours,
               allowSelectAll: false,
               itemBuilder: (Flavour flavour) {
                 return MultiElementPickerItem(
