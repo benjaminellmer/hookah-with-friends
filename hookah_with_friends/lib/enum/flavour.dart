@@ -1,3 +1,5 @@
+import "dart:convert";
+
 enum Flavour {
   apple,
   blueberry,
@@ -13,6 +15,17 @@ enum Flavour {
   raspberry,
   menthol,
   strawberry;
+
+  factory Flavour.fromJson(String json) {
+    return values.byName(json);
+  }
+
+  static List<Flavour> decodeList(String json) {
+    final List<dynamic> jsonList = jsonDecode(json) as List<dynamic>;
+    return jsonList
+        .map((dynamic flavour) => Flavour.fromJson(flavour as String))
+        .toList();
+  }
 
   String toJson() => name;
 

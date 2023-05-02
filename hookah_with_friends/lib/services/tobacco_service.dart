@@ -20,4 +20,21 @@ class TobaccoService {
       throw DataStoreException("The user is not logged in!");
     }
   }
+
+  Future<List<Tobacco>> getTobaccosForUser() async {
+    final List<Tobacco> tobaccos = <Tobacco>[];
+
+    final String? currentUid = userService.getCurrentUid();
+    final QuerySnapshot<Map<String, dynamic>> allTobaccos =
+        await db.collection("tobaccos").get();
+
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
+        in allTobaccos.docs) {
+      if (doc.get("uid") == currentUid) {
+        tobaccos.add(Tobacco.fromJson(doc.data()));
+      }
+    }
+
+    return tobaccos;
+  }
 }

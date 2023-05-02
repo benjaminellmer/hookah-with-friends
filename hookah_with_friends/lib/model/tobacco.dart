@@ -12,6 +12,15 @@ class Tobacco {
     required this.flavours,
   });
 
+  factory Tobacco.fromJson(Map<String, dynamic> json) {
+    return Tobacco(
+      name: json["name"] as String,
+      availability: Availability.fromJson(json["availability"] as String),
+      brand: json["brand"] as String,
+      flavours: Flavour.decodeList(json["flavours"] as String),
+    );
+  }
+
   final String name;
   final Availability availability;
   final String brand;
