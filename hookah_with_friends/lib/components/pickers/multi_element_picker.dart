@@ -47,7 +47,9 @@ class TitlesMultiElementPickerPreviewStyle
   }
 }
 
+
 typedef MultiElementPickerItemBuilder<T> = MultiElementPickerItem Function(T);
+typedef MultiElementPickerItemSearcher<T> = String Function(T);
 
 class MultiElementPicker<T> extends StatelessWidget {
   MultiElementPicker({
@@ -55,7 +57,9 @@ class MultiElementPicker<T> extends StatelessWidget {
     required this.elements,
     required this.itemBuilder,
     required this.label,
+    this.itemSearcher,
     this.allowSelectAll = true,
+    this.allowSearch = true,
     this.previewStyle = const CountOfMultiElementPickerPreviewStyle(),
     this.controller,
   }) : items = elements.map(itemBuilder).toList();
@@ -63,8 +67,10 @@ class MultiElementPicker<T> extends StatelessWidget {
   final String label;
   final List<T> elements;
   final MultiElementPickerItemBuilder<T> itemBuilder;
+  final MultiElementPickerItemSearcher<T>? itemSearcher;
   final List<MultiElementPickerItem> items;
   final bool allowSelectAll;
+  final bool allowSearch;
   final MultiElementPickerPreviewStyle previewStyle;
   final MultiElementPickerController<T>? controller;
 
@@ -85,6 +91,7 @@ class MultiElementPicker<T> extends StatelessWidget {
                     child: MultiElementPickerMenu<T>(
                       elements: items,
                       allowSelectAll: allowSelectAll,
+                      allowSearch: allowSearch,
                     ),
                   );
                 });
@@ -125,73 +132,88 @@ class MultiElementPicker<T> extends StatelessWidget {
 
 class MultiElementPickerMenu<T> extends StatelessWidget {
   const MultiElementPickerMenu(
-      {super.key, required this.elements, required this.allowSelectAll});
+      {super.key, required this.elements, required this.allowSelectAll, required this.allowSearch});
 
   final List<MultiElementPickerItem> elements;
   final bool allowSelectAll;
+  final bool allowSearch;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MultiElementPickerCubit<T>, MultiElementPickerSelected>(
       builder: (BuildContext context, MultiElementPickerSelected state) {
-        return ListView.builder(
-          itemCount: allowSelectAll ? elements.length + 1 : elements.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0 && allowSelectAll) {
-              return Column(
-                children: <Widget>[
-                  if (state.selectedIndexes.length !=
-                      elements.length) ...<Widget>[
-                    ListTile(
-                      onTap: () {
-                        context
-                            .read<MultiElementPickerCubit<T>>()
-                            .selectAll(elements.length);
-                      },
-                      title: PrimaryText("Select All"),
-                      trailing: PrimaryText(
-                          "${state.selectedIndexes.length}/${elements.length}"),
-                    ),
-                  ] else ...<Widget>[
-                    ListTile(
-                      onTap: () {
-                        context
-                            .read<MultiElementPickerCubit<T>>()
-                            .unSelectAll();
-                      },
-                      title: PrimaryText("Deselect All"),
-                      trailing: PrimaryText(
-                          "${state.selectedIndexes.length}/${elements.length}"),
-                    ),
-                  ]
-                ],
-              );
-            } else {
-              final int currentIndex = allowSelectAll ? index - 1 : index;
-              return Column(children: <Widget>[
-                Divider(
-                  height: 1,
-                  color: HWFColors.divider,
-                ),
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    unselectedWidgetColor: HWFColors.button,
-                  ),
-                  child: CheckboxListTile(
-                    activeColor: HWFColors.button,
-                    title: elements[currentIndex].title,
-                    value: state.selectedIndexes.contains(currentIndex),
-                    onChanged: (bool? value) {
-                      context
-                          .read<MultiElementPickerCubit<T>>()
-                          .toggleValue(currentIndex, value!);
-                    },
-                  ),
-                ),
-              ]);
-            }
-          },
-        );
+           return SingleChildScrollView(
+             child: Column(
+               children: <Widget>[
+                 ListView.builder(
+                   shrinkWrap: true,
+                   primary: false,
+                   itemCount: allowSelectAll ? (allowSearch ? 2 : 1) : (allowSearch ? 1 : 0),
+                   itemBuilder: (BuildContext context, int index) {
+                     if(allowSelectAll) {
+                       return Column(
+                         children: <Widget>[
+                           if (state.selectedIndexes.length !=
+                               elements.length) ...<Widget>[
+                             ListTile(
+                               onTap: () {
+                                 context
+                                     .read<MultiElementPickerCubit<T>>()
+                                     .selectAll(elements.length);
+                               },
+                               title: PrimaryText("Select All"),
+                               trailing: PrimaryText(
+                                   "${state.selectedIndexes.length}/${elements.length}"),
+                             ),
+                           ] else ...<Widget>[
+                             ListTile(
+                               onTap: () {
+                                 context
+                                     .read<MultiElementPickerCubit<T>>()
+                                     .unSelectAll();
+                               },
+                               title: PrimaryText("Deselect All"),
+                               trailing: PrimaryText(
+                                   "${state.selectedIndexes.length}/${elements.length}"),
+                             ),
+                           ],
+                         ],
+                       );
+                     }
+                   },
+                 ),
+                 ListView.builder(
+                   shrinkWrap: true,
+                   primary: false,
+                   itemCount: elements.length,
+                   itemBuilder: (BuildContext context, int index) {
+                     final int currentIndex = index;
+                     return Column(children: <Widget>[
+                       Divider(
+                         height: 1,
+                         color: HWFColors.divider,
+                       ),
+                       Theme(
+                         data: Theme.of(context).copyWith(
+                           unselectedWidgetColor: HWFColors.button,
+                         ),
+                         child: CheckboxListTile(
+                           activeColor: HWFColors.button,
+                           title: elements[currentIndex].title,
+                           value: state.selectedIndexes.contains(currentIndex),
+                           onChanged: (bool? value) {
+                             context
+                                 .read<MultiElementPickerCubit<T>>()
+                                 .toggleValue(currentIndex, value!);
+                           },
+                         ),
+                       ),
+                     ]);
+                   },
+                 ),
+               ],
+             ),
+           );
       },
     );
   }

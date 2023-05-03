@@ -54,6 +54,7 @@ class CreateTobaccoScreen extends StatelessWidget {
                     label: "Flavour: ",
                     elements: flavours,
                     allowSelectAll: false,
+                    allowSearch: true,
                     controller: flavoursController,
                     itemBuilder: (Flavour flavour) {
                       return MultiElementPickerItem(
@@ -69,6 +70,9 @@ class CreateTobaccoScreen extends StatelessWidget {
                           ],
                         ),
                       );
+                    },
+                    itemSearcher: (Flavour flavour) {
+                      return flavour.name;
                     },
                     previewStyle: const TitlesMultiElementPickerPreviewStyle(),
                   ),
