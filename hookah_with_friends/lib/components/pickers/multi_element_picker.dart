@@ -137,11 +137,11 @@ class MultiElementPickerMenu<T> extends StatelessWidget {
         return ListView.builder(
           itemCount: allowSelectAll ? elements.length + 1 : elements.length,
           itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
+            if (index == 0 && allowSelectAll) {
               return Column(
                 children: <Widget>[
-                  if (state.selectedIndexes.length != elements.length &&
-                      allowSelectAll) ...<Widget>[
+                  if (state.selectedIndexes.length !=
+                      elements.length) ...<Widget>[
                     ListTile(
                       onTap: () {
                         context
@@ -152,7 +152,7 @@ class MultiElementPickerMenu<T> extends StatelessWidget {
                       trailing: PrimaryText(
                           "${state.selectedIndexes.length}/${elements.length}"),
                     ),
-                  ] else if (allowSelectAll) ...<Widget>[
+                  ] else ...<Widget>[
                     ListTile(
                       onTap: () {
                         context
