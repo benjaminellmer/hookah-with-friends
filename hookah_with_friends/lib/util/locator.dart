@@ -9,8 +9,8 @@ final GetIt getIt = GetIt.instance;
 
 void setupLocator() {
   getIt
-    ..registerSingleton(AuthService())
     ..registerLazySingleton<UserService>(UserService.new)
+    ..registerLazySingleton(AuthService.new)
     ..registerLazySingleton<TobaccoService>(TobaccoService.new)
     ..registerLazySingleton<SessionService>(SessionService.new);
 }

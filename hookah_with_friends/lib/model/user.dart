@@ -3,13 +3,22 @@ class User {
     required this.userName,
     required this.uid,
     required this.email,
-    required this.motto,
+    this.motto,
   });
 
   final String uid;
   final String userName;
   final String email;
-  final String motto;
+  final String? motto;
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      uid: json["uid"] as String,
+      userName: json["userName"] as String,
+      email: json["email"] as String,
+      motto: json["motto"] as String?,
+    );
+  }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         "uid": uid,
