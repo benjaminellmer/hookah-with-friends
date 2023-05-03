@@ -25,14 +25,14 @@ class TobaccoService {
     final List<Tobacco> tobaccos = <Tobacco>[];
 
     final String? currentUid = userService.getCurrentUid();
-    final QuerySnapshot<Map<String, dynamic>> allTobaccos =
-        await db.collection("tobaccos").get();
+    final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
+        .collection("tobaccos")
+        .where("uid", isEqualTo: currentUid)
+        .get();
 
     for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
         in allTobaccos.docs) {
-      if (doc.get("uid") == currentUid) {
-        tobaccos.add(Tobacco.fromJson(doc.data()));
-      }
+      tobaccos.add(Tobacco.fromJson(doc.data()));
     }
 
     return tobaccos;
