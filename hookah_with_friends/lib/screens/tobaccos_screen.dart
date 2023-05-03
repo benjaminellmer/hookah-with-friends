@@ -4,6 +4,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../bloc/tobacco/tobaccos_cubit.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/tobacco_card.dart";
+import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
 import "../model/tobacco.dart";
 import "create_tobacco_screen.dart";
@@ -30,6 +31,12 @@ class TobaccosScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       const SubHeading("Tobaccos"),
+                      if (state.tobaccos.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: PrimaryText(
+                              "You currently have not tobaccos stored"),
+                        ),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
@@ -44,16 +51,23 @@ class TobaccosScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16.0),
                       // add some space between the last TobaccoCard and the button
-                      PrimaryButton(
-                        text: "Add Tobacco",
-                        onPress: () {
-                          Navigator.push(
+                      Builder(builder: (BuildContext contextWithBloc) {
+                        return PrimaryButton(
+                          text: "Add Tobacco",
+                          onPress: () {
+                            Navigator.push(
                               context,
                               MaterialPageRoute<Widget>(
-                                  builder: (BuildContext context) =>
-                                      CreateTobaccoScreen()));
-                        },
-                      ),
+                                builder: (BuildContext contextWithoutBloc) =>
+                                    BlocProvider<TobaccosCubit>.value(
+                                  value: contextWithBloc.read<TobaccosCubit>(),
+                                  child: CreateTobaccoScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }),
                     ],
                   );
                 } else {

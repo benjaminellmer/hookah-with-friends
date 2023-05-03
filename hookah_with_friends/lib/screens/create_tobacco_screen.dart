@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/tobacco/create_tobacco_cubit.dart";
+import "../bloc/tobacco/tobaccos_cubit.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/indicators/flavour_indicator.dart";
@@ -35,6 +36,7 @@ class CreateTobaccoScreen extends StatelessWidget {
                 );
               }
               if (state is CreateTobaccoSuccess) {
+                context.read<TobaccosCubit>().loadTobaccos();
                 Navigator.pop(context);
               }
             },
