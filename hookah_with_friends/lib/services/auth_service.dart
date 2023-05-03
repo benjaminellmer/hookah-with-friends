@@ -31,10 +31,7 @@ class AuthService {
   }
 
   Future<void> googleSignIn() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId:
-          "472408446626-gojo53ng50ln6upa18ruh6fbiscm0699.apps.googleusercontent.com",
-    );
+    final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     final GoogleSignInAuthentication? googleAuth =
