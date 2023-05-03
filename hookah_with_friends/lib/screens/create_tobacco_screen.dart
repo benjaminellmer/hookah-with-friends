@@ -40,6 +40,7 @@ class CreateTobaccoScreen extends StatelessWidget {
                 Navigator.pop(context);
               }
             },
+            child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -84,6 +85,7 @@ class CreateTobaccoScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
           );
         }),
       ),
