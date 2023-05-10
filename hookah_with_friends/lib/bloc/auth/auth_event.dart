@@ -20,10 +20,9 @@ class AuthSignUp extends AuthEvent {
 }
 
 class AuthLoggedIn extends AuthEvent {
-  AuthLoggedIn(this.user, {this.userName});
+  AuthLoggedIn(this.user);
 
   final User user;
-  final String? userName;
 }
 
 class AuthResetPassword extends AuthEvent {

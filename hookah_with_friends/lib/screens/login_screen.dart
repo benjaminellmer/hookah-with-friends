@@ -11,7 +11,6 @@ import "../components/textinputs/password_input.dart";
 import "../components/textinputs/username_input.dart";
 import "../components/texts/divider_text.dart";
 import "../components/texts/heading_text_XL.dart";
-import "../listeners/auth_bloc_listener.dart";
 import "../util/colors.dart";
 import "signup_screen.dart";
 
@@ -27,7 +26,22 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthBlocListener(
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (BuildContext context, AuthState state) {
+        if (state is AuthAuthenticated) {
+          Navigator.of(context).pop();
+        }
+        if (state is AuthUnauthenticated) {
+          if (state.statusMessage != null) {
+            final SnackBar snackBar = SnackBar(
+              content: Center(
+                child: Text(state.statusMessage!),
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
+      },
       child: Scaffold(
         body: SingleChildScrollView(
           child: Stack(
