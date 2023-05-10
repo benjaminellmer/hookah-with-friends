@@ -5,7 +5,9 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../../exceptions/auth_exception.dart";
+import "../../model/user.dart" as model;
 import "../../services/auth_service.dart";
+import "../../services/user_service.dart";
 import "../../util/locator.dart";
 
 part "auth_event.dart";
@@ -13,6 +15,7 @@ part "auth_state.dart";
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService authService = getIt.get<AuthService>();
+  final UserService userService = getIt.get<UserService>();
 
   AuthBloc() : super(AuthUnauthenticated()) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
@@ -73,8 +76,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<AuthLoggedIn>((AuthLoggedIn event, Emitter<AuthState> emit) {
-      emit(AuthAuthenticated());
+    on<AuthLoggedIn>((AuthLoggedIn event, Emitter<AuthState> emit) async {
+      final model.User? user = await userService.getUser(uid: event.user.uid);
+
+      if (user == null) {
+        if (event.userName == null) {
+          emit(AuthRequireUsername());
+        } else {
+          await userService.createUser(
+              uid: event.user.uid,
+              userName: event.userName!,
+              email: event.user.email!);
+
+          emit(AuthAuthenticated());
+        }
+      } else {
+        emit(AuthAuthenticated());
+      }
     });
 
     on<AuthLoggedOut>((AuthLoggedOut event, Emitter<AuthState> emit) {

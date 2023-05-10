@@ -11,4 +11,6 @@ class AuthUnauthenticated extends AuthState {
 
 class AuthLoading extends AuthState {}
 
+class AuthRequireUsername extends AuthState {}
+
 class AuthAuthenticated extends AuthState {}
