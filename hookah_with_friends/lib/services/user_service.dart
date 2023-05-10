@@ -65,6 +65,20 @@ class UserService {
     }
   }
 
+  Future<String?> getUidForUserName({required String userName}) async {
+    final QuerySnapshot<Map<String, dynamic>> user = await FirebaseFirestore
+        .instance
+        .collection("users")
+        .where("userName", isEqualTo: userName)
+        .get();
+
+    if (user.docs.isEmpty) {
+      return null;
+    }
+
+    return model.User.fromJson(user.docs.first.data()).uid;
+  }
+
   String generateRandomUserName(String email) {
     final String emailPrefix = email.split("@")[0];
     final String randomNum = Random().nextInt((9000) + 1000).toString();

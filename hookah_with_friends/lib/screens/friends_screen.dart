@@ -80,8 +80,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) =>
-                            const AddFriendScreen()));
+                        builder: (BuildContext context) => AddFriendScreen()));
               },
             ),
           ],

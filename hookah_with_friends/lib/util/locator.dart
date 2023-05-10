@@ -1,6 +1,7 @@
 import "package:get_it/get_it.dart";
 
 import "../services/auth_service.dart";
+import "../services/friend_service.dart";
 import "../services/session_service.dart";
 import "../services/tobacco_service.dart";
 import "../services/user_service.dart";
@@ -12,5 +13,6 @@ void setupLocator() {
     ..registerLazySingleton<UserService>(UserService.new)
     ..registerLazySingleton(AuthService.new)
     ..registerLazySingleton<TobaccoService>(TobaccoService.new)
-    ..registerLazySingleton<SessionService>(SessionService.new);
+    ..registerLazySingleton<SessionService>(SessionService.new)
+    ..registerLazySingleton<FriendService>(FriendService.new);
 }
