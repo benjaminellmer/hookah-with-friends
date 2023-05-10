@@ -7,7 +7,13 @@ import "../exceptions/datastore_exception.dart";
 import "../model/user.dart" as model;
 
 class UserService {
-  String? getCurrentUid() {
+  model.User? _currentUser;
+
+  String? get userName {
+    return _currentUser?.userName;
+  }
+
+  String? get uid {
     return FirebaseAuth.instance.currentUser?.uid;
   }
 
@@ -46,14 +52,14 @@ class UserService {
     if (currentUser != null && currentUser.email != null) {
       final String email = FirebaseAuth.instance.currentUser!.email!;
 
-      model.User? user = await getUser(uid: currentUser.uid);
-      user ??= await createUser(
+      _currentUser = await getUser(uid: currentUser.uid);
+      _currentUser ??= await createUser(
         uid: currentUser.uid,
         userName: userName ?? generateRandomUserName(email),
         email: email,
       );
 
-      return user;
+      return _currentUser!;
     } else {
       throw DataStoreException("The user is not logged in!");
     }

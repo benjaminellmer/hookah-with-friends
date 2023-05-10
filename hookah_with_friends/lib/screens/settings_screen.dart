@@ -1,6 +1,4 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-
 
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/cards/profile_info_card.dart";
@@ -14,21 +12,20 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BackAndTitleAppBar(title: "Settings"),
-        body: Padding(
-        padding: const EdgeInsets.all(20),
-    child: Column(
-        children: const <Widget>[
-          ProfileInfoCard(
-            info: "Change Username",
-            route: ChangeUsernameScreen(),
-          ),
-          ProfileInfoCard(
-            info: "Change Password",
-            route: ChangePasswordScreen(),
-          ),
-        ],
-    )
-        ),
+      body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: const <Widget>[
+              ProfileInfoCard(
+                info: "Change Username",
+                route: ChangeUsernameScreen(),
+              ),
+              ProfileInfoCard(
+                info: "Reset Password",
+                route: ChangePasswordScreen(),
+              ),
+            ],
+          )),
     );
   }
 }

@@ -11,7 +11,7 @@ class TobaccoService {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   Future<DocumentReference<dynamic>?> createTobacco(Tobacco tobacco) async {
-    final String? currentUid = userService.getCurrentUid();
+    final String? currentUid = userService.uid;
     if (currentUid != null) {
       return db
           .collection("tobaccos")
@@ -24,7 +24,7 @@ class TobaccoService {
   Future<List<Tobacco>> getTobaccosForUser() async {
     final List<Tobacco> tobaccos = <Tobacco>[];
 
-    final String? currentUid = userService.getCurrentUid();
+    final String? currentUid = userService.uid;
     final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
         .collection("tobaccos")
         .where("uid", isEqualTo: currentUid)

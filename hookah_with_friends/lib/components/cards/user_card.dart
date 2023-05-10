@@ -1,7 +1,9 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 
+import "../../services/user_service.dart";
 import "../../util/colors.dart";
+import "../../util/locator.dart";
 import "../../util/testdata/testdata.dart";
 
 class UserCard extends StatelessWidget {
@@ -45,7 +47,7 @@ class UserCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      TestData.activeUser.userName,
+                      getIt.get<UserService>().userName ?? "Unknown",
                       style: TextStyle(
                         color: HWFColors.heading,
                         fontSize: 18,
