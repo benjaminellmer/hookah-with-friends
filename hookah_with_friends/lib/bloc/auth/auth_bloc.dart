@@ -6,6 +6,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../../exceptions/auth_exception.dart";
 import "../../services/auth_service.dart";
+import "../../services/user_service.dart";
 import "../../util/locator.dart";
 
 part "auth_event.dart";
@@ -13,6 +14,7 @@ part "auth_state.dart";
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService authService = getIt.get<AuthService>();
+  final UserService userService = getIt.get<UserService>();
 
   AuthBloc() : super(AuthUnauthenticated()) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
@@ -28,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       try {
         await authService.login(event.email, event.password);
+        await userService.setOrCreateCurrentUser();
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
       } on Error {
@@ -40,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       try {
         await authService.googleSignIn();
+        await userService.setOrCreateCurrentUser();
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
       } on Error {
@@ -49,9 +53,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<AuthSignUp>((AuthSignUp event, Emitter<AuthState> emit) async {
       emit(AuthLoading());
+      final String userName = event.username;
 
       try {
         await authService.signUp(event.email, event.password);
+        await userService.setOrCreateCurrentUser(userName: userName);
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
       }

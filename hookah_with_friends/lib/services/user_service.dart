@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 
@@ -37,16 +39,17 @@ class UserService {
   }
 
   Future<model.User> setOrCreateCurrentUser({
-    required String email,
     String? userName,
   }) async {
-    final String? currentUid = getCurrentUid();
+    final User? currentUser = FirebaseAuth.instance.currentUser;
 
-    if (currentUid != null) {
-      model.User? user = await getUser(uid: currentUid);
+    if (currentUser != null && currentUser.email != null) {
+      final String email = FirebaseAuth.instance.currentUser!.email!;
+
+      model.User? user = await getUser(uid: currentUser.uid);
       user ??= await createUser(
-        uid: currentUid,
-        userName: userName ?? userNameByEmail(email),
+        uid: currentUser.uid,
+        userName: userName ?? generateRandomUserName(email),
         email: email,
       );
 
@@ -56,7 +59,9 @@ class UserService {
     }
   }
 
-  String userNameByEmail(String email) {
-    return email.split("@")[0];
+  String generateRandomUserName(String email) {
+    final String emailPrefix = email.split("@")[0];
+    final String randomNum = Random().nextInt((9000) + 1000).toString();
+    return "hoohak-$emailPrefix-$randomNum";
   }
 }

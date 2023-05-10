@@ -14,8 +14,6 @@ class AuthService {
         email: email,
         password: password,
       );
-
-      await userService.setOrCreateCurrentUser(email: email);
     } on FirebaseAuthException catch (ex) {
       _handleAuthError(ex);
     }
@@ -31,8 +29,6 @@ class AuthService {
         email: email,
         password: password,
       );
-
-      await userService.setOrCreateCurrentUser(email: email);
     } on FirebaseAuthException catch (ex) {
       _handleAuthError(ex);
     }
@@ -45,16 +41,12 @@ class AuthService {
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    // Create a new credential
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
     await FirebaseAuth.instance.signInWithCredential(credential);
-
-    await userService.setOrCreateCurrentUser(
-        email: FirebaseAuth.instance.currentUser!.email!);
   }
 
   Future<void> resetPassword(String email) async {
