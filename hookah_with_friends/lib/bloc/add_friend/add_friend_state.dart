@@ -1,4 +1,4 @@
-part of "add_friend_cubit.dart";
+part of 'add_friend_cubit.dart';
 
 @immutable
 abstract class AddFriendState {}

@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
-import "../services/friend_service.dart";
-import "../services/user_service.dart";
-import "../util/locator.dart";
+import '../../services/friend_service.dart';
+import '../../services/user_service.dart';
+import '../../util/locator.dart';
 
-part "add_friend_state.dart";
+part 'add_friend_state.dart';
 
 class AddFriendCubit extends Cubit<AddFriendState> {
   AddFriendCubit() : super(AddFriendInitial());

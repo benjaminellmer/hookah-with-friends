@@ -1,3 +1,5 @@
+import "package:hookah_with_friends/model/user.dart";
+
 class FriendInvitation {
   FriendInvitation({required this.from, required this.to});
 
@@ -15,4 +17,11 @@ class FriendInvitation {
         "from": from,
         "to": to,
       };
+}
+
+class FriendInvitationLoaded extends FriendInvitation {
+  FriendInvitationLoaded(
+      {required super.from, required super.to, required this.toUser});
+
+  final User toUser;
 }

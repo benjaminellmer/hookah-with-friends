@@ -22,15 +22,15 @@ class ProfileScreen extends StatelessWidget {
                 UserCard(),
                 SizedBox(height: 10),
                 ProfileInfoCard(
-                  info: "Friends: 5",
+                  info: "Friends",
                   route: FriendsScreen(),
                 ),
                 ProfileInfoCard(
-                  info: "Invites: 5",
+                  info: "Invites",
                   route: InvitesScreen(),
                 ),
                 ProfileInfoCard(
-                  info: "Sessions: 5",
+                  info: "Sessions",
                   route: HistoryScreen(),
                 ),
                 ProfileInfoCard(

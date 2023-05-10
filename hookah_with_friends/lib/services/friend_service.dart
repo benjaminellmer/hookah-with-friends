@@ -2,6 +2,7 @@ import "package:cloud_firestore/cloud_firestore.dart";
 
 import "../exceptions/datastore_exception.dart";
 import "../model/friend_invitation.dart";
+import "../model/user.dart";
 import "../util/locator.dart";
 import "user_service.dart";
 
@@ -30,5 +31,34 @@ class FriendService {
         .get();
 
     return invitations.size != 0;
+  }
+
+  Future<List<FriendInvitationLoaded>> getMyInvitations() async {
+    final List<FriendInvitation> dbInvitations = [];
+
+    final QuerySnapshot<Map<String, dynamic>> invitations = await db
+        .collection("friend_invitations")
+        .where("to", isEqualTo: userService.uid)
+        .get();
+
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> invitationJson
+        in invitations.docs) {
+      dbInvitations.add(FriendInvitation.fromJson(invitationJson.data()));
+    }
+
+    final List<FriendInvitationLoaded> result = [];
+
+    for (final FriendInvitation dbInvitation in dbInvitations) {
+      final User? user = await userService.getUser(uid: dbInvitation.from);
+      if (user != null) {
+        result.add(FriendInvitationLoaded(
+          from: dbInvitation.from,
+          to: dbInvitation.to,
+          toUser: user,
+        ));
+      }
+    }
+
+    return result;
   }
 }

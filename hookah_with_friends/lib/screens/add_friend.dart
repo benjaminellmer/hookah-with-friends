@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
-import "../bloc/add_friend_cubit.dart";
+import "../bloc/add_friend/add_friend_cubit.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/dialogs/error_add_friend_dialog.dart";
