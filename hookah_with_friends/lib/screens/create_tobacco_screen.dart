@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:hookah_with_friends/screens/select_tobaccos_screen.dart";
 
 import "../bloc/tobacco/create_tobacco_cubit.dart";
 import "../bloc/tobacco/tobaccos_cubit.dart";
@@ -81,6 +82,20 @@ class CreateTobaccoScreen extends StatelessWidget {
                               brand: brandController.text,
                               flavours: flavoursController.currentSelection,
                             );
+                      }),
+                  PrimaryButton(
+                      text: "Select Existing Tobacco",
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<Widget>(
+                            builder: (BuildContext contextWithoutBloc) =>
+                            BlocProvider<TobaccosCubit>.value(
+                              value: contextWithoutBloc.read<TobaccosCubit>(),
+                              child: SelectTobaccosScreen(),
+                            ),
+                          ),
+                        );
                       })
                 ],
               ),
