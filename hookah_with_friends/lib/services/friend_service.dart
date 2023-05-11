@@ -12,7 +12,7 @@ class FriendService {
 
   Future<DocumentReference<dynamic>?> createInvitation(
       {required String toUid}) {
-    final String? uid = userService.uid;
+    final String? uid = userService.currentUser?.uid;
     if (uid != null) {
       final FriendInvitation invitation =
           FriendInvitation(from: uid, to: toUid);
@@ -26,7 +26,7 @@ class FriendService {
   Future<bool> invitationExists({required String toUid}) async {
     final QuerySnapshot<Map<String, dynamic>> invitations = await db
         .collection("friend_invitations")
-        .where("from", isEqualTo: userService.uid)
+        .where("from", isEqualTo: userService.currentUser?.uid)
         .where("to", isEqualTo: toUid)
         .get();
 
@@ -38,7 +38,7 @@ class FriendService {
 
     final QuerySnapshot<Map<String, dynamic>> invitations = await db
         .collection("friend_invitations")
-        .where("to", isEqualTo: userService.uid)
+        .where("to", isEqualTo: userService.currentUser?.uid)
         .get();
 
     for (final QueryDocumentSnapshot<Map<String, dynamic>> invitationJson
@@ -60,5 +60,34 @@ class FriendService {
     }
 
     return result;
+  }
+
+  Future<void> acceptFriendInvitation({required String uid}) async {
+    deleteInvitation(uid: uid);
+    userService.currentUser?.friends.add(uid);
+    await userService.saveCurrentUser();
+
+    final User? otherUser = await userService.getUser(uid: uid);
+    final QuerySnapshot<Map<String, dynamic>> userResult =
+        await db.collection("users").where("uid", isEqualTo: uid).get();
+    otherUser?.friends.add(userService.currentUser!.uid);
+    userResult.docs.first.reference.set(otherUser!.toJson());
+  }
+
+  void declineFriendInvitation({required String uid}) {
+    deleteInvitation(uid: uid);
+  }
+
+  Future<void> deleteInvitation({required String uid}) async {
+    final QuerySnapshot<Map<String, dynamic>> invitations = await db
+        .collection("friend_invitations")
+        .where("to", isEqualTo: userService.currentUser?.uid)
+        .where("from", isEqualTo: uid)
+        .get();
+
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> document
+        in invitations.docs) {
+      await db.doc(document.reference.path).delete();
+    }
   }
 }

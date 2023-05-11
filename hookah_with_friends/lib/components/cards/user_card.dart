@@ -47,7 +47,8 @@ class UserCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      getIt.get<UserService>().userName ?? "Unknown",
+                      getIt.get<UserService>().currentUser?.userName ??
+                          "Unknown",
                       style: TextStyle(
                         color: HWFColors.heading,
                         fontSize: 18,

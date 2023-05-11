@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: const <Widget>[
                 UserCard(),
-                SizedBox(height: 10),
+                SizedBox(height: 30),
                 ProfileInfoCard(
                   info: "Friends",
                   route: FriendsScreen(),

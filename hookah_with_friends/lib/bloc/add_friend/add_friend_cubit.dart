@@ -20,7 +20,7 @@ class AddFriendCubit extends Cubit<AddFriendState> {
       emit(AddFriendError(
           message: "Did not find a user with the name: $userName!"));
     } else {
-      if (friendUid == userService.uid) {
+      if (friendUid == userService.currentUser?.uid) {
         emit(AddFriendError(
             message: "You can not send an Invitation to yourself!"));
       } else {

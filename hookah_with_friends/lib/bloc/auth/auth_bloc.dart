@@ -17,8 +17,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserService userService = getIt.get<UserService>();
 
   AuthBloc() : super(AuthUnauthenticated()) {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user != null) {
+        if (userService.currentUser == null) {
+          await userService.setOrCreateCurrentUser();
+        }
         add(AuthLoggedIn(user));
       } else {
         add(AuthLoggedOut());
@@ -33,7 +36,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await userService.setOrCreateCurrentUser();
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
-      } on Error {
+      } on Error catch (err) {
+        debugPrintStack(stackTrace: err.stackTrace);
         emit(AuthUnauthenticated(statusMessage: "Unknown Error occurred"));
       }
     });
@@ -46,7 +50,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await userService.setOrCreateCurrentUser();
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
-      } on Error {
+      } on Error catch (err) {
+        debugPrintStack(stackTrace: err.stackTrace);
         emit(AuthUnauthenticated(statusMessage: "Unknown Error occurred"));
       }
     });
@@ -60,6 +65,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await userService.setOrCreateCurrentUser(userName: userName);
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
+      } on Error catch (err) {
+        debugPrintStack(stackTrace: err.stackTrace);
       }
     });
 
@@ -76,6 +83,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             statusMessage: "Password Reset Email successfully sent!"));
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
+      } on Error catch (err) {
+        debugPrintStack(stackTrace: err.stackTrace);
+        emit(AuthUnauthenticated(statusMessage: "Unknown Error occurred"));
       }
     });
 
@@ -84,6 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AuthLoggedOut>((AuthLoggedOut event, Emitter<AuthState> emit) {
+      userService.resetCurrentUser();
       emit(AuthUnauthenticated());
     });
   }

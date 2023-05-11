@@ -1,5 +1,3 @@
-import "dart:math";
-
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 
@@ -7,14 +5,30 @@ import "../exceptions/datastore_exception.dart";
 import "../model/user.dart" as model;
 
 class UserService {
-  model.User? _currentUser;
+  model.User? currentUser;
+  DocumentReference<dynamic>? _currentUserRef;
 
-  String? get userName {
-    return _currentUser?.userName;
+  Future<DocumentReference<Object?>> get currentUserRef async {
+    if (_currentUserRef == null) {
+      final QuerySnapshot<Map<String, dynamic>> users = await FirebaseFirestore
+          .instance
+          .collection("users")
+          .where("uid", isEqualTo: currentUser!.uid)
+          .get();
+
+      return users.docs.first.reference;
+    } else {
+      return _currentUserRef!;
+    }
   }
 
-  String? get uid {
-    return FirebaseAuth.instance.currentUser?.uid;
+  void resetCurrentUser() {
+    currentUser = null;
+    _currentUserRef = null;
+  }
+
+  Future<void> saveCurrentUser() async {
+    (await currentUserRef).set(currentUser!.toJson());
   }
 
   Future<model.User?> getUser({required String uid}) async {
@@ -47,19 +61,19 @@ class UserService {
   Future<model.User> setOrCreateCurrentUser({
     String? userName,
   }) async {
-    final User? currentUser = FirebaseAuth.instance.currentUser;
+    final User? authUser = FirebaseAuth.instance.currentUser;
 
-    if (currentUser != null && currentUser.email != null) {
+    if (authUser != null && authUser.email != null) {
       final String email = FirebaseAuth.instance.currentUser!.email!;
 
-      _currentUser = await getUser(uid: currentUser.uid);
-      _currentUser ??= await createUser(
-        uid: currentUser.uid,
+      currentUser = await getUser(uid: authUser.uid);
+      currentUser ??= await createUser(
+        uid: authUser.uid,
         userName: userName ?? generateRandomUserName(email),
         email: email,
       );
 
-      return _currentUser!;
+      return currentUser!;
     } else {
       throw DataStoreException("The user is not logged in!");
     }
@@ -81,7 +95,6 @@ class UserService {
 
   String generateRandomUserName(String email) {
     final String emailPrefix = email.split("@")[0];
-    final String randomNum = Random().nextInt((9000) + 1000).toString();
-    return "hoohak-$emailPrefix-$randomNum";
+    return "hookah-$emailPrefix";
   }
 }
