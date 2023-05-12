@@ -39,3 +39,15 @@ class Tobacco {
         .toList();
   }
 }
+
+class TobaccoLoaded extends Tobacco {
+  TobaccoLoaded({required Tobacco tobacco, required this.documentId})
+      : super(
+          name: tobacco.name,
+          flavours: tobacco.flavours,
+          availability: tobacco.availability,
+          brand: tobacco.brand,
+        );
+
+  final String documentId;
+}

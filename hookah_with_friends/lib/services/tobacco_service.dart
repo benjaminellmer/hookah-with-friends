@@ -21,8 +21,8 @@ class TobaccoService {
     }
   }
 
-  Future<List<Tobacco>> getTobaccosForUser() async {
-    final List<Tobacco> tobaccos = <Tobacco>[];
+  Future<List<TobaccoLoaded>> getTobaccosForUser() async {
+    final List<TobaccoLoaded> tobaccos = <TobaccoLoaded>[];
 
     final String? currentUid = userService.currentUser?.uid;
     final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
@@ -32,14 +32,15 @@ class TobaccoService {
 
     for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
         in allTobaccos.docs) {
-      tobaccos.add(Tobacco.fromJson(doc.data()));
+      tobaccos.add(TobaccoLoaded(
+          tobacco: Tobacco.fromJson(doc.data()), documentId: doc.id));
     }
 
     return tobaccos;
   }
 
-  Future<List<Tobacco>> getNewTobaccos() async {
-    final List<Tobacco> tobaccos = <Tobacco>[];
+  Future<List<TobaccoLoaded>> getNewTobaccos() async {
+    final List<TobaccoLoaded> tobaccos = <TobaccoLoaded>[];
 
     final String? currentUid = userService.currentUser?.uid;
     final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
@@ -49,9 +50,14 @@ class TobaccoService {
 
     for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
         in allTobaccos.docs) {
-      tobaccos.add(Tobacco.fromJson(doc.data()));
+      tobaccos.add(TobaccoLoaded(
+          tobacco: Tobacco.fromJson(doc.data()), documentId: doc.id));
     }
 
     return tobaccos;
+  }
+
+  Future<void> deleteTobacco({required TobaccoLoaded tobacco}) async {
+    await db.collection("tobaccos").doc(tobacco.documentId).delete();
   }
 }

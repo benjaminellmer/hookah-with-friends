@@ -4,12 +4,12 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../bloc/tobacco/tobaccos_cubit.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/tobacco_card.dart";
-import "../components/dialogs/delete_friend.dart";
 import "../components/dialogs/delete_tobacco.dart";
 import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
 import "../model/tobacco.dart";
-import "create_tobacco_screen.dart";
+import "../services/tobacco_service.dart";
+import "../util/locator.dart";
 import "select_tobaccos_screen.dart";
 
 class TobaccosScreen extends StatelessWidget {
@@ -43,12 +43,13 @@ class TobaccosScreen extends StatelessWidget {
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
-                            children: state.tobaccos.map((Tobacco tobacco){
+                            children:
+                                state.tobaccos.map((TobaccoLoaded tobacco) {
                               return Padding(
                                 padding: const EdgeInsets.only(top: 8),
                                 child: Dismissible(
                                   key: Key(tobacco.name),
-                                  direction: DismissDirection.horizontal,
+                                  direction: DismissDirection.endToStart,
                                   background: Container(
                                     color: Colors.red,
                                     child: const Icon(Icons.delete),
@@ -57,28 +58,26 @@ class TobaccosScreen extends StatelessWidget {
                                     // Show a dialog asking the user to confirm the action
                                     return await showDialog(
                                       context: context,
-                                      builder: (BuildContext context) {
-                                        return DeleteTobaccoDialog(tobacco: tobacco.name, onConfirm: _onConfirm(),);
-                                        // return AlertDialog(
-                                        //   title: const Text("Confirm"),
-                                        //   content: const Text("Are you sure you want to delete this item?"),
-                                        //   actions: <Widget>[
-                                        //     TextButton(
-                                        //       onPressed: () => Navigator.of(context).pop(false),
-                                        //       child: const Text("CANCEL"),
-                                        //     ),
-                                        //     TextButton(
-                                        //       onPressed: () => Navigator.of(context).pop(true),
-                                        //       child: const Text("DELETE"),
-                                        //     ),
-                                        //   ],
-                                        // );
+                                      builder:
+                                          (BuildContext contextWithoutBloc) {
+                                        return BlocProvider<
+                                            TobaccosCubit>.value(
+                                          value: context.read<TobaccosCubit>(),
+                                          child: DeleteTobaccoDialog(
+                                            tobacco: tobacco.name,
+                                            onConfirm: () async {
+                                              final cubit =
+                                                  context.read<TobaccosCubit>();
+                                              getIt
+                                                  .get<TobaccoService>()
+                                                  .deleteTobacco(
+                                                      tobacco: tobacco);
+                                              await cubit.loadTobaccos();
+                                            },
+                                          ),
+                                        );
                                       },
                                     );
-                                  },
-                                  onDismissed: (direction) {
-                                    // You can add code here to delete the tobacco item
-                                    // from the list or from the database
                                   },
                                   child: TobaccoCard(tobacco: tobacco),
                                 ),
@@ -120,8 +119,4 @@ class TobaccosScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Function _onConfirm() {
-  return () => print("confirmed");
 }

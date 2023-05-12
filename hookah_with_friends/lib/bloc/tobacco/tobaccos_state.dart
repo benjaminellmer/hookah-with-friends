@@ -8,7 +8,7 @@ class TobaccosLoading extends TobaccosState {}
 class TobaccosLoadSuccess extends TobaccosState {
   TobaccosLoadSuccess(this.tobaccos);
 
-  final List<Tobacco> tobaccos;
+  final List<TobaccoLoaded> tobaccos;
 }
 
 class TobaccosLoadFailure extends TobaccosState {}
