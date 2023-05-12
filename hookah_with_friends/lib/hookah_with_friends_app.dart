@@ -43,7 +43,6 @@ class HookahWithFriendsApp extends StatelessWidget {
   }
 
   Widget buildHomeScreen(final AuthState state, final BuildContext context) {
-    bool tobacosEditMode = true;
     if (state is AuthAuthenticated) {
       return HWFTabNavigation(
         screens: <HWFScreen>[
@@ -71,15 +70,6 @@ class HookahWithFriendsApp extends StatelessWidget {
               centerTitle: true,
               title: HeadingText("Hookah with friends"),
               backgroundColor: HWFColors.appBar,
-              actions: [
-                IconButton(
-                  icon: tobacosEditMode ? const Icon(Icons.edit) : const Icon(Icons.close),
-                  color: HWFColors.heading,
-                  onPressed: () {
-                    tobacosEditMode = !tobacosEditMode;
-                  },
-                ),
-              ],
             ),
             body: const TobaccosScreen(),
           ),
