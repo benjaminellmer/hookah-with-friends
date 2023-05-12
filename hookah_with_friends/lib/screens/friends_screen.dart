@@ -6,6 +6,7 @@ import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/friend_card.dart";
 import "../components/dialogs/delete_friend.dart";
+import "../components/texts/primary_text.dart";
 import "../model/user.dart";
 import "../util/colors.dart";
 import "add_friend.dart";
@@ -44,8 +45,16 @@ class _FriendsScreenState extends State<FriendsScreen> {
           return BlocBuilder<FriendsCubit, FriendsState>(
             builder: (BuildContext context, FriendsState state) {
               if (state is FriendsLoadSuccess && state.friends.isEmpty) {
-                return const Center(
-                  child: Text("You currently have no friends!"),
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      PrimaryText("You currently have no friends!"),
+                      const Spacer(),
+                      const AddFriendButton(),
+                    ],
+                  ),
                 );
               } else if (state is FriendsLoadSuccess) {
                 return Padding(
@@ -88,16 +97,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         )),
                       ),
                       const SizedBox(height: 16.0),
-                      PrimaryButton(
-                        text: "Add Friend",
-                        onPress: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute<Widget>(
-                                  builder: (BuildContext context) =>
-                                      AddFriendScreen()));
-                        },
-                      ),
+                      const AddFriendButton(),
                     ],
                   ),
                 );
@@ -116,6 +116,25 @@ class _FriendsScreenState extends State<FriendsScreen> {
           );
         }),
       ),
+    );
+  }
+}
+
+class AddFriendButton extends StatelessWidget {
+  const AddFriendButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimaryButton(
+      text: "Add Friend",
+      onPress: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute<Widget>(
+                builder: (BuildContext context) => AddFriendScreen()));
+      },
     );
   }
 }

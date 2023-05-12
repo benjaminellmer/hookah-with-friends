@@ -45,6 +45,15 @@ class UserService {
     return model.User.fromJson(user.docs.first.data());
   }
 
+  Future<void> refreshUser() async {
+    final dbUser = await FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: currentUser!.uid)
+        .get();
+
+    currentUser = model.User.fromJson(dbUser.docs.first.data());
+  }
+
   Future<model.User> createUser({
     required String uid,
     required String userName,
@@ -89,7 +98,6 @@ class UserService {
     if (user.docs.isEmpty) {
       return null;
     }
-
     return model.User.fromJson(user.docs.first.data()).uid;
   }
 

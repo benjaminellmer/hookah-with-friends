@@ -93,12 +93,15 @@ class FriendService {
 
   Future<List<User>> loadFriends() async {
     final List<String> friendUids = userService.currentUser!.friends;
-    final QuerySnapshot<Map<String, dynamic>> dbFriends =
-        await db.collection("users").where("uid", whereIn: friendUids).get();
+    if (friendUids.isNotEmpty) {
+      final QuerySnapshot<Map<String, dynamic>> dbFriends =
+          await db.collection("users").where("uid", whereIn: friendUids).get();
 
-    return dbFriends.docs
-        .map((QueryDocumentSnapshot<Map<String, dynamic>> dbFriend) =>
-            User.fromJson(dbFriend.data()))
-        .toList();
+      return dbFriends.docs
+          .map((QueryDocumentSnapshot<Map<String, dynamic>> dbFriend) =>
+              User.fromJson(dbFriend.data()))
+          .toList();
+    }
+    return [];
   }
 }

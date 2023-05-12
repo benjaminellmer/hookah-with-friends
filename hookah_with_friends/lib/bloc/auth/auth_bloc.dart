@@ -15,11 +15,12 @@ part "auth_state.dart";
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService authService = getIt.get<AuthService>();
   final UserService userService = getIt.get<UserService>();
+  bool creatingUser = false;
 
   AuthBloc() : super(AuthUnauthenticated()) {
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user != null) {
-        if (userService.currentUser == null) {
+        if (userService.currentUser == null && creatingUser == false) {
           await userService.setOrCreateCurrentUser();
         }
         add(AuthLoggedIn(user));
@@ -61,8 +62,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final String userName = event.username;
 
       try {
+        creatingUser = true;
         await authService.signUp(event.email, event.password);
         await userService.setOrCreateCurrentUser(userName: userName);
+        creatingUser = false;
       } on AuthException catch (ex) {
         emit(AuthUnauthenticated(statusMessage: ex.message));
       } on Error catch (err) {

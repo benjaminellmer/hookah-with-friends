@@ -13,7 +13,7 @@ class User {
   final String userName;
   final String email;
   final String? motto;
-  final List<String> friends;
+  List<String> friends;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
