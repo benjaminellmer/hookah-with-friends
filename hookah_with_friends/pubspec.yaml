@@ -43,6 +43,10 @@ dependencies:
   get_it: ^7.2.0
   google_sign_in: ^6.1.0
   cloud_firestore: ^4.5.3
+  firebase_storage: ^11.2.0
+  image_picker: ^0.8.7+4
+  image_cropper: ^3.0.3
+  firebase_database: ^10.2.0
 
 dev_dependencies:
   flutter_test:
