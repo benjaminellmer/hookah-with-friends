@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 
 import "../components/cards/profile_info_card.dart";
 import "../components/cards/user_card.dart";
+import "../services/user_service.dart";
+import "../util/locator.dart";
 import "friends_screen.dart";
 import "history_screen.dart";
 import "invites_screen.dart";
@@ -18,22 +20,23 @@ class ProfileScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
-              children: const <Widget>[
-                UserCard(),
-                SizedBox(height: 30),
+              children: <Widget>[
+                const UserCard(),
+                const SizedBox(height: 30),
                 ProfileInfoCard(
-                  info: "Friends",
-                  route: FriendsScreen(),
+                  info:
+                      "Friends (${getIt.get<UserService>().currentUser?.friends.length})",
+                  route: const FriendsScreen(),
                 ),
-                ProfileInfoCard(
+                const ProfileInfoCard(
                   info: "Invites",
                   route: InvitesScreen(),
                 ),
-                ProfileInfoCard(
+                const ProfileInfoCard(
                   info: "Sessions",
                   route: HistoryScreen(),
                 ),
-                ProfileInfoCard(
+                const ProfileInfoCard(
                   info: "Settings",
                   route: SettingsScreen(),
                 ),
