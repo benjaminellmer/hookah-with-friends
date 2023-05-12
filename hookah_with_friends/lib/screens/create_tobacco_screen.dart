@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:hookah_with_friends/screens/select_tobaccos_screen.dart";
 
 import "../bloc/tobacco/create_tobacco_cubit.dart";
 import "../bloc/tobacco/tobaccos_cubit.dart";
@@ -37,7 +38,7 @@ class CreateTobaccoScreen extends StatelessWidget {
               }
               if (state is CreateTobaccoSuccess) {
                 context.read<TobaccosCubit>().loadTobaccos();
-                Navigator.pop(context);
+                Navigator.popUntil(context, (route) => route.isFirst);
               }
             },
             child: SingleChildScrollView(
@@ -81,7 +82,7 @@ class CreateTobaccoScreen extends StatelessWidget {
                               brand: brandController.text,
                               flavours: flavoursController.currentSelection,
                             );
-                      })
+                      }),
                 ],
               ),
             ),

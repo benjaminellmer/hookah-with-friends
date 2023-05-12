@@ -21,4 +21,12 @@ class TobaccosCubit extends Cubit<TobaccosState> {
 
     emit(TobaccosLoadSuccess(tobaccos));
   }
+
+  Future<void> loadNewTobaccos() async {
+    emit(TobaccosLoading());
+
+    final List<Tobacco> tobaccos = await tobaccoService.getNewTobaccos();
+
+    emit(TobaccosLoadSuccess(tobaccos));
+  }
 }

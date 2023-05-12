@@ -37,4 +37,21 @@ class TobaccoService {
 
     return tobaccos;
   }
+
+  Future<List<Tobacco>> getNewTobaccos() async {
+    final List<Tobacco> tobaccos = <Tobacco>[];
+
+    final String? currentUid = userService.uid;
+    final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
+        .collection("tobaccos")
+        .where("uid", isNotEqualTo: currentUid)
+        .get();
+
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
+    in allTobaccos.docs) {
+      tobaccos.add(Tobacco.fromJson(doc.data()));
+    }
+
+    return tobaccos;
+  }
 }

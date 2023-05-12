@@ -10,6 +10,7 @@ import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
 import "../model/tobacco.dart";
 import "create_tobacco_screen.dart";
+import "select_tobaccos_screen.dart";
 
 class TobaccosScreen extends StatelessWidget {
   const TobaccosScreen({super.key});
@@ -98,7 +99,7 @@ class TobaccosScreen extends StatelessWidget {
                                 builder: (BuildContext contextWithoutBloc) =>
                                     BlocProvider<TobaccosCubit>.value(
                                   value: contextWithBloc.read<TobaccosCubit>(),
-                                  child: CreateTobaccoScreen(),
+                                  child: SelectTobaccosScreen(),
                                 ),
                               ),
                             );
