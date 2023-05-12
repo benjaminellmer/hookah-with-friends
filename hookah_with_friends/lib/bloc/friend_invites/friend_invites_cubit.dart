@@ -13,6 +13,8 @@ class FriendInvitesCubit extends Cubit<FriendInvitesState> {
   final FriendService friendService = getIt.get<FriendService>();
 
   Future<void> loadInvites() async {
+    emit(FriendInvitesLoading());
+
     try {
       final List<FriendInvitationLoaded> invitations =
           await friendService.getMyInvitations();

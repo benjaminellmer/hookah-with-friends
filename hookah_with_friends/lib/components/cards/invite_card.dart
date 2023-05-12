@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../../bloc/friend_invites/friend_invites_cubit.dart";
 import "../../model/user.dart";
 import "../../services/friend_service.dart";
 import "../../util/locator.dart";
@@ -24,8 +26,13 @@ class InviteCard extends StatelessWidget {
           IconButton(
             constraints: const BoxConstraints(maxWidth: 20.0, maxHeight: 20.0),
             padding: EdgeInsets.zero,
-            onPressed: () {
-              getIt.get<FriendService>().deleteInvitation(uid: friend.uid);
+            onPressed: () async {
+              final FriendInvitesCubit cubit =
+                  context.read<FriendInvitesCubit>();
+              await getIt
+                  .get<FriendService>()
+                  .deleteInvitation(uid: friend.uid);
+              await cubit.loadInvites();
             },
             icon: Image.asset(
               "lib/assets/cross.png",
@@ -39,10 +46,13 @@ class InviteCard extends StatelessWidget {
           IconButton(
             constraints: const BoxConstraints(maxWidth: 20.0, maxHeight: 20.0),
             padding: EdgeInsets.zero,
-            onPressed: () {
-              getIt
+            onPressed: () async {
+              final FriendInvitesCubit cubit =
+                  context.read<FriendInvitesCubit>();
+              await getIt
                   .get<FriendService>()
                   .acceptFriendInvitation(uid: friend.uid);
+              await cubit.loadInvites();
             },
             icon: Image.asset(
               "lib/assets/checkmark.png",
