@@ -38,7 +38,7 @@ class CreateTobaccoScreen extends StatelessWidget {
               }
               if (state is CreateTobaccoSuccess) {
                 context.read<TobaccosCubit>().loadTobaccos();
-                Navigator.pop(context);
+                Navigator.popUntil(context, (route) => route.isFirst);
               }
             },
             child: SingleChildScrollView(
@@ -83,20 +83,6 @@ class CreateTobaccoScreen extends StatelessWidget {
                               flavours: flavoursController.currentSelection,
                             );
                       }),
-                  PrimaryButton(
-                      text: "Select Existing Tobacco",
-                      onPress: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<Widget>(
-                            builder: (BuildContext contextWithoutBloc) =>
-                            BlocProvider<TobaccosCubit>.value(
-                              value: contextWithoutBloc.read<TobaccosCubit>(),
-                              child: SelectTobaccosScreen(),
-                            ),
-                          ),
-                        );
-                      })
                 ],
               ),
             ),
