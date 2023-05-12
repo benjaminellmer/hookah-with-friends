@@ -43,7 +43,11 @@ class _FriendsScreenState extends State<FriendsScreen> {
         body: Builder(builder: (BuildContext context) {
           return BlocBuilder<FriendsCubit, FriendsState>(
             builder: (BuildContext context, FriendsState state) {
-              if (state is FriendsLoadSuccess) {
+              if (state is FriendsLoadSuccess && state.friends.isEmpty) {
+                return const Center(
+                  child: Text("You currently have no friends!"),
+                );
+              } else if (state is FriendsLoadSuccess) {
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(

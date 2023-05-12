@@ -5,6 +5,7 @@ import "../bloc/friend_invites/friend_invites_cubit.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/invite_card.dart";
+import "../components/texts/primary_text.dart";
 import "../model/friend_invitation.dart";
 
 class InvitesScreen extends StatelessWidget {
@@ -19,7 +20,12 @@ class InvitesScreen extends StatelessWidget {
         body: Builder(builder: (BuildContext context) {
           return BlocBuilder<FriendInvitesCubit, FriendInvitesState>(
             builder: (BuildContext context, FriendInvitesState state) {
-              if (state is FriendInvitesLoadSuccess) {
+              if (state is FriendInvitesLoadSuccess &&
+                  state.invitations.isEmpty) {
+                return Center(
+                  child: PrimaryText("You have no new invitations!"),
+                );
+              } else if (state is FriendInvitesLoadSuccess) {
                 return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(20),
