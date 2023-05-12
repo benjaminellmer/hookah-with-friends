@@ -43,6 +43,7 @@ dependencies:
   get_it: ^7.2.0
   google_sign_in: ^6.1.0
   cloud_firestore: ^4.5.3
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -94,3 +95,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_launcher_icons:
+  image_path: "lib/assets/hookah_white.png"
+  android: true
+  ios: true
