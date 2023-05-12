@@ -97,6 +97,6 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_launcher_icons:
-  image_path: "lib/assets/hookah_white.png"
+  image_path: "lib/assets/hookah_orange.png"
   android: true
   ios: true
