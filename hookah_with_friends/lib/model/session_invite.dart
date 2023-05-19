@@ -1,3 +1,5 @@
+import "package:hookah_with_friends/model/session.dart";
+
 import "../enum/invitation_state.dart";
 import "../util/json_utils.dart";
 
@@ -36,4 +38,14 @@ class SessionInvite {
       toJson: (SessionInvite invite) => invite.toJson(),
     );
   }
+}
+
+class SessionInviteLoaded extends SessionInvite {
+  SessionInviteLoaded({
+    required this.session,
+    required super.sessionId,
+    super.invitationState,
+  });
+
+  final Session session;
 }
