@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 
 import "../components/cards/active_session_card.dart";
 import "../components/cards/history_session_card.dart";
-import "../components/cards/session_invite_card.dart";
 import "../components/texts/subheading.dart";
 import "../util/testdata/testdata.dart";
 
@@ -19,9 +18,9 @@ class SessionsScreen extends StatelessWidget {
             const SubHeading("Active Sessions"),
             ActiveSessionCard(TestData.activeSession),
             const SubHeading("Invites"),
-            SessionInviteCard(TestData.sessionInvite1),
+            // SessionInviteCard(TestData.sessionInvite1),
             const SizedBox(height: 8),
-            SessionInviteCard(TestData.sessionInvite2),
+            // SessionInviteCard(TestData.sessionInvite2),
             const SubHeading("History"),
             HistorySessionCard(TestData.historySession1),
           ],

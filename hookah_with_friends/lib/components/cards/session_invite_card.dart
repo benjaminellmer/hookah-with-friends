@@ -1,10 +1,8 @@
 import "package:flutter/material.dart";
-import "package:intl/intl.dart";
 
 import "../../model/session_invite.dart";
 import "../../screens/session_invite_screen.dart";
 import "../indicators/invitation_state_indicator.dart";
-import "../texts/primary_text.dart";
 import "primary_card.dart";
 
 class SessionInviteCard extends StatelessWidget {
@@ -32,11 +30,11 @@ class SessionInviteCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                PrimaryText("Host: ${invite.session.host.userName}"),
-                PrimaryText(
-                    "Time: ${DateFormat.Hm().format(invite.session.startTime)}"),
-                PrimaryText(
-                    "Participants: ${invite.session.numberOfParticipants}"),
+                // PrimaryText("Host: ${invite.session.host.userName}"),
+                // PrimaryText(
+                //     "Time: ${DateFormat.Hm().format(invite.session.startTime)}"),
+                // PrimaryText(
+                //     "Participants: ${invite.session.numberOfParticipants}"),
               ],
             ),
             const Spacer(),

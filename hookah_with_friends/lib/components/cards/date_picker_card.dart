@@ -1,4 +1,3 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
@@ -7,12 +6,13 @@ import "../texts/primary_text.dart";
 import "small_card.dart";
 
 class DatePickerCard extends StatelessWidget {
-  const DatePickerCard({super.key, required this.initialDateTime, required this.dateTimeChanged});
+  const DatePickerCard(
+      {super.key,
+      required this.initialDateTime,
+      required this.dateTimeChanged});
 
   final DateTime initialDateTime;
   final Function(DateTime) dateTimeChanged;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +26,16 @@ class DatePickerCard extends StatelessWidget {
           lastDate: DateTime(DateTime.now().year + 2),
           builder: (BuildContext context, Widget? child) => Theme(
             data: ThemeData().copyWith(
-              colorScheme: ColorScheme.dark(
-                primary: HWFColors.button,
-                onPrimary: HWFColors.text,
-                surface: HWFColors.background,
-                onSurface: HWFColors.text
-              ),
-              dialogBackgroundColor: HWFColors.cardBackground.withOpacity(1.0),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: HWFColors.text
-                )
-              )
-            ),
+                colorScheme: ColorScheme.dark(
+                    primary: HWFColors.button,
+                    onPrimary: HWFColors.text,
+                    surface: HWFColors.background,
+                    onSurface: HWFColors.text),
+                dialogBackgroundColor:
+                    HWFColors.cardBackground.withOpacity(1.0),
+                textButtonTheme: TextButtonThemeData(
+                    style:
+                        TextButton.styleFrom(foregroundColor: HWFColors.text))),
             child: child!,
           ),
         );
@@ -61,16 +58,10 @@ class DatePickerCard extends StatelessWidget {
             const Spacer(),
             PrimaryText(DateFormat("E, dd.MM.yyyy").format(initialDateTime)),
             const SizedBox(width: 8.0),
-            Icon(
-              Icons.edit_calendar,
-              color: HWFColors.text
-            ),
+            Icon(Icons.edit_calendar, color: HWFColors.text),
           ],
         ),
       ),
     );
   }
-
 }
-
-

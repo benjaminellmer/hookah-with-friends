@@ -1,21 +1,39 @@
 import "../enum/invitation_state.dart";
-import "session.dart";
-import "user.dart";
+import "../util/json_utils.dart";
 
 class SessionInvite {
   SessionInvite({
-    required this.user,
-    required this.invitationState,
-    required this.session,
+    required this.sessionId,
+    this.invitationState = InvitationState.unknown,
   });
 
-  final User user;
-  final Session session;
+  factory SessionInvite.fromJson(Map<String, dynamic> json) {
+    return SessionInvite(
+      sessionId: json["sessionId"] as String,
+      invitationState:
+          InvitationState.fromJson(json["invitationState"] as String),
+    );
+  }
+
+  final String sessionId;
   final InvitationState invitationState;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        "user": user.toJson(),
-        "session": session.toJson(),
+        "sessionId": sessionId,
         "invitationState": invitationState.name,
       };
+
+  static List<SessionInvite> decodeList(dynamic json) {
+    return JsonUtils.decodeList<SessionInvite>(
+      json as List<dynamic>,
+      fromJson: (Map<String, dynamic> invite) => SessionInvite.fromJson(invite),
+    );
+  }
+
+  static dynamic encodeList(List<SessionInvite> invitations) {
+    return JsonUtils.encodeList<SessionInvite>(
+      invitations,
+      toJson: (SessionInvite invite) => invite.toJson(),
+    );
+  }
 }

@@ -1,7 +1,5 @@
 import "../../enum/flavour.dart";
-import "../../enum/invitation_state.dart";
 import "../../model/session.dart";
-import "../../model/session_invite.dart";
 import "../../model/tobacco.dart";
 import "../../model/user.dart";
 
@@ -99,14 +97,6 @@ class TestData {
       currentTobacco: blackNana,
     );
 
-    session.sessionInvites.add(
-      SessionInvite(
-        user: benjiNaut,
-        invitationState: InvitationState.accepted,
-        session: futureSession1,
-      ),
-    );
-
     return session;
   }
 
@@ -120,18 +110,6 @@ class TestData {
     startTime: DateTime.now().add(const Duration(hours: 2)),
     host: hookahUser,
     currentTobacco: blackNana,
-  );
-
-  static SessionInvite sessionInvite1 = SessionInvite(
-    user: activeUser,
-    invitationState: InvitationState.accepted,
-    session: futureSession1,
-  );
-
-  static SessionInvite sessionInvite2 = SessionInvite(
-    user: activeUser,
-    invitationState: InvitationState.declined,
-    session: futureSession2,
   );
 
   static Session historySession1 = Session(

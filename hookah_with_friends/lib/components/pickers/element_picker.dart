@@ -13,13 +13,17 @@ class ElementPicker<T> extends StatelessWidget {
       {super.key,
       required this.elements,
       required this.itemBuilder,
-      required this.label})
-      : items = elements.map(itemBuilder).toList();
+      required this.label,
+      this.controller})
+      : items = elements.map(itemBuilder).toList() {
+    controller?.currentSelection = elements.first;
+  }
 
   final String label;
   final List<T> elements;
   final ElementPickerItemBuilder<T> itemBuilder;
   final List<ElementPickerItem> items;
+  final ElementPickerController<T>? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class ElementPicker<T> extends StatelessWidget {
                 builder: (BuildContext context) {
                   return BlocProvider<ElementPickerCubit>.value(
                       value: contextWithBloc.read<ElementPickerCubit>(),
-                      child: ElementPickerMenu(elements: items));
+                      child: ElementPickerMenu<T>(elements: items));
                 });
           },
           child: Padding(
@@ -69,10 +73,11 @@ class ElementPicker<T> extends StatelessWidget {
   }
 }
 
-class ElementPickerMenu extends StatelessWidget {
-  const ElementPickerMenu({super.key, required this.elements});
+class ElementPickerMenu<T> extends StatelessWidget {
+  const ElementPickerMenu({super.key, required this.elements, this.controller});
 
   final List<ElementPickerItem> elements;
+  final ElementPickerController<T>? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +88,11 @@ class ElementPickerMenu extends StatelessWidget {
           ListTile(
             onTap: () {
               context.read<ElementPickerCubit>().selectIndex(index);
+              if (controller != null) {
+                context
+                    .read<ElementPickerCubit>()
+                    .updateSelection(index, controller!, elements);
+              }
               Navigator.pop(context);
             },
             title: elements[index].title,
@@ -103,4 +113,8 @@ class ElementPickerItem {
 
   final Widget title;
   final Widget subtitle;
+}
+
+class ElementPickerController<T> {
+  late T currentSelection;
 }

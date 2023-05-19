@@ -12,7 +12,6 @@ import "../components/pickers/time_picker_card.dart";
 import "../components/texts/primary_text.dart";
 import "../model/tobacco.dart";
 import "../model/user.dart";
-import "../util/testdata/testdata.dart";
 import "invites_screen.dart";
 
 class CreateSessionScreen extends StatefulWidget {
@@ -24,7 +23,10 @@ class CreateSessionScreen extends StatefulWidget {
 
 class _CreateSessionScreenState extends State<CreateSessionScreen> {
   DateTime selectedDateTime = DateTime.now();
-  Tobacco selectedTobacco = TestData.blackNana;
+  MultiElementPickerController<User> friendsController =
+      MultiElementPickerController<User>();
+  ElementPickerController<Tobacco> tobaccoController =
+      ElementPickerController<Tobacco>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +92,7 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                         ElementPicker<Tobacco>(
                           label: "Tobacco: ",
                           elements: state.tobaccos,
+                          controller: tobaccoController,
                           itemBuilder: (Tobacco tobacco) {
                             return ElementPickerItem(
                               title: PrimaryText(tobacco.name),
@@ -101,13 +104,13 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                           },
                         ),
                         const SizedBox(height: 8),
-                        MultiElementPicker<String>(
+                        MultiElementPicker<User>(
                           label: "Friends: ",
-                          elements:
-                              state.friends.map((e) => e.userName).toList(),
-                          itemBuilder: (String friend) {
+                          controller: friendsController,
+                          elements: state.friends,
+                          itemBuilder: (User user) {
                             return MultiElementPickerItem(
-                              title: PrimaryText(friend),
+                              title: PrimaryText(user.userName),
                             );
                           },
                         ),
@@ -116,10 +119,10 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                             text: "Create",
                             onPress: () {
                               context.read<CreateSessionCubit>().createSession(
-                                selectedDateTime: selectedDateTime,
-                                tobacco: selectedTobacco,
-                                friends: <User>[],
-                              );
+                                    selectedDateTime: selectedDateTime,
+                                    tobacco: tobaccoController.currentSelection,
+                                    friends: friendsController.currentSelection,
+                                  );
                             }),
                       ],
                     );

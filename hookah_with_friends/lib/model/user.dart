@@ -1,3 +1,5 @@
+import "package:hookah_with_friends/model/session_invite.dart";
+
 import "../util/json_utils.dart";
 
 class User {
@@ -6,6 +8,7 @@ class User {
     required this.uid,
     required this.email,
     this.friends = const <String>[],
+    this.invitations = const <SessionInvite>[],
     this.motto,
   });
 
@@ -14,6 +17,7 @@ class User {
   final String email;
   final String? motto;
   List<String> friends;
+  List<SessionInvite> invitations;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -21,7 +25,8 @@ class User {
       userName: json["userName"] as String,
       email: json["email"] as String,
       motto: json["motto"] as String?,
-      friends: JsonUtils.decodeList(json["friends"]),
+      friends: JsonUtils.decodeStringList(json["friends"]),
+      invitations: SessionInvite.decodeList(json["invitations"]),
     );
   }
 
@@ -30,6 +35,7 @@ class User {
         "userName": userName,
         "email": email,
         "motto": motto,
-        "friends": friends
+        "friends": friends,
+        "invitations": SessionInvite.encodeList(invitations)
       };
 }

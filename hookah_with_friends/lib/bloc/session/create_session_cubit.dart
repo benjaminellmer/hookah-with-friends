@@ -10,8 +10,8 @@ import "../../model/user.dart";
 import "../../services/friend_service.dart";
 import "../../services/session_service.dart";
 import "../../services/tobacco_service.dart";
+import "../../services/user_service.dart";
 import "../../util/locator.dart";
-import "../../util/testdata/testdata.dart";
 
 part "create_session_state.dart";
 
@@ -19,6 +19,7 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
   final SessionService sessionService = getIt.get<SessionService>();
   final TobaccoService tobaccoService = getIt.get<TobaccoService>();
   final FriendService friendService = getIt.get<FriendService>();
+  final UserService userService = getIt.get<UserService>();
 
   CreateSessionCubit() : super(CreateSessionLoading());
 
@@ -51,13 +52,13 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
     required List<User> friends,
   }) async {
     final Session session = Session(
-      host: TestData.activeUser,
+      host: userService.currentUser!,
       currentTobacco: tobacco,
       startTime: selectedDateTime,
     );
 
     try {
-      await sessionService.createSession(session);
+      await sessionService.createSession(session, friends);
 
       emit(CreateSessionSuccess());
     } on FirebaseException catch (ex) {
