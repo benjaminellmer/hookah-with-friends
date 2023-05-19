@@ -43,23 +43,44 @@ class InvitesScreen extends StatelessWidget {
               } else if (state is FriendInvitesLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Error loading Invitations"),
-                    const SizedBox(height: 32),
-                    PrimaryButton(
-                        text: "Retry",
-                        onPress: () {
-                          context.read<FriendInvitesCubit>().loadInvites();
-                        })
-                  ],
+                return ErrorRetryButton(
+                  message: "Error loading Invitations",
+                  onPress: () {
+                    context.read<FriendInvitesCubit>().loadInvites();
+                  },
                 );
               }
             },
           );
         }),
       ),
+    );
+  }
+}
+
+class ErrorRetryButton extends StatelessWidget {
+  const ErrorRetryButton({
+    super.key,
+    required this.message,
+    required this.onPress,
+  });
+
+  final String message;
+  final VoidCallback onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(message),
+        const SizedBox(height: 32),
+        PrimaryButton(
+            text: "Retry",
+            onPress: () {
+              context.read<FriendInvitesCubit>().loadInvites();
+            })
+      ],
     );
   }
 }
