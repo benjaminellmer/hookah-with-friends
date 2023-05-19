@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:cloud_firestore/cloud_firestore.dart";
 
 import "../model/session.dart";
@@ -14,6 +16,23 @@ class SessionService {
     final DocumentReference<Map<String, dynamic>> ref =
         await db.collection("sessions").add(session.toJson());
     await sendInvitations(invitedFriends: invitedFriends, sessionId: ref.id);
+  }
+
+  Future<List<SessionInviteLoaded>> loadInvites() async {
+    final List<SessionInviteLoaded> result = [];
+
+    for (final SessionInvite invite in userService.currentUser!.invitations) {
+      final DocumentSnapshot<Map<String, dynamic>> dbSession =
+          await db.collection("sessions").doc(invite.sessionId).get();
+      final Session session = Session.fromJson(dbSession.data()!);
+      result.add(SessionInviteLoaded(
+        session: session,
+        sessionId: invite.sessionId,
+        invitationState: invite.invitationState,
+      ));
+    }
+
+    return result;
   }
 
   Future<void> sendInvitations(

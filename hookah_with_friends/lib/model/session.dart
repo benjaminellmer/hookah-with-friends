@@ -10,11 +10,23 @@ class Session {
     required this.host,
     required this.currentTobacco,
     required this.startTime,
+    DateTime? burnDownTime,
     this.endTime,
     this.coalTimer,
     this.smokedTobaccos = const <Tobacco>[],
   }) {
-    burnDownTime = startTime.add(const Duration(hours: 1, minutes: 30));
+    this.burnDownTime =
+        burnDownTime ?? startTime.add(const Duration(hours: 1, minutes: 30));
+  }
+
+  factory Session.fromJson(Map<String, dynamic> json) {
+    return Session(
+      host: User.fromJson(json["host"] as Map<String, dynamic>),
+      currentTobacco:
+          Tobacco.fromJson(json["currentTobacco"] as Map<String, dynamic>),
+      startTime: DateTime.parse(json["startTime"] as String),
+      // burnDownTime: DateTime.parse(json["burnDownTime"] as String),
+    );
   }
 
   final User host;
