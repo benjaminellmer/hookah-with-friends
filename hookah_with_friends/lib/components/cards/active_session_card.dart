@@ -1,7 +1,9 @@
 import "dart:async";
 
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 
+import "../../bloc/session/sessions_bloc.dart";
 import "../../model/session.dart";
 import "../../screens/active_session_screen.dart";
 import "../../util/formatters/duration_formatters.dart";
@@ -41,8 +43,11 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (BuildContext context) =>
-                ActiveSessionScreen(session: widget.session),
+            builder: (BuildContext contextWithoutBloc) =>
+                BlocProvider<SessionsBloc>.value(
+              value: context.read<SessionsBloc>(),
+              child: ActiveSessionScreen(session: widget.session),
+            ),
           ),
         );
       },

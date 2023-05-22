@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/coaltimer/coal_timer_bloc.dart";
+import "../bloc/session/active_session_cubit.dart";
+import "../bloc/session/sessions_bloc.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/participant_card.dart";
@@ -12,9 +14,7 @@ import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
 import "../model/participant.dart";
 import "../model/session.dart";
-import "../services/session_service.dart";
 import "../util/colors.dart";
-import "../util/locator.dart";
 
 class ActiveSessionScreen extends StatelessWidget {
   const ActiveSessionScreen({super.key, required this.session});
@@ -23,61 +23,71 @@ class ActiveSessionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CoalTimerBloc>(
-      create: (BuildContext context) => CoalTimerBloc(session),
-      child: Scaffold(
-        appBar: BackAndTitleAppBar(
-          title: "Active Session",
-          actions: <Widget>[
-            IconButton(
-              onPressed: () async {
-                showEndSessionDialog(context, () async {
-                  await getIt.get<SessionService>().endSession(session);
-                  // context.read();
-                });
-              },
-              icon: Icon(Icons.power_settings_new, color: HWFColors.heading),
-            )
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CoalTimerBloc>(
+          create: (BuildContext context) => CoalTimerBloc(session),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: <Widget>[
-                const SubHeading("Coal Timer"),
-                const SizedBox(height: 16),
-                BlocBuilder<CoalTimerBloc, CoalTimerState>(
-                  builder: (BuildContext context, CoalTimerState state) {
-                    if (state is CoalTimerActive) {
-                      return _ActiveCoalTimerSection(state);
-                    } else {
-                      return const _InactiveCoalTimerSection();
-                    }
-                  },
-                ),
-                const SizedBox(height: 16),
-                const SubHeading("Current Tobacco"),
-                TobaccoCard(tobacco: session.currentTobacco),
-                const SizedBox(height: 8),
-                PrimaryButton(
-                  text: "Renew",
-                  onPress: () {},
-                ),
-                const SizedBox(height: 16),
-                const SubHeading("Participants"),
-                for (Participant participant
-                    in session.participants) ...<ParticipantCard>[
-                  ParticipantCard(
-                    participant: participant,
+        BlocProvider<ActiveSessionCubit>(
+          create: (BuildContext context) =>
+              ActiveSessionCubit(context.read<SessionsBloc>()),
+        ),
+      ],
+      child: Builder(builder: (BuildContext context) {
+        return Scaffold(
+          appBar: BackAndTitleAppBar(
+            title: "Active Session",
+            actions: <Widget>[
+              IconButton(
+                onPressed: () async {
+                  showEndSessionDialog(context, () async {
+                    context.read<ActiveSessionCubit>().endSession(session);
+                    // context.read();
+                  });
+                },
+                icon: Icon(Icons.power_settings_new, color: HWFColors.heading),
+              )
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: <Widget>[
+                  const SubHeading("Coal Timer"),
+                  const SizedBox(height: 16),
+                  BlocBuilder<CoalTimerBloc, CoalTimerState>(
+                    builder: (BuildContext context, CoalTimerState state) {
+                      if (state is CoalTimerActive) {
+                        return _ActiveCoalTimerSection(state);
+                      } else {
+                        return const _InactiveCoalTimerSection();
+                      }
+                    },
                   ),
+                  const SizedBox(height: 16),
+                  const SubHeading("Current Tobacco"),
+                  TobaccoCard(tobacco: session.currentTobacco),
+                  const SizedBox(height: 8),
+                  PrimaryButton(
+                    text: "Renew",
+                    onPress: () {},
+                  ),
+                  const SizedBox(height: 16),
+                  const SubHeading("Participants"),
+                  for (Participant participant
+                      in session.participants) ...<ParticipantCard>[
+                    ParticipantCard(
+                      participant: participant,
+                    ),
+                  ],
+                  const SizedBox(height: 16),
                 ],
-                const SizedBox(height: 16),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

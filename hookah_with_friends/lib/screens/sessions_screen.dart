@@ -21,47 +21,35 @@ class SessionsScreen extends StatelessWidget {
         context.read<SessionsBloc>().add(SessionsRefreshInitialized());
       },
       child: BlocBuilder<SessionsBloc, SessionsState>(
-        builder: (BuildContext context, SessionsState state) {
-          return Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: SingleChildScrollView(
-                  child: BlocBuilder<SessionsBloc, SessionsState>(
-                    builder: (BuildContext context, SessionsState state) {
-                      if (state is SessionsLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is SessionsLoaded) {
-                        return Column(
-                          children: <Widget>[
-                            const SubHeading("Active Sessions"),
-                            _ActiveSessions(state.activeSessions),
-                            const SizedBox(height: 8),
-                            const SubHeading("Invites"),
-                            _Invites(state.inviteSessions),
-                            // SessionInviteCard(TestData.sessionInvite1),
-                            const SizedBox(height: 8),
-                            // SessionInviteCard(TestData.sessionInvite2),
-                            const SubHeading("My Sessions"),
-                            _MySessions(state.mySessions),
-                            const SizedBox(height: 16)
-                          ],
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                ),
-              ),
-              if (state is SessionsRefreshing)
-                const Center(
-                  child: CircularProgressIndicator(),
-                )
-            ],
-          );
-        },
-      ),
+          builder: (BuildContext context, SessionsState state) {
+        return Stack(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  if (state is SessionsLoading) ...<Widget>[
+                    const Center(child: CircularProgressIndicator())
+                  ],
+                  if (state is SessionsLoaded) ...[
+                    const SubHeading("Active Sessions"),
+                    _ActiveSessions(state.activeSessions),
+                    const SizedBox(height: 8),
+                    const SubHeading("Invites"),
+                    _Invites(state.inviteSessions),
+                    const SizedBox(height: 8),
+                    const SubHeading("My Sessions"),
+                    _MySessions(state.mySessions),
+                    const SizedBox(height: 16)
+                  ],
+                ]),
+          ),
+          if (state is SessionsRefreshing)
+            const Center(
+              child: CircularProgressIndicator(),
+            )
+        ]);
+      }),
     );
   }
 }
@@ -76,7 +64,10 @@ class _Invites extends StatelessWidget {
     if (inviteSessions.isNotEmpty) {
       return Column(
         children: inviteSessions
-            .map((SessionInviteLoaded invite) => SessionInviteCard(invite))
+            .map((SessionInviteLoaded invite) => Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: SessionInviteCard(invite),
+                ))
             .toList(),
       );
     } else {

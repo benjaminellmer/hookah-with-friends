@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:intl/intl.dart";
 
+import "../../bloc/session/sessions_bloc.dart";
 import "../../model/session_invite.dart";
 import "../../screens/session_invite_screen.dart";
 import "../indicators/invitation_state_indicator.dart";
@@ -19,8 +21,11 @@ class SessionInviteCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (BuildContext context) =>
-                SessionInviteScreen(session: invite.session),
+            builder: (BuildContext contextWithoutBloc) =>
+                BlocProvider<SessionsBloc>.value(
+              value: context.read<SessionsBloc>(),
+              child: SessionInviteScreen(session: invite.session),
+            ),
           ),
         );
       },
