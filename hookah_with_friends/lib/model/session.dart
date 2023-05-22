@@ -13,8 +13,11 @@ class Session {
       DateTime? burnDownTime,
       this.endTime,
       this.coalTimer,
-      this.smokedTobaccos = const <Tobacco>[],
+      List<Tobacco>? smokedTobaccos,
       this.sessionInvites = const <SessionInvite>[]}) {
+    if (smokedTobaccos != null) {
+      this.smokedTobaccos = smokedTobaccos;
+    }
     this.burnDownTime =
         burnDownTime ?? startTime.add(const Duration(hours: 1, minutes: 30));
   }
@@ -39,7 +42,7 @@ class Session {
   final DateTime startTime;
   DateTime? endTime;
   late DateTime burnDownTime;
-  final List<Tobacco> smokedTobaccos;
+  List<Tobacco> smokedTobaccos = [];
   CoalTimer? coalTimer;
   final List<SessionInvite> sessionInvites;
 
