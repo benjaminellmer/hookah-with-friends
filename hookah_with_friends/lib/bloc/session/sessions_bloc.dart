@@ -22,25 +22,43 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
       Emitter<SessionsState> emit,
     ) async {
       emit(SessionsLoading());
-      await userService.refreshUser();
 
-      final SessionsResult<SessionInviteLoaded> inviteSessionsResult =
-          await sessionService.loadInvites();
-      final SessionsResult<Session> mySessionsResult =
-          await sessionService.loadMySessions();
-      final List<SessionLoaded> activeSessions = inviteSessionsResult
-          .activeSessions
-        ..addAll(mySessionsResult.activeSessions);
-
-      mySessionsResult.result
-          .sort((Session a, Session b) => b.startTime.compareTo(a.startTime));
-
-      emit(SessionsLoaded(
-        activeSessions,
-        mySessionsResult.result,
-        inviteSessionsResult.result,
-      ));
+      setData();
     });
+
+    on<SessionsRefreshInitialized>((
+      SessionsRefreshInitialized event,
+      Emitter<SessionsState> emit,
+    ) async {
+      if (state is SessionsLoaded) {
+        final SessionsLoaded oldState = state as SessionsLoaded;
+        emit(SessionsRefreshing(oldState.activeSessions, oldState.mySessions,
+            oldState.inviteSessions));
+
+        setData();
+      }
+    });
+  }
+
+  void setData() async {
+    await userService.refreshUser();
+
+    final SessionsResult<SessionInviteLoaded> inviteSessionsResult =
+        await sessionService.loadInvites();
+    final SessionsResult<Session> mySessionsResult =
+        await sessionService.loadMySessions();
+    final List<SessionLoaded> activeSessions = inviteSessionsResult
+        .activeSessions
+      ..addAll(mySessionsResult.activeSessions);
+
+    mySessionsResult.result
+        .sort((Session a, Session b) => a.startTime.compareTo(b.startTime));
+
+    emit(SessionsLoaded(
+      activeSessions,
+      mySessionsResult.result,
+      inviteSessionsResult.result,
+    ));
   }
 }
 

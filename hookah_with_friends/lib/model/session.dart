@@ -87,14 +87,9 @@ class Session {
     }
   }
 
-  // Duration get timeLeft {
-  //   final DateTime now = DateTime.now();
-  //   if (now.isAfter(startTime) && now.isBefore(burnDownTime)) {
-  //     return burnDownTime.difference(now);
-  //   } else {
-  //     return Duration.zero;
-  //   }
-  // }
+  Duration get timeUntilStart {
+    return startTime.difference(DateTime.now());
+  }
 
   Duration get totalDuration {
     if (endTime != null) {

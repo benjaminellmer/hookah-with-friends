@@ -4,3 +4,5 @@ part of "sessions_bloc.dart";
 abstract class SessionsEvent {}
 
 class SessionsLoadInitialized extends SessionsEvent {}
+
+class SessionsRefreshInitialized extends SessionsEvent {}

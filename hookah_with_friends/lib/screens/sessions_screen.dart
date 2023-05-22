@@ -3,7 +3,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/session/sessions_bloc.dart";
 import "../components/cards/active_session_card.dart";
-import "../components/cards/history_session_card.dart";
+import "../components/cards/my_session_card.dart";
 import "../components/cards/session_invite_card.dart";
 import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
@@ -16,34 +16,51 @@ class SessionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<SessionsBloc>().add(SessionsLoadInitialized());
-    return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-      child: SingleChildScrollView(
-        child: BlocBuilder<SessionsBloc, SessionsState>(
-          builder: (BuildContext context, SessionsState state) {
-            if (state is SessionsLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is SessionsLoaded) {
-              return Column(
-                children: <Widget>[
-                  const SubHeading("Active Sessions"),
-                  _ActiveSessions(state.activeSessions),
-                  const SizedBox(height: 8),
-                  const SubHeading("Invites"),
-                  _Invites(state.inviteSessions),
-                  // SessionInviteCard(TestData.sessionInvite1),
-                  const SizedBox(height: 8),
-                  // SessionInviteCard(TestData.sessionInvite2),
-                  const SubHeading("My Sessions"),
-                  _MySessions(state.mySessions),
-                  const SizedBox(height: 16)
-                ],
-              );
-            } else {
-              return Container();
-            }
-          },
-        ),
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<SessionsBloc>().add(SessionsRefreshInitialized());
+      },
+      child: BlocBuilder<SessionsBloc, SessionsState>(
+        builder: (BuildContext context, SessionsState state) {
+          return Stack(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                child: SingleChildScrollView(
+                  child: BlocBuilder<SessionsBloc, SessionsState>(
+                    builder: (BuildContext context, SessionsState state) {
+                      if (state is SessionsLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is SessionsLoaded) {
+                        return Column(
+                          children: <Widget>[
+                            const SubHeading("Active Sessions"),
+                            _ActiveSessions(state.activeSessions),
+                            const SizedBox(height: 8),
+                            const SubHeading("Invites"),
+                            _Invites(state.inviteSessions),
+                            // SessionInviteCard(TestData.sessionInvite1),
+                            const SizedBox(height: 8),
+                            // SessionInviteCard(TestData.sessionInvite2),
+                            const SubHeading("My Sessions"),
+                            _MySessions(state.mySessions),
+                            const SizedBox(height: 16)
+                          ],
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ),
+              ),
+              if (state is SessionsRefreshing)
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+            ],
+          );
+        },
       ),
     );
   }
@@ -83,7 +100,7 @@ class _MySessions extends StatelessWidget {
         children: mySessions
             .map((Session session) => Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: HistorySessionCard(session),
+                  child: MySessionCard(session),
                 ))
             .toList(),
       );

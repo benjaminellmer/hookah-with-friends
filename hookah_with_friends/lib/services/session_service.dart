@@ -27,6 +27,7 @@ class SessionService {
     final Session modifiedSession = Session.fromJson(dbSession.data()!);
     modifiedSession.endTime = DateTime.now();
     modifiedSession.burnDownTime = DateTime.now();
+    modifiedSession.smokedTobaccos.add(modifiedSession.currentTobacco);
     dbSession.reference.set(modifiedSession.toJson());
   }
 

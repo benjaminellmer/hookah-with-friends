@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../components/appbars/back_and_title_app_bar.dart";
-import "../components/cards/history_session_card.dart";
+import "../components/cards/my_session_card.dart";
 import "../model/session.dart";
 import "../util/testdata/testdata.dart";
 
@@ -19,8 +19,8 @@ class HistoryScreen extends StatelessWidget {
             children: <Widget>[
               const SizedBox(height: 10),
               for (Session session
-                  in TestData.historySessionList) ...<HistorySessionCard>[
-                HistorySessionCard(session),
+                  in TestData.historySessionList) ...<MySessionCard>[
+                MySessionCard(session),
               ]
             ],
           ),
