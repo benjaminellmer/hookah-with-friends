@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 
 import "../bloc/session/create_session_cubit.dart";
+import "../bloc/session/sessions_bloc.dart";
 import "../components/appbars/back_and_title_app_bar.dart";
 import "../components/buttons/primary_button.dart";
 import "../components/cards/date_picker_card.dart";
@@ -43,6 +44,7 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                 ),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              context.read<SessionsBloc>().add(SessionsLoadInitialized());
               Navigator.of(context).pop();
             } else if (state is CreateSessionError) {
               if (state.isCritical) {

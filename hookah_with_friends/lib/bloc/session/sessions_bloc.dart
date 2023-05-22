@@ -21,10 +21,25 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
     ) async {
       emit(SessionsLoading());
 
-      final inviteSessions = await sessionService.loadInvites();
-      debugPrint(inviteSessions.toString());
+      final SessionsResult<SessionInviteLoaded> inviteSessionsResult =
+          await sessionService.loadInvites();
+      final SessionsResult<Session> mySessionsResult =
+          await sessionService.loadMySessions();
+      final List<Session> activeSessions = inviteSessionsResult.activeSessions
+        ..addAll(mySessionsResult.activeSessions);
 
-      emit(SessionsLoaded([], [], inviteSessions));
+      emit(SessionsLoaded(
+        activeSessions,
+        mySessionsResult.result,
+        inviteSessionsResult.result,
+      ));
     });
   }
+}
+
+class SessionsResult<T> {
+  SessionsResult(this.result, this.activeSessions);
+
+  final List<T> result;
+  final List<Session> activeSessions;
 }

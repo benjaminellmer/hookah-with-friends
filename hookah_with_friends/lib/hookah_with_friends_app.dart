@@ -4,6 +4,7 @@ import "package:google_fonts/google_fonts.dart";
 import "package:hookah_with_friends/screens/create_session_screen.dart";
 
 import "bloc/auth/auth_bloc.dart";
+import "bloc/session/sessions_bloc.dart";
 import "components/texts/heading_text.dart";
 import "screens/profile_screen.dart";
 import "screens/sessions_screen.dart";
@@ -44,54 +45,64 @@ class HookahWithFriendsApp extends StatelessWidget {
 
   Widget buildHomeScreen(final AuthState state, final BuildContext context) {
     if (state is AuthAuthenticated) {
-      return HWFTabNavigation(
-        screens: <HWFScreen>[
-          HWFScreen(
-              appBar: AppBar(
-                centerTitle: true,
-                title: HeadingText("Hookah with friends"),
-                backgroundColor: HWFColors.appBar,
-              ),
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: HWFColors.button,
-                child: const Icon(Icons.add),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) =>
-                            CreateSessionScreen()),
-                  );
-                },
-              ),
-              body: const SessionsScreen()),
-          HWFScreen(
-            appBar: AppBar(
-              centerTitle: true,
-              title: HeadingText("Hookah with friends"),
-              backgroundColor: HWFColors.appBar,
-            ),
-            body: const TobaccosScreen(),
-          ),
-          HWFScreen(
-            appBar: AppBar(
-              centerTitle: true,
-              title: HeadingText("Hookah with friends"),
-              backgroundColor: HWFColors.appBar,
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(AuthLogout());
-                  },
-                  icon: const Icon(Icons.logout),
-                  color: HWFColors.heading,
+      return BlocProvider<SessionsBloc>(
+        create: (BuildContext context) =>
+            SessionsBloc()..add(SessionsLoadInitialized()),
+        child: Builder(builder: (BuildContext context) {
+          return HWFTabNavigation(
+            screens: <HWFScreen>[
+              HWFScreen(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    title: HeadingText("Hookah with friends"),
+                    backgroundColor: HWFColors.appBar,
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    backgroundColor: HWFColors.button,
+                    child: const Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<Widget>(
+                          builder: (BuildContext contextWithoutBloc) =>
+                              BlocProvider<SessionsBloc>.value(
+                            value: context.read<SessionsBloc>(),
+                            child: const CreateSessionScreen(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  body: const SessionsScreen()),
+              HWFScreen(
+                appBar: AppBar(
+                  centerTitle: true,
+                  title: HeadingText("Hookah with friends"),
+                  backgroundColor: HWFColors.appBar,
                 ),
-              ],
-            ),
-            body: const ProfileScreen(),
-          ),
-        ],
-    );
+                body: const TobaccosScreen(),
+              ),
+              HWFScreen(
+                appBar: AppBar(
+                  centerTitle: true,
+                  title: HeadingText("Hookah with friends"),
+                  backgroundColor: HWFColors.appBar,
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(AuthLogout());
+                      },
+                      icon: const Icon(Icons.logout),
+                      color: HWFColors.heading,
+                    ),
+                  ],
+                ),
+                body: const ProfileScreen(),
+              ),
+            ],
+          );
+        }),
+      );
     } else {
       return WelcomeScreen();
     }

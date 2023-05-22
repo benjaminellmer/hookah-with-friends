@@ -39,7 +39,7 @@ class HistorySessionCard extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: SessionProgressIndicator(
-                        value: session.progress,
+                        value: 100,
                       ),
                     ),
                     const SizedBox(height: 10),

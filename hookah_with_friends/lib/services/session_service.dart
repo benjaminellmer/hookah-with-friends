@@ -2,6 +2,8 @@ import "dart:async";
 
 import "package:cloud_firestore/cloud_firestore.dart";
 
+import "../bloc/session/sessions_bloc.dart";
+import "../enum/invitation_state.dart";
 import "../model/session.dart";
 import "../model/session_invite.dart";
 import "../model/user.dart";
@@ -18,28 +20,55 @@ class SessionService {
     await sendInvitations(invitedFriends: invitedFriends, sessionId: ref.id);
   }
 
-  Future<List<SessionInviteLoaded>> loadInvites() async {
-    final List<SessionInviteLoaded> result = [];
+  Future<SessionsResult<Session>> loadMySessions() async {
+    final List<Session> result = <Session>[];
+    final List<Session> activeSessions = <Session>[];
+
+    final QuerySnapshot<Map<String, dynamic>> dbSessions = await db
+        .collection("sessions")
+        .where("host.uid", isEqualTo: userService.currentUser!.uid)
+        .get();
+
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
+        in dbSessions.docs) {
+      final Session session = Session.fromJson(doc.data());
+      if (session.endTime == null) {
+        activeSessions.add(session);
+      } else {
+        result.add(session);
+      }
+    }
+
+    return SessionsResult<Session>(result, activeSessions);
+  }
+
+  Future<SessionsResult<SessionInviteLoaded>> loadInvites() async {
+    final List<SessionInviteLoaded> result = <SessionInviteLoaded>[];
+    final List<Session> activeSessions = <Session>[];
 
     for (final SessionInvite invite in userService.currentUser!.invitations) {
       final DocumentSnapshot<Map<String, dynamic>> dbSession =
           await db.collection("sessions").doc(invite.sessionId).get();
       final Session session = Session.fromJson(dbSession.data()!);
-      result.add(SessionInviteLoaded(
-        session: session,
-        sessionId: invite.sessionId,
-        invitationState: invite.invitationState,
-      ));
+      if (invite.invitationState == InvitationState.accepted) {
+        activeSessions.add(session);
+      } else {
+        result.add(SessionInviteLoaded(
+          session: session,
+          sessionId: invite.sessionId,
+          invitationState: invite.invitationState,
+        ));
+      }
     }
 
-    return result;
+    return SessionsResult<SessionInviteLoaded>(result, activeSessions);
   }
 
   Future<void> sendInvitations(
       {required List<User> invitedFriends, required String sessionId}) async {
     final QuerySnapshot<Map<String, dynamic>> invitedUsers = await db
         .collection("users")
-        .where("uid", whereIn: invitedFriends.map((e) => e.uid))
+        .where("uid", whereIn: invitedFriends.map((User e) => e.uid))
         .get();
 
     final SessionInvite invite = SessionInvite(sessionId: sessionId);
