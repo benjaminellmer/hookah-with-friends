@@ -2,17 +2,19 @@ import "package:flutter/material.dart";
 
 import "../../util/colors.dart";
 
-void showEndSessionDialog(BuildContext context) {
+void showEndSessionDialog(BuildContext context, VoidCallback onAccept) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return const EndSessionDialog();
+      return EndSessionDialog(onAccept: onAccept);
     },
   );
 }
 
 class EndSessionDialog extends StatelessWidget {
-  const EndSessionDialog({super.key});
+  const EndSessionDialog({super.key, required this.onAccept});
+
+  final VoidCallback onAccept;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class EndSessionDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
+            onAccept();
             Navigator.popUntil(
                 context, (Route<dynamic> route) => route.isFirst);
           },

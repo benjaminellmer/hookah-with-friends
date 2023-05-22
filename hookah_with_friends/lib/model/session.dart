@@ -6,15 +6,15 @@ import "tobacco.dart";
 import "user.dart";
 
 class Session {
-  Session({
-    required this.host,
-    required this.currentTobacco,
-    required this.startTime,
-    DateTime? burnDownTime,
-    this.endTime,
-    this.coalTimer,
-    this.smokedTobaccos = const <Tobacco>[],
-  }) {
+  Session(
+      {required this.host,
+      required this.currentTobacco,
+      required this.startTime,
+      DateTime? burnDownTime,
+      this.endTime,
+      this.coalTimer,
+      this.smokedTobaccos = const <Tobacco>[],
+      this.sessionInvites = const <SessionInvite>[]}) {
     this.burnDownTime =
         burnDownTime ?? startTime.add(const Duration(hours: 1, minutes: 30));
   }
@@ -25,6 +25,9 @@ class Session {
       currentTobacco:
           Tobacco.fromJson(json["currentTobacco"] as Map<String, dynamic>),
       startTime: DateTime.parse(json["startTime"] as String),
+      endTime: json["endTime"] is String
+          ? DateTime.parse(json["endTime"] as String)
+          : null,
       // burnDownTime: DateTime.parse(json["burnDownTime"] as String),
     );
   }
@@ -32,11 +35,11 @@ class Session {
   final User host;
   final Tobacco currentTobacco;
   final DateTime startTime;
-  final DateTime? endTime;
+  DateTime? endTime;
   late final DateTime burnDownTime;
   final List<Tobacco> smokedTobaccos;
   final CoalTimer? coalTimer;
-  final List<SessionInvite> sessionInvites = <SessionInvite>[];
+  final List<SessionInvite> sessionInvites;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         "host": host.toJson(),
@@ -110,4 +113,22 @@ class Session {
             .length +
         1;
   }
+}
+
+class SessionLoaded extends Session {
+  SessionLoaded({
+    required Session session,
+    required this.sessionId,
+  }) : super(
+          host: session.host,
+          currentTobacco: session.currentTobacco,
+          startTime: session.startTime,
+          endTime: session.endTime,
+          burnDownTime: session.burnDownTime,
+          smokedTobaccos: session.smokedTobaccos,
+          coalTimer: session.coalTimer,
+          sessionInvites: session.sessionInvites,
+        );
+
+  final String sessionId;
 }

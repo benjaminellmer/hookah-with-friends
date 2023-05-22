@@ -46,8 +46,7 @@ class HookahWithFriendsApp extends StatelessWidget {
   Widget buildHomeScreen(final AuthState state, final BuildContext context) {
     if (state is AuthAuthenticated) {
       return BlocProvider<SessionsBloc>(
-        create: (BuildContext context) =>
-            SessionsBloc()..add(SessionsLoadInitialized()),
+        create: (BuildContext context) => SessionsBloc(),
         child: Builder(builder: (BuildContext context) {
           return HWFTabNavigation(
             screens: <HWFScreen>[

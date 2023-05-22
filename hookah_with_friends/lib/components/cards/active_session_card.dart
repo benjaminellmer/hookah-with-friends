@@ -13,7 +13,7 @@ import "primary_card.dart";
 class ActiveSessionCard extends StatefulWidget {
   const ActiveSessionCard(this.session, {super.key});
 
-  final Session session;
+  final SessionLoaded session;
 
   @override
   State<ActiveSessionCard> createState() => _ActiveSessionCardState();

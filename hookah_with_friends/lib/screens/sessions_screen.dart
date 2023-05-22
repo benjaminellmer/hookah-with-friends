@@ -15,6 +15,7 @@ class SessionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SessionsBloc>().add(SessionsLoadInitialized());
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
       child: SingleChildScrollView(
@@ -98,14 +99,14 @@ class _MySessions extends StatelessWidget {
 class _ActiveSessions extends StatelessWidget {
   const _ActiveSessions(this.activeSessions);
 
-  final List<Session> activeSessions;
+  final List<SessionLoaded> activeSessions;
 
   @override
   Widget build(BuildContext context) {
     if (activeSessions.isNotEmpty) {
       return Column(
         children: activeSessions
-            .map((Session session) => Padding(
+            .map((SessionLoaded session) => Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: ActiveSessionCard(session),
                 ))

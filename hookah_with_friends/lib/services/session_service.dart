@@ -20,9 +20,19 @@ class SessionService {
     await sendInvitations(invitedFriends: invitedFriends, sessionId: ref.id);
   }
 
+  Future<void> endSession(SessionLoaded session) async {
+    final DocumentSnapshot<Map<String, dynamic>> dbSession =
+        await db.collection("sessions").doc(session.sessionId).get();
+
+    final Session modifiedSession = Session.fromJson(dbSession.data()!);
+    modifiedSession.endTime = DateTime.now();
+    modifiedSession.burnDownTime = DateTime.now();
+    dbSession.reference.set(modifiedSession.toJson());
+  }
+
   Future<SessionsResult<Session>> loadMySessions() async {
     final List<Session> result = <Session>[];
-    final List<Session> activeSessions = <Session>[];
+    final List<SessionLoaded> activeSessions = <SessionLoaded>[];
 
     final QuerySnapshot<Map<String, dynamic>> dbSessions = await db
         .collection("sessions")
@@ -32,8 +42,9 @@ class SessionService {
     for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
         in dbSessions.docs) {
       final Session session = Session.fromJson(doc.data());
-      if (session.endTime == null) {
-        activeSessions.add(session);
+      if (session.endTime == null &&
+          session.startTime.isBefore(DateTime.now())) {
+        activeSessions.add(SessionLoaded(session: session, sessionId: doc.id));
       } else {
         result.add(session);
       }
@@ -44,14 +55,18 @@ class SessionService {
 
   Future<SessionsResult<SessionInviteLoaded>> loadInvites() async {
     final List<SessionInviteLoaded> result = <SessionInviteLoaded>[];
-    final List<Session> activeSessions = <Session>[];
+    final List<SessionLoaded> activeSessions = <SessionLoaded>[];
 
     for (final SessionInvite invite in userService.currentUser!.invitations) {
       final DocumentSnapshot<Map<String, dynamic>> dbSession =
           await db.collection("sessions").doc(invite.sessionId).get();
       final Session session = Session.fromJson(dbSession.data()!);
-      if (invite.invitationState == InvitationState.accepted) {
-        activeSessions.add(session);
+      if (invite.invitationState == InvitationState.accepted &&
+          session.startTime.isBefore(DateTime.now())) {
+        if (session.endTime == null) {
+          activeSessions
+              .add(SessionLoaded(session: session, sessionId: dbSession.id));
+        }
       } else {
         result.add(SessionInviteLoaded(
           session: session,

@@ -12,12 +12,14 @@ import "../components/texts/primary_text.dart";
 import "../components/texts/subheading.dart";
 import "../model/participant.dart";
 import "../model/session.dart";
+import "../services/session_service.dart";
 import "../util/colors.dart";
+import "../util/locator.dart";
 
 class ActiveSessionScreen extends StatelessWidget {
   const ActiveSessionScreen({super.key, required this.session});
 
-  final Session session;
+  final SessionLoaded session;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,11 @@ class ActiveSessionScreen extends StatelessWidget {
           title: "Active Session",
           actions: <Widget>[
             IconButton(
-              onPressed: () {
-                showEndSessionDialog(context);
+              onPressed: () async {
+                showEndSessionDialog(context, () async {
+                  await getIt.get<SessionService>().endSession(session);
+                  // context.read();
+                });
               },
               icon: Icon(Icons.power_settings_new, color: HWFColors.heading),
             )

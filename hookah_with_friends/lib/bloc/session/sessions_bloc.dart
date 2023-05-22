@@ -25,8 +25,12 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
           await sessionService.loadInvites();
       final SessionsResult<Session> mySessionsResult =
           await sessionService.loadMySessions();
-      final List<Session> activeSessions = inviteSessionsResult.activeSessions
+      final List<SessionLoaded> activeSessions = inviteSessionsResult
+          .activeSessions
         ..addAll(mySessionsResult.activeSessions);
+
+      mySessionsResult.result
+          .sort((Session a, Session b) => b.startTime.compareTo(a.startTime));
 
       emit(SessionsLoaded(
         activeSessions,
@@ -41,5 +45,5 @@ class SessionsResult<T> {
   SessionsResult(this.result, this.activeSessions);
 
   final List<T> result;
-  final List<Session> activeSessions;
+  final List<SessionLoaded> activeSessions;
 }
