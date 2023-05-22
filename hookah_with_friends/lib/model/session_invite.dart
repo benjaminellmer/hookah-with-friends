@@ -1,7 +1,6 @@
-import "package:hookah_with_friends/model/session.dart";
-
 import "../enum/invitation_state.dart";
 import "../util/json_utils.dart";
+import "session.dart";
 
 class SessionInvite {
   SessionInvite({
@@ -18,7 +17,7 @@ class SessionInvite {
   }
 
   final String sessionId;
-  final InvitationState invitationState;
+  InvitationState invitationState;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         "sessionId": sessionId,
@@ -47,5 +46,5 @@ class SessionInviteLoaded extends SessionInvite {
     super.invitationState,
   });
 
-  final Session session;
+  final SessionLoaded session;
 }

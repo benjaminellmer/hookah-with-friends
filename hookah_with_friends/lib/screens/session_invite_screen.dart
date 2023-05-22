@@ -9,11 +9,13 @@ import "../components/texts/subheading.dart";
 import "../enum/invitation_state.dart";
 import "../model/participant.dart";
 import "../model/session.dart";
+import "../services/session_service.dart";
+import "../util/locator.dart";
 
 class SessionInviteScreen extends StatelessWidget {
   const SessionInviteScreen({super.key, required this.session});
 
-  final Session session;
+  final SessionLoaded session;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,8 @@ class SessionInviteScreen extends StatelessWidget {
                 Expanded(
                   child: PrimaryCard(
                     onTap: () {
+                      getIt.get<SessionService>().updateInvitationState(
+                          session, InvitationState.declined);
                       Navigator.pop(context);
                     },
                     child: const InvitationStateIndicator(
@@ -52,6 +56,8 @@ class SessionInviteScreen extends StatelessWidget {
                 Expanded(
                   child: PrimaryCard(
                     onTap: () {
+                      getIt.get<SessionService>().updateInvitationState(
+                          session, InvitationState.accepted);
                       Navigator.pop(context);
                     },
                     child: const InvitationStateIndicator(

@@ -69,7 +69,7 @@ class SessionService {
         }
       } else {
         result.add(SessionInviteLoaded(
-          session: session,
+          session: SessionLoaded(session: session, sessionId: dbSession.id),
           sessionId: invite.sessionId,
           invitationState: invite.invitationState,
         ));
@@ -77,6 +77,17 @@ class SessionService {
     }
 
     return SessionsResult<SessionInviteLoaded>(result, activeSessions);
+  }
+
+  Future<void> updateInvitationState(
+      SessionLoaded session, InvitationState state) async {
+    final SessionInvite invite = userService.currentUser!.invitations
+        .firstWhere((SessionInvite invitation) =>
+            invitation.sessionId == session.sessionId);
+
+    invite.invitationState = state;
+
+    await userService.saveCurrentUser();
   }
 
   Future<void> sendInvitations(

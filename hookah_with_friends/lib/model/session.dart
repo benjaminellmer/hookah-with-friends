@@ -36,7 +36,7 @@ class Session {
   final Tobacco currentTobacco;
   final DateTime startTime;
   DateTime? endTime;
-  late final DateTime burnDownTime;
+  late DateTime burnDownTime;
   final List<Tobacco> smokedTobaccos;
   final CoalTimer? coalTimer;
   final List<SessionInvite> sessionInvites;
