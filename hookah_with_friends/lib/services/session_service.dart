@@ -46,7 +46,9 @@ class SessionService {
           session.startTime.isBefore(DateTime.now())) {
         activeSessions.add(SessionLoaded(session: session, sessionId: doc.id));
       } else {
-        result.add(session);
+        if (session.endTime == null) {
+          result.add(session);
+        }
       }
     }
 
@@ -68,11 +70,13 @@ class SessionService {
               .add(SessionLoaded(session: session, sessionId: dbSession.id));
         }
       } else {
-        result.add(SessionInviteLoaded(
-          session: SessionLoaded(session: session, sessionId: dbSession.id),
-          sessionId: invite.sessionId,
-          invitationState: invite.invitationState,
-        ));
+        if (session.endTime == null) {
+          result.add(SessionInviteLoaded(
+            session: SessionLoaded(session: session, sessionId: dbSession.id),
+            sessionId: invite.sessionId,
+            invitationState: invite.invitationState,
+          ));
+        }
       }
     }
 

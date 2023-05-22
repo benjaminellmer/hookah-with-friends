@@ -6,6 +6,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "../../model/session.dart";
 import "../../model/session_invite.dart";
 import "../../services/session_service.dart";
+import "../../services/user_service.dart";
 import "../../util/locator.dart";
 
 part "sessions_event.dart";
@@ -13,6 +14,7 @@ part "sessions_state.dart";
 
 class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
   final SessionService sessionService = getIt.get<SessionService>();
+  final UserService userService = getIt.get<UserService>();
 
   SessionsBloc() : super(SessionsLoading()) {
     on<SessionsLoadInitialized>((
@@ -20,6 +22,7 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
       Emitter<SessionsState> emit,
     ) async {
       emit(SessionsLoading());
+      await userService.refreshUser();
 
       final SessionsResult<SessionInviteLoaded> inviteSessionsResult =
           await sessionService.loadInvites();
