@@ -106,4 +106,11 @@ class SessionService {
       doc.reference.set(user.toJson());
     }
   }
+
+  Future<void> saveSession(SessionLoaded session) async {
+    final DocumentSnapshot<Map<String, dynamic>> dbSession =
+        await db.collection("sessions").doc(session.sessionId).get();
+
+    dbSession.reference.update(session.toJson());
+  }
 }

@@ -12,3 +12,9 @@ class CoalTimerStarted extends CoalTimerEvent {
 class CoalTimerStopped extends CoalTimerEvent {}
 
 class CoalTimerUpdating extends CoalTimerEvent {}
+
+class CoalTimerLoaded extends CoalTimerEvent {
+  CoalTimerLoaded(this.coalTimer);
+
+  final CoalTimer coalTimer;
+}

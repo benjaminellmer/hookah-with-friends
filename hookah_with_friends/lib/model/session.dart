@@ -21,15 +21,17 @@ class Session {
 
   factory Session.fromJson(Map<String, dynamic> json) {
     return Session(
-      host: User.fromJson(json["host"] as Map<String, dynamic>),
-      currentTobacco:
-          Tobacco.fromJson(json["currentTobacco"] as Map<String, dynamic>),
-      startTime: DateTime.parse(json["startTime"] as String),
-      endTime: json["endTime"] is String
-          ? DateTime.parse(json["endTime"] as String)
-          : null,
-      // burnDownTime: DateTime.parse(json["burnDownTime"] as String),
-    );
+        host: User.fromJson(json["host"] as Map<String, dynamic>),
+        currentTobacco:
+            Tobacco.fromJson(json["currentTobacco"] as Map<String, dynamic>),
+        startTime: DateTime.parse(json["startTime"] as String),
+        endTime: json["endTime"] is String
+            ? DateTime.parse(json["endTime"] as String)
+            : null,
+        // burnDownTime: DateTime.parse(json["burnDownTime"] as String),
+        coalTimer: json["coalTimer"] is Map<String, dynamic>
+            ? CoalTimer.fromJson(json["coalTimer"] as Map<String, dynamic>)
+            : null);
   }
 
   final User host;
@@ -38,7 +40,7 @@ class Session {
   DateTime? endTime;
   late DateTime burnDownTime;
   final List<Tobacco> smokedTobaccos;
-  final CoalTimer? coalTimer;
+  CoalTimer? coalTimer;
   final List<SessionInvite> sessionInvites;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -47,7 +49,7 @@ class Session {
         "startTime": startTime.toIso8601String(),
         "coalTimer": coalTimer?.toJson(),
         "endTime": endTime?.toIso8601String(),
-        "burnDownTime": burnDownTime,
+        "burnDownTime": burnDownTime.toIso8601String(),
       };
 
   List<Participant> get participants {

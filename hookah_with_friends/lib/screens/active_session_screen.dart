@@ -24,7 +24,7 @@ class ActiveSessionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CoalTimerBloc>(
-      create: (BuildContext context) => CoalTimerBloc(),
+      create: (BuildContext context) => CoalTimerBloc(session),
       child: Scaffold(
         appBar: BackAndTitleAppBar(
           title: "Active Session",
