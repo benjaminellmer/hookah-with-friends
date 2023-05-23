@@ -13,9 +13,17 @@ class TobaccoService {
   Future<DocumentReference<dynamic>?> createTobacco(Tobacco tobacco) async {
     final String? currentUid = userService.currentUser?.uid;
     if (currentUid != null) {
-      return db
-          .collection("tobaccos")
-          .add(tobacco.toJson().withUid(currentUid));
+      return db.collection("users")
+          .where("uid", isEqualTo: currentUid)
+          .get()
+          .then((querySnapshot) {
+            final String id = querySnapshot.docs.first.id;
+            print("uid" + id);
+            return db.collection("users")
+                .doc(id)
+                .collection("tobaccos")
+                .add(tobacco.toJson());
+          });
     } else {
       throw DataStoreException("The user is not logged in!");
     }
