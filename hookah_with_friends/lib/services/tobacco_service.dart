@@ -26,9 +26,17 @@ class TobaccoService {
 
     final String? currentUid = userService.currentUser?.uid;
     final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
-        .collection("tobaccos")
+        .collection("users")
         .where("uid", isEqualTo: currentUid)
-        .get();
+        .get()
+        .then((querySnapshot) {
+          final String id = querySnapshot.docs.first.id;
+
+           return db.collection("users")
+              .doc(id)
+              .collection("tobaccos")
+              .get();
+        });
 
     for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
         in allTobaccos.docs) {
