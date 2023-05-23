@@ -72,6 +72,18 @@ class TobaccoService {
   }
 
   Future<void> deleteTobacco({required TobaccoLoaded tobacco}) async {
-    await db.collection("tobaccos").doc(tobacco.documentId).delete();
+    final String? currentUid = userService.currentUser?.uid;
+    await db.collection("users")
+        .where("uid", isEqualTo: currentUid)
+        .get()
+        .then((querySnapshot) {
+          final String id = querySnapshot.docs.first.id;
+
+          db.collection("users")
+              .doc(id)
+              .collection("tobaccos")
+              .doc(tobacco.documentId)
+              .delete();
+        });
   }
 }
