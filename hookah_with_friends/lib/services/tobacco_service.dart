@@ -42,10 +42,8 @@ class TobaccoService {
   Future<List<TobaccoLoaded>> getNewTobaccos() async {
     final List<TobaccoLoaded> tobaccos = <TobaccoLoaded>[];
 
-    final String? currentUid = userService.currentUser?.uid;
     final QuerySnapshot<Map<String, dynamic>> allTobaccos = await db
-        .collection("tobaccos")
-        .where("uid", isNotEqualTo: currentUid)
+        .collection("tobaccos_predefined")
         .get();
 
     for (final QueryDocumentSnapshot<Map<String, dynamic>> doc
