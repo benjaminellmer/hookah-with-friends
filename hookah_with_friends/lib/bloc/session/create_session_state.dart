@@ -8,10 +8,11 @@ class CreateSessionLoading extends CreateSessionState {}
 class CreateSessionSuccess extends CreateSessionState {}
 
 class CreateSessionLoaded extends CreateSessionState {
-  CreateSessionLoaded(this.tobaccos, this.friends);
+  CreateSessionLoaded(this.tobaccos, this.friends, {this.errorMessage});
 
   final List<Tobacco> tobaccos;
   final List<User> friends;
+  final String? errorMessage;
 }
 
 class CreateSessionError extends CreateSessionState {
