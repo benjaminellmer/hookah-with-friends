@@ -23,6 +23,10 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
     ) async {
       emit(SessionsLoading());
 
+      if (userService.currentUser == null) {
+        await Future.delayed(const Duration(seconds: 2));
+      }
+
       setData();
     });
 
