@@ -1,7 +1,8 @@
+import "package:hookah_with_friends/model/session_invite_user.dart";
+
 import "../enum/invitation_state.dart";
 import "coal_timer.dart";
 import "participant.dart";
-import "session_invite.dart";
 import "tobacco.dart";
 import "user.dart";
 
@@ -14,7 +15,7 @@ class Session {
       this.endTime,
       this.coalTimer,
       List<Tobacco>? smokedTobaccos,
-      this.sessionInvites = const <SessionInvite>[]}) {
+      this.inviteUsers = const <SessionInviteUser>[]}) {
     if (smokedTobaccos != null) {
       this.smokedTobaccos = smokedTobaccos;
     }
@@ -24,17 +25,19 @@ class Session {
 
   factory Session.fromJson(Map<String, dynamic> json) {
     return Session(
-        host: User.fromJson(json["host"] as Map<String, dynamic>),
-        currentTobacco:
-            Tobacco.fromJson(json["currentTobacco"] as Map<String, dynamic>),
-        startTime: DateTime.parse(json["startTime"] as String),
-        endTime: json["endTime"] is String
-            ? DateTime.parse(json["endTime"] as String)
-            : null,
-        // burnDownTime: DateTime.parse(json["burnDownTime"] as String),
-        coalTimer: json["coalTimer"] is Map<String, dynamic>
-            ? CoalTimer.fromJson(json["coalTimer"] as Map<String, dynamic>)
-            : null);
+      host: User.fromJson(json["host"] as Map<String, dynamic>),
+      currentTobacco:
+          Tobacco.fromJson(json["currentTobacco"] as Map<String, dynamic>),
+      startTime: DateTime.parse(json["startTime"] as String),
+      endTime: json["endTime"] is String
+          ? DateTime.parse(json["endTime"] as String)
+          : null,
+      // burnDownTime: DateTime.parse(json["burnDownTime"] as String),
+      coalTimer: json["coalTimer"] is Map<String, dynamic>
+          ? CoalTimer.fromJson(json["coalTimer"] as Map<String, dynamic>)
+          : null,
+      inviteUsers: SessionInviteUser.decodeList(json["invitations"]),
+    );
   }
 
   final User host;
@@ -44,7 +47,7 @@ class Session {
   late DateTime burnDownTime;
   List<Tobacco> smokedTobaccos = [];
   CoalTimer? coalTimer;
-  final List<SessionInvite> sessionInvites;
+  List<SessionInviteUser> inviteUsers;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         "host": host.toJson(),
@@ -53,6 +56,7 @@ class Session {
         "coalTimer": coalTimer?.toJson(),
         "endTime": endTime?.toIso8601String(),
         "burnDownTime": burnDownTime.toIso8601String(),
+        "invitations": SessionInviteUser.encodeList(inviteUsers)
       };
 
   List<Participant> get participants {
@@ -106,8 +110,8 @@ class Session {
   }
 
   int get numberOfParticipants {
-    return sessionInvites
-            .where((SessionInvite invite) =>
+    return inviteUsers
+            .where((SessionInviteUser invite) =>
                 invite.invitationState == InvitationState.accepted)
             .toList()
             .length +
@@ -127,7 +131,7 @@ class SessionLoaded extends Session {
           burnDownTime: session.burnDownTime,
           smokedTobaccos: session.smokedTobaccos,
           coalTimer: session.coalTimer,
-          sessionInvites: session.sessionInvites,
+          inviteUsers: session.inviteUsers,
         );
 
   final String sessionId;

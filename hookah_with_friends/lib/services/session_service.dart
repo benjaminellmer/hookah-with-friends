@@ -6,6 +6,7 @@ import "../bloc/session/sessions_bloc.dart";
 import "../enum/invitation_state.dart";
 import "../model/session.dart";
 import "../model/session_invite.dart";
+import "../model/session_invite_user.dart";
 import "../model/user.dart";
 import "../util/locator.dart";
 import "user_service.dart";
@@ -15,6 +16,9 @@ class SessionService {
   UserService userService = getIt.get<UserService>();
 
   Future<void> createSession(Session session, List<User> invitedFriends) async {
+    session.inviteUsers = invitedFriends
+        .map((User e) => SessionInviteUser(userId: e.uid))
+        .toList();
     final DocumentReference<Map<String, dynamic>> ref =
         await db.collection("sessions").add(session.toJson());
     await sendInvitations(invitedFriends: invitedFriends, sessionId: ref.id);
@@ -91,6 +95,15 @@ class SessionService {
             invitation.sessionId == session.sessionId);
 
     invite.invitationState = state;
+
+    final userInvites = session.inviteUsers
+        .where((user) => user.userId != userService.currentUser!.uid);
+
+    if (userInvites.isNotEmpty) {
+      final userInvite = userInvites.first;
+      userInvite.invitationState = state;
+      await saveSession(session);
+    }
 
     await userService.saveCurrentUser();
   }
