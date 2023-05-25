@@ -68,14 +68,14 @@ class Session {
       ),
     ];
 
-    // for (final SessionInvite invite in sessionInvites) {
-    //   result.add(
-    //     Participant(
-    //       invite.user.userName,
-    //       invitationState: invite.invitationState,
-    //     ),
-    //   );
-    // }
+    for (final SessionInviteUser invite in inviteUsers) {
+      result.add(
+        Participant(
+          invite.userName,
+          invitationState: invite.invitationState,
+        ),
+      );
+    }
 
     return result;
   }

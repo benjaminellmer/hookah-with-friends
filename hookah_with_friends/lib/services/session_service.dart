@@ -17,7 +17,10 @@ class SessionService {
 
   Future<void> createSession(Session session, List<User> invitedFriends) async {
     session.inviteUsers = invitedFriends
-        .map((User e) => SessionInviteUser(userId: e.uid))
+        .map((User e) => SessionInviteUser(
+              userId: e.uid,
+              userName: e.userName,
+            ))
         .toList();
     final DocumentReference<Map<String, dynamic>> ref =
         await db.collection("sessions").add(session.toJson());
@@ -97,7 +100,7 @@ class SessionService {
     invite.invitationState = state;
 
     final userInvites = session.inviteUsers
-        .where((user) => user.userId != userService.currentUser!.uid);
+        .where((user) => user.userId == userService.currentUser!.uid);
 
     if (userInvites.isNotEmpty) {
       final userInvite = userInvites.first;
