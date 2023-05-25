@@ -3,6 +3,8 @@ part of "active_session_cubit.dart";
 @immutable
 abstract class ActiveSessionState {}
 
+class ActiveSessionLoading extends ActiveSessionState {}
+
 class ActiveSessionLoaded extends ActiveSessionState {
   ActiveSessionLoaded(this.session);
 

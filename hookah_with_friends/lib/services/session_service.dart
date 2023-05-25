@@ -60,6 +60,15 @@ class SessionService {
     }
   }
 
+  Future<SessionLoaded> loadSession({required String sessionId}) async {
+    final DocumentSnapshot<Map<String, dynamic>> dbSession =
+        await db.collection("sessions").doc(sessionId).get();
+    return SessionLoaded(
+      session: Session.fromJson(dbSession.data()!),
+      sessionId: sessionId,
+    );
+  }
+
   Future<SessionsResult<Session>> loadMySessions() async {
     final List<Session> result = <Session>[];
     final List<SessionLoaded> activeSessions = <SessionLoaded>[];

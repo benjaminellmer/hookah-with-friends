@@ -40,6 +40,7 @@ class _ActiveSessionCardState extends State<ActiveSessionCard> {
   Widget build(BuildContext context) {
     return PrimaryCard(
       onTap: () {
+        context.read<SessionsBloc>().add(SessionsRefreshInitialized());
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(

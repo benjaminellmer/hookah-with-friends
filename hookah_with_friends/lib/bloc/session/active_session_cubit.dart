@@ -11,13 +11,19 @@ import "sessions_bloc.dart";
 part "active_session_state.dart";
 
 class ActiveSessionCubit extends Cubit<ActiveSessionState> {
-  ActiveSessionCubit(this.sessionsBloc, {required SessionLoaded session})
-      : super(ActiveSessionLoaded(session));
+  ActiveSessionCubit(this.sessionsBloc) : super(ActiveSessionLoading());
 
   final SessionsBloc sessionsBloc;
+  final SessionService sessionService = getIt.get<SessionService>();
+
+  Future<void> loadSession(SessionLoaded session) async {
+    final upToDateSession =
+        await sessionService.loadSession(sessionId: session.sessionId);
+    emit(ActiveSessionLoaded(upToDateSession));
+  }
 
   Future<void> endSession(final SessionLoaded session) async {
-    await getIt.get<SessionService>().endSession(session);
+    await sessionService.endSession(session);
 
     sessionsBloc.add(SessionsRefreshInitialized());
 
