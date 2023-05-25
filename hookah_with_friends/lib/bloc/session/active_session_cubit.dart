@@ -31,8 +31,9 @@ class ActiveSessionCubit extends Cubit<ActiveSessionState> {
   }
 
   Future<void> requestRenewTobacco(SessionLoaded session) async {
-    final List<TobaccoLoaded> tobaccos =
-        await getIt.get<TobaccoService>().getTobaccosForUser();
+    final List<TobaccoLoaded> tobaccos = await getIt
+        .get<TobaccoService>()
+        .getTobaccosForUser(uid: session.host.uid);
 
     emit(ActiveSessionLoadedRenewTobacco(session, availableTobaccos: tobaccos));
   }
