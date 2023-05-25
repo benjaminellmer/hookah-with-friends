@@ -29,60 +29,115 @@ class ActiveSessionScreen extends StatelessWidget {
           create: (BuildContext context) => CoalTimerBloc(session),
         ),
         BlocProvider<ActiveSessionCubit>(
-          create: (BuildContext context) =>
-              ActiveSessionCubit(context.read<SessionsBloc>()),
+          create: (BuildContext context) => ActiveSessionCubit(
+              context.read<SessionsBloc>(),
+              session: session),
         ),
       ],
       child: Builder(builder: (BuildContext context) {
-        return Scaffold(
-          appBar: BackAndTitleAppBar(
-            title: "Active Session",
-            actions: <Widget>[
-              IconButton(
-                onPressed: () async {
-                  showEndSessionDialog(context, () async {
-                    context.read<ActiveSessionCubit>().endSession(session);
-                    // context.read();
+        return BlocListener<ActiveSessionCubit, ActiveSessionState>(
+          listener: (BuildContext context, ActiveSessionState state) {
+            if (state is ActiveSessionLoadedRenewTobacco) {
+              showModalBottomSheet(
+                  backgroundColor: HWFColors.cardBackground.withOpacity(1),
+                  context: context,
+                  builder: (BuildContext contextWithoutBloc) {
+                    return BlocProvider<ActiveSessionCubit>.value(
+                      value: context.read<ActiveSessionCubit>(),
+                      child: ListView.builder(
+                        itemCount: state.availableTobaccos.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(children: <Widget>[
+                            ListTile(
+                              onTap: () {
+                                context.read<ActiveSessionCubit>().renewTobacco(
+                                    state.session,
+                                    state.availableTobaccos[index]);
+                                Navigator.pop(context);
+                              },
+                              title: PrimaryText(
+                                  state.availableTobaccos[index].name),
+                              subtitle: PrimaryText(
+                                state.availableTobaccos[index].brand,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Divider(
+                              height: 1,
+                              color: HWFColors.divider,
+                            )
+                          ]);
+                        },
+                      ),
+                    );
+                    ;
                   });
-                },
-                icon: Icon(Icons.power_settings_new, color: HWFColors.heading),
-              )
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  const SubHeading("Coal Timer"),
-                  const SizedBox(height: 16),
-                  BlocBuilder<CoalTimerBloc, CoalTimerState>(
-                    builder: (BuildContext context, CoalTimerState state) {
-                      if (state is CoalTimerActive) {
-                        return _ActiveCoalTimerSection(state);
-                      } else {
-                        return const _InactiveCoalTimerSection();
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  const SubHeading("Current Tobacco"),
-                  TobaccoCard(tobacco: session.currentTobacco),
-                  const SizedBox(height: 8),
-                  PrimaryButton(
-                    text: "Renew",
-                    onPress: () {},
-                  ),
-                  const SizedBox(height: 16),
-                  const SubHeading("Participants"),
-                  for (Participant participant
-                      in session.participants) ...<ParticipantCard>[
-                    ParticipantCard(
-                      participant: participant,
+            }
+          },
+          child: Scaffold(
+            appBar: BackAndTitleAppBar(
+              title: "Active Session",
+              actions: <Widget>[
+                IconButton(
+                  onPressed: () async {
+                    showEndSessionDialog(context, () async {
+                      context.read<ActiveSessionCubit>().endSession(session);
+                    });
+                  },
+                  icon:
+                      Icon(Icons.power_settings_new, color: HWFColors.heading),
+                )
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    const SubHeading("Coal Timer"),
+                    const SizedBox(height: 16),
+                    BlocBuilder<CoalTimerBloc, CoalTimerState>(
+                      builder: (BuildContext context, CoalTimerState state) {
+                        if (state is CoalTimerActive) {
+                          return _ActiveCoalTimerSection(state);
+                        } else {
+                          return const _InactiveCoalTimerSection();
+                        }
+                      },
                     ),
+                    const SizedBox(height: 16),
+                    const SubHeading("Current Tobacco"),
+                    BlocBuilder<ActiveSessionCubit, ActiveSessionState>(
+                      builder:
+                          (BuildContext context, ActiveSessionState state) {
+                        if (state is ActiveSessionLoaded) {
+                          return TobaccoCard(
+                              tobacco: state.session.currentTobacco);
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    PrimaryButton(
+                      text: "Renew",
+                      onPress: () {
+                        context
+                            .read<ActiveSessionCubit>()
+                            .requestRenewTobacco(session);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    const SubHeading("Participants"),
+                    for (Participant participant
+                        in session.participants) ...<ParticipantCard>[
+                      ParticipantCard(
+                        participant: participant,
+                      ),
+                    ],
+                    const SizedBox(height: 16),
                   ],
-                  const SizedBox(height: 16),
-                ],
+                ),
               ),
             ),
           ),

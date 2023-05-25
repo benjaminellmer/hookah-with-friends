@@ -7,6 +7,7 @@ import "../enum/invitation_state.dart";
 import "../model/session.dart";
 import "../model/session_invite.dart";
 import "../model/session_invite_user.dart";
+import "../model/tobacco.dart";
 import "../model/user.dart";
 import "../util/locator.dart";
 import "user_service.dart";
@@ -33,9 +34,28 @@ class SessionService {
 
     final Session modifiedSession = Session.fromJson(dbSession.data()!);
     modifiedSession.endTime = DateTime.now();
-    modifiedSession.burnDownTime = DateTime.now();
+    modifiedSession.tobaccoEndTime = DateTime.now();
     modifiedSession.smokedTobaccos.add(modifiedSession.currentTobacco);
     dbSession.reference.set(modifiedSession.toJson());
+  }
+
+  Future<SessionLoaded> renewTobacco(
+      {required SessionLoaded session, required Tobacco newTobacco}) async {
+    final DocumentSnapshot<Map<String, dynamic>> dbSession =
+        await db.collection("sessions").doc(session.sessionId).get();
+    if (dbSession.data() != null) {
+      final Session loadedSession = Session.fromJson(dbSession.data()!);
+      loadedSession.smokedTobaccos.add(session.currentTobacco);
+      loadedSession.tobaccoStartTime = DateTime.now();
+      loadedSession.tobaccoEndTime =
+          DateTime.now().add(Session.sessionDuration);
+      loadedSession.currentTobacco = newTobacco;
+      dbSession.reference.set(loadedSession.toJson());
+      return SessionLoaded(
+          session: loadedSession, sessionId: session.sessionId);
+    } else {
+      return session;
+    }
   }
 
   Future<SessionsResult<Session>> loadMySessions() async {
@@ -70,20 +90,22 @@ class SessionService {
     for (final SessionInvite invite in userService.currentUser!.invitations) {
       final DocumentSnapshot<Map<String, dynamic>> dbSession =
           await db.collection("sessions").doc(invite.sessionId).get();
-      final Session session = Session.fromJson(dbSession.data()!);
-      if (invite.invitationState == InvitationState.accepted &&
-          session.startTime.isBefore(DateTime.now())) {
-        if (session.endTime == null) {
-          activeSessions
-              .add(SessionLoaded(session: session, sessionId: dbSession.id));
-        }
-      } else {
-        if (session.endTime == null) {
-          result.add(SessionInviteLoaded(
-            session: SessionLoaded(session: session, sessionId: dbSession.id),
-            sessionId: invite.sessionId,
-            invitationState: invite.invitationState,
-          ));
+      if (dbSession.data() != null) {
+        final Session session = Session.fromJson(dbSession.data()!);
+        if (invite.invitationState == InvitationState.accepted &&
+            session.startTime.isBefore(DateTime.now())) {
+          if (session.endTime == null) {
+            activeSessions
+                .add(SessionLoaded(session: session, sessionId: dbSession.id));
+          }
+        } else {
+          if (session.endTime == null) {
+            result.add(SessionInviteLoaded(
+              session: SessionLoaded(session: session, sessionId: dbSession.id),
+              sessionId: invite.sessionId,
+              invitationState: invite.invitationState,
+            ));
+          }
         }
       }
     }
