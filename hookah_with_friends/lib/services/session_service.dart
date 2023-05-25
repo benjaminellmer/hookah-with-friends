@@ -51,8 +51,10 @@ class SessionService {
           DateTime.now().add(Session.sessionDuration);
       loadedSession.currentTobacco = newTobacco;
       dbSession.reference.set(loadedSession.toJson());
-      return SessionLoaded(
-          session: loadedSession, sessionId: session.sessionId);
+      final SessionLoaded result =
+          SessionLoaded(session: loadedSession, sessionId: session.sessionId);
+      session = result;
+      return result;
     } else {
       return session;
     }

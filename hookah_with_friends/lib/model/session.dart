@@ -112,7 +112,7 @@ class Session {
   }
 
   Duration get activeTime {
-    return DateTime.now().difference(startTime);
+    return DateTime.now().difference(tobaccoStartTime);
   }
 
   int get numberOfParticipants {
@@ -134,6 +134,7 @@ class SessionLoaded extends Session {
           currentTobacco: session.currentTobacco,
           startTime: session.startTime,
           endTime: session.endTime,
+          tobaccoStartTime: session.tobaccoStartTime,
           tobaccoEndTime: session.tobaccoEndTime,
           smokedTobaccos: session.smokedTobaccos,
           coalTimer: session.coalTimer,

@@ -40,7 +40,7 @@ class SessionsBloc extends Bloc<SessionsEvent, SessionsState> {
     });
   }
 
-  void setData() async {
+  Future<void> setData() async {
     await userService.refreshUser();
 
     final SessionsResult<SessionInviteLoaded> inviteSessionsResult =
