@@ -5,9 +5,7 @@ import "../components/cards/user_card.dart";
 import "../services/user_service.dart";
 import "../util/locator.dart";
 import "friends_screen.dart";
-import "history_screen.dart";
 import "invites_screen.dart";
-import "settings_screen.dart";
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -32,14 +30,14 @@ class ProfileScreen extends StatelessWidget {
                   info: "Invites",
                   route: InvitesScreen(),
                 ),
-                const ProfileInfoCard(
-                  info: "Sessions",
-                  route: HistoryScreen(),
-                ),
-                const ProfileInfoCard(
-                  info: "Settings",
-                  route: SettingsScreen(),
-                ),
+                // const ProfileInfoCard(
+                //   info: "Sessions",
+                //   route: HistoryScreen(),
+                // ),
+                // const ProfileInfoCard(
+                //   info: "Settings",
+                //   route: SettingsScreen(),
+                // ),
               ],
             ),
           ),

@@ -8,7 +8,6 @@ import "../components/cards/friend_card.dart";
 import "../components/dialogs/delete_friend.dart";
 import "../components/texts/primary_text.dart";
 import "../model/user.dart";
-import "../util/colors.dart";
 import "add_friend.dart";
 
 class FriendsScreen extends StatefulWidget {
@@ -28,18 +27,18 @@ class _FriendsScreenState extends State<FriendsScreen> {
       child: Scaffold(
         appBar: BackAndTitleAppBar(
           title: "Friends",
-          actions: [
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  showDelete = !showDelete;
-                });
-              },
-              icon:
-                  showDelete ? const Icon(Icons.close) : const Icon(Icons.edit),
-              color: HWFColors.heading,
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () {
+          //       setState(() {
+          //         showDelete = !showDelete;
+          //       });
+          //     },
+          //     icon:
+          //         showDelete ? const Icon(Icons.close) : const Icon(Icons.edit),
+          //     color: HWFColors.heading,
+          //   ),
+          // ],
         ),
         body: Builder(builder: (BuildContext context) {
           return BlocBuilder<FriendsCubit, FriendsState>(
