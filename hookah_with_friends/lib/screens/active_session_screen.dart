@@ -115,12 +115,12 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> with TickerPr
                           Stack(
                     children: [
                       Container(
-                        alignment: const Alignment(0, 0.8),
-                        height: 100,
+                        alignment: Alignment(0,-0.65),
+                        height: MediaQuery.of(context).size.height*0.15,
                         child: GifImage(
                           controller: coalController,
                           image: const AssetImage("lib/assets/coal.gif", ),
-                          height: 90,
+                          height: MediaQuery.of(context).size.height*0.095,
                         ),
                       ),
                       const SizedBox(height: 16),
