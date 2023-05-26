@@ -61,6 +61,15 @@ class _CreateSessionScreenState extends State<CreateSessionScreen> {
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
+            } else if (state is CreateSessionLoaded) {
+              if (state.errorMessage != null) {
+                final SnackBar snackBar = SnackBar(
+                  content: Center(
+                    child: Text(state.errorMessage!),
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
             }
           },
           child: Builder(builder: (BuildContext context) {

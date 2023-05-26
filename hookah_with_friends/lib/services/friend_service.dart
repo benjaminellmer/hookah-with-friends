@@ -33,6 +33,15 @@ class FriendService {
     return invitations.size != 0;
   }
 
+  Future<int> getNumberOfInvitations() async {
+    final QuerySnapshot<Map<String, dynamic>> invitations = await db
+        .collection("friend_invitations")
+        .where("to", isEqualTo: userService.currentUser?.uid)
+        .get();
+
+    return invitations.size;
+  }
+
   Future<List<FriendInvitationLoaded>> getMyInvitations() async {
     final List<FriendInvitation> dbInvitations = [];
 

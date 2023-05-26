@@ -51,6 +51,16 @@ class CreateSessionCubit extends Cubit<CreateSessionState> {
     required Tobacco tobacco,
     required List<User> friends,
   }) async {
+    if (friends.isEmpty) {
+      final CreateSessionLoaded currentState = state as CreateSessionLoaded;
+      emit(CreateSessionLoaded(
+        currentState.tobaccos,
+        currentState.friends,
+        errorMessage: "You need to invite at least on person!",
+      ));
+      return;
+    }
+
     final Session session = Session(
       host: userService.currentUser!,
       currentTobacco: tobacco,
