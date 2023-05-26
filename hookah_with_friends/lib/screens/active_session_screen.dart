@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
+import "package:flutter_gif/flutter_gif.dart";
 
 import "../bloc/coaltimer/coal_timer_bloc.dart";
 import "../bloc/session/active_session_cubit.dart";
@@ -16,17 +17,30 @@ import "../model/participant.dart";
 import "../model/session.dart";
 import "../util/colors.dart";
 
-class ActiveSessionScreen extends StatelessWidget {
+class ActiveSessionScreen extends StatefulWidget {
   const ActiveSessionScreen({super.key, required this.session});
 
   final SessionLoaded session;
+
+  @override
+  State<ActiveSessionScreen> createState() => _ActiveSessionScreenState();
+}
+
+class _ActiveSessionScreenState extends State<ActiveSessionScreen> with TickerProviderStateMixin{
+  late FlutterGifController coalController;
+
+  @override
+  void initState() {
+    coalController = FlutterGifController(vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CoalTimerBloc>(
-          create: (BuildContext context) => CoalTimerBloc(session),
+          create: (BuildContext context) => CoalTimerBloc(widget.session),
         ),
         BlocProvider<ActiveSessionCubit>(
           create: (BuildContext context) =>
@@ -41,7 +55,7 @@ class ActiveSessionScreen extends StatelessWidget {
               IconButton(
                 onPressed: () async {
                   showEndSessionDialog(context, () async {
-                    context.read<ActiveSessionCubit>().endSession(session);
+                    context.read<ActiveSessionCubit>().endSession(widget.session);
                     // context.read();
                   });
                 },
@@ -56,18 +70,32 @@ class ActiveSessionScreen extends StatelessWidget {
                 children: <Widget>[
                   const SubHeading("Coal Timer"),
                   const SizedBox(height: 16),
-                  BlocBuilder<CoalTimerBloc, CoalTimerState>(
-                    builder: (BuildContext context, CoalTimerState state) {
-                      if (state is CoalTimerActive) {
-                        return _ActiveCoalTimerSection(state);
-                      } else {
-                        return const _InactiveCoalTimerSection();
-                      }
-                    },
+                  Stack(
+                    children: [
+                      Container(
+                        alignment: const Alignment(0, 0.8),
+                        height: 100,
+                        child: GifImage(
+                          controller: coalController,
+                          image: const AssetImage("lib/assets/coal.gif", ),
+                          height: 90,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      BlocBuilder<CoalTimerBloc, CoalTimerState>(
+                        builder: (BuildContext context, CoalTimerState state) {
+                          if (state is CoalTimerActive) {
+                            return _ActiveCoalTimerSection(state, coalController);
+                          } else {
+                            return  _InactiveCoalTimerSection(coalController);
+                          }
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   const SubHeading("Current Tobacco"),
-                  TobaccoCard(tobacco: session.currentTobacco),
+                  TobaccoCard(tobacco: widget.session.currentTobacco),
                   const SizedBox(height: 8),
                   PrimaryButton(
                     text: "Renew",
@@ -76,7 +104,7 @@ class ActiveSessionScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   const SubHeading("Participants"),
                   for (Participant participant
-                      in session.participants) ...<ParticipantCard>[
+                      in widget.session.participants) ...<ParticipantCard>[
                     ParticipantCard(
                       participant: participant,
                     ),
@@ -93,7 +121,9 @@ class ActiveSessionScreen extends StatelessWidget {
 }
 
 class _InactiveCoalTimerSection extends StatelessWidget {
-  const _InactiveCoalTimerSection();
+  const _InactiveCoalTimerSection(this.coalController);
+
+  final FlutterGifController coalController;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +134,7 @@ class _InactiveCoalTimerSection extends StatelessWidget {
           height: MediaQuery.of(context).size.width * 0.25,
           child: SessionProgressIndicator(
             value: 0,
-            strokeWidth: 14,
+            strokeWidth: 18,
           ),
         ),
         const SizedBox(height: 16),
@@ -118,6 +148,7 @@ class _InactiveCoalTimerSection extends StatelessWidget {
               context
                   .read<CoalTimerBloc>()
                   .add(CoalTimerStarted(const Duration(minutes: 15)));
+              coalController.animateTo(55, duration: const Duration(milliseconds: 2000));
             })
       ],
     );
@@ -125,9 +156,10 @@ class _InactiveCoalTimerSection extends StatelessWidget {
 }
 
 class _ActiveCoalTimerSection extends StatelessWidget {
-  const _ActiveCoalTimerSection(this.state);
+  const _ActiveCoalTimerSection(this.state, this.coalController);
 
   final CoalTimerActive state;
+  final FlutterGifController coalController;
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +182,7 @@ class _ActiveCoalTimerSection extends StatelessWidget {
             text: "Stop",
             onPress: () {
               context.read<CoalTimerBloc>().add(CoalTimerStopped());
+              coalController.animateTo(0, duration: const Duration(milliseconds: 1500));
             })
       ],
     );
