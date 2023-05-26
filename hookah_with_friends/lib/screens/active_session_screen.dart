@@ -45,7 +45,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> with TickerPr
         BlocProvider<ActiveSessionCubit>(
           create: (BuildContext context) => ActiveSessionCubit(
             context.read<SessionsBloc>(),
-          )..loadSession(session),
+          )..loadSession(widget.session),
         ),
       ],
       child: Builder(builder: (BuildContext context) {
@@ -154,7 +154,7 @@ class _ActiveSessionScreenState extends State<ActiveSessionScreen> with TickerPr
                             onPress: () {
                               context
                                   .read<ActiveSessionCubit>()
-                                  .requestRenewTobacco(session);
+                                  .requestRenewTobacco(widget.session);
                             },
                           ),
                           const SizedBox(height: 16),
